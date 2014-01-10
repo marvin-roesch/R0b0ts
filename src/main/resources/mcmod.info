@@ -1,0 +1,24 @@
+[
+   {
+      "modid":"r0b0ts",
+      "name":"R0b0ts",
+      "description":"Bringing modular robots to Minecraft!",
+      "version":"${version}",
+	  "mcversion": "${mcversion}",
+      "url":"",
+      "updateUrl":"",
+      "authorList":[
+         "PaleoCrafter",
+         "Din"
+      ],
+      "credits":"By PaleoCrafter",
+      "logoFile":"/assets/robots/logo.png",
+      "screenshots":[
+
+      ],
+      "parent":"",
+      "dependencies":[
+        "mod_MinecraftForge"
+      ]
+   }
+]

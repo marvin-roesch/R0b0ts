@@ -1,0 +1,11 @@
+!build/
+build/*
+!build/libs/
+!build/libs/*
+bin/*
+.gradle/*
+.settings/*
+.classpath
+*.iml
+.project
+/build

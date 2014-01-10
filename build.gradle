@@ -1,0 +1,83 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.0-SNAPSHOT'
+    }
+}
+
+apply plugin: 'forge'
+
+group="de.mineformers.robots" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "r0b0ts"
+
+minecraft {
+	version = "1.6.4-9.11.1.964"
+}
+
+majorVersion = "1"
+minorVersion = "0"
+buildNumber = "dev"
+
+version = "${minecraft.version}-${majorVersion}.${minorVersion}"
+
+
+actualVersion = version
+if (System.getenv("BUILD_NUMBER") != null) {
+    version = "${minecraft.version}-${majorVersion}.${minorVersion}." + System.getenv("BUILD_NUMBER")
+	buildNumber = System.getenv("BUILD_NUMBER") + ""
+}
+else version = "${minecraft.version}-${majorVersion}.${minorVersion}"
+
+processResources
+{
+	
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+		include '**/*.properties'
+                
+        // replace version and mcversion
+        expand 'version':project.actualVersion, 'mcversion':project.minecraft.version, 'buildNumber':project.buildNumber
+    }
+        
+    // copy everything else, thats not the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+		exclude '**/*.properties'
+    }
+}
+
+jar {
+        appendix = 'universal'
+}
+
+// add a source jar
+task sourceJar(type: Jar) {
+        from sourceSets.main.allSource
+        appendix = 'src'
+}
+
+// add a javadoc jar
+task javadocJar(type: Jar, dependsOn: javadoc) {
+        appendix = 'javadoc'
+        from 'build/docs/javadoc'
+}
+
+// because the normal output has been made to be obfuscated
+task deobfJar(type: Jar) {
+        from sourceSets.main.output
+        appendix = 'deobf'
+}
+
+artifacts {
+        archives sourceJar
+        archives deobfJar
+        archives javadocJar
+        //archives obfJar
+}
