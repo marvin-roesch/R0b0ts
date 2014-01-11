@@ -12,6 +12,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import de.mineformers.robots.block.ModBlocks;
 import de.mineformers.robots.config.ConfigurationHandler;
 import de.mineformers.robots.creativetab.CreativeTabR0b0ts;
+import de.mineformers.robots.entity.ModEntities;
 import de.mineformers.robots.item.ModItems;
 import de.mineformers.robots.lib.Reference;
 import de.mineformers.robots.network.PacketHandler;
@@ -58,11 +59,13 @@ public class R0b0ts {
 
         ModBlocks.init();
         ModItems.init();
+        ModEntities.init();
     }
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
         proxy.registerTileEntities();
+        proxy.registerRenderers();
     }
 
     @EventHandler

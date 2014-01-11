@@ -1,6 +1,7 @@
 package de.mineformers.robots.block;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import de.mineformers.robots.item.ItemBlockFactory;
 import de.mineformers.robots.lib.BlockIds;
 import de.mineformers.robots.lib.Strings;
 import net.minecraft.block.Block;
@@ -20,10 +21,10 @@ public class ModBlocks {
 
     public static void init() {
         factoryController = new BlockFactoryController(BlockIds.FACTORY_CONTROLLER);
-        factory = new BlockFactoryGlass(BlockIds.FACTORY);
+        factory = new BlockFactory(BlockIds.FACTORY_GLASS);
 
         GameRegistry.registerBlock(factoryController, Strings.FACTORY_CONTROLLER_NAME);
-        GameRegistry.registerBlock(factory, Strings.FACTORY_GLASS_NAME);
+        GameRegistry.registerBlock(factory, ItemBlockFactory.class, Strings.FACTORY_BASE_NAME);
     }
 
 }

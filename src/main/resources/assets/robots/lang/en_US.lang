@@ -5,3 +5,5 @@ itemGroup.r0b0ts=R0b0ts
 
 # Block localizations
 tile.robots:factoryController.name=Factory controller
+tile.robots:factory.glass.name=Factory glass
+tile.robots:factory.frame.name=Factory frame

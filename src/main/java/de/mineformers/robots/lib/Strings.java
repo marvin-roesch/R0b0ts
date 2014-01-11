@@ -12,6 +12,8 @@ public class Strings {
 
     /* Block names */
     public static final String FACTORY_CONTROLLER_NAME = "factoryController";
-    public static final String FACTORY_GLASS_NAME = "factoryGlass";
+    public static final String FACTORY_BASE_NAME = "factory";
+    public static final String FACTORY_GLASS_NAME = "glass";
+    public static final String FACTORY_FRAME_NAME = "frame";
 
 }

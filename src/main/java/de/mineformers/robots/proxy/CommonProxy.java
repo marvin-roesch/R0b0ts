@@ -13,6 +13,10 @@ import de.mineformers.robots.tileentity.TileFactoryController;
  */
 public class CommonProxy {
 
+    public void registerRenderers() {
+
+    }
+
     public void registerTileEntities() {
         GameRegistry.registerTileEntity(TileFactoryController.class, TileFactoryController.class.getSimpleName());
     }

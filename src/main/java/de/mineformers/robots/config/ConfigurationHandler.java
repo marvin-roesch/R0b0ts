@@ -26,7 +26,7 @@ public class ConfigurationHandler {
 
         try {
             BlockIds.FACTORY_CONTROLLER = configuration.getBlock(Strings.FACTORY_CONTROLLER_NAME, BlockIds.FACTORY_CONTROLLER_DEFAULT).getInt(BlockIds.FACTORY_CONTROLLER_DEFAULT);
-            BlockIds.FACTORY = configuration.getBlock(Strings.FACTORY_GLASS_NAME, BlockIds.FACTORY_DEFAULT).getInt(BlockIds.FACTORY_DEFAULT);
+            BlockIds.FACTORY_GLASS = configuration.getBlock(Strings.FACTORY_BASE_NAME, BlockIds.FACTORY_GLASS_DEFAULT).getInt(BlockIds.FACTORY_GLASS_DEFAULT);
         } catch (Exception e) {
             FMLLog.log(Level.SEVERE, e, Reference.MOD_NAME
                     + " has had a problem loading its configuration");
