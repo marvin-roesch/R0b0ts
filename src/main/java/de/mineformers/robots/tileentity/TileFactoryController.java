@@ -29,6 +29,12 @@ public class TileFactoryController extends TileBase {
         return orientation;
     }
 
+    public void validateMultiblock() {
+        switch(orientation) {
+
+        }
+    }
+
     @Override
     public void writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);

@@ -1,4 +1,4 @@
-package de.mineformers.robots.client.render.entity;
+package de.mineformers.robots.client.renderer.entity;
 
 import de.mineformers.robots.client.model.ModelRobot;
 import de.mineformers.robots.lib.Reference;

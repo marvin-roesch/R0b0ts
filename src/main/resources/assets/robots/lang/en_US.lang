@@ -1,9 +1,12 @@
 itemGroup.r0b0ts=R0b0ts
 
 # Item localizations
-
+item.robots:debug.name=R0b0ts debug tool
 
 # Block localizations
 tile.robots:factoryController.name=Factory controller
 tile.robots:factory.glass.name=Factory glass
 tile.robots:factory.frame.name=Factory frame
+
+# GUI localizations
+gui.robots:label.information=Information

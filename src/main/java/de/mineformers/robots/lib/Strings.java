@@ -10,6 +10,9 @@ package de.mineformers.robots.lib;
  */
 public class Strings {
 
+    /* Item names */
+    public static final String DEBUG_TOOL_NAME = "debug";
+
     /* Block names */
     public static final String FACTORY_CONTROLLER_NAME = "factoryController";
     public static final String FACTORY_BASE_NAME = "factory";

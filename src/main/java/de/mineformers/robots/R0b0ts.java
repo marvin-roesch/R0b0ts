@@ -9,6 +9,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import de.mineformers.robots.block.ModBlocks;
 import de.mineformers.robots.config.ConfigurationHandler;
 import de.mineformers.robots.creativetab.CreativeTabR0b0ts;
@@ -64,6 +65,7 @@ public class R0b0ts {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
+        NetworkRegistry.instance().registerGuiHandler(this, proxy);
         proxy.registerTileEntities();
         proxy.registerRenderers();
     }

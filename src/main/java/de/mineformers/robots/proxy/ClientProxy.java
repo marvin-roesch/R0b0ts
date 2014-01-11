@@ -1,8 +1,12 @@
 package de.mineformers.robots.proxy;
 
+import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import de.mineformers.robots.client.render.entity.RenderRobot;
+import de.mineformers.robots.client.renderer.TileFactoryControllerRenderer;
+import de.mineformers.robots.client.renderer.entity.RenderRobot;
 import de.mineformers.robots.entity.EntityRobot;
+import de.mineformers.robots.lib.RenderIds;
+import de.mineformers.robots.tileentity.TileFactoryController;
 
 /**
  * R0b0ts
@@ -17,5 +21,6 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void registerRenderers() {
         RenderingRegistry.registerEntityRenderingHandler(EntityRobot.class, new RenderRobot());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileFactoryController.class, new TileFactoryControllerRenderer());
     }
 }

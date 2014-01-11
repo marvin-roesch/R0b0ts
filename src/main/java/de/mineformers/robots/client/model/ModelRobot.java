@@ -1,10 +1,7 @@
 package de.mineformers.robots.client.model;
 
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.MathHelper;
+import org.lwjgl.opengl.GL11;
 
 /**
  * R0b0ts
@@ -15,5 +12,16 @@ import net.minecraft.util.MathHelper;
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
 public class ModelRobot extends ModelBiped {
+
+    public void justRender() {
+        this.bipedBody.render(0.0625F);
+        this.bipedRightArm.render(0.0625F);
+        this.bipedLeftArm.render(0.0625F);
+        this.bipedRightLeg.render(0.0625F);
+        this.bipedLeftLeg.render(0.0625F);
+        this.bipedHeadwear.render(0.0625F);
+        GL11.glTranslatef(0, 0, 0.1F);
+        this.bipedHead.render(0.0625F);
+    }
 
 }
