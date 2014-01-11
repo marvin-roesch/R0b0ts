@@ -26,7 +26,6 @@ buildNumber = "dev"
 
 version = "${minecraft.version}-${majorVersion}.${minorVersion}"
 
-
 actualVersion = version
 if (System.getenv("BUILD_NUMBER") != null) {
     version = "${minecraft.version}-${majorVersion}.${minorVersion}." + System.getenv("BUILD_NUMBER")

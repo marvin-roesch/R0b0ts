@@ -1,5 +1,8 @@
 package de.mineformers.robots.proxy;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import de.mineformers.robots.tileentity.TileFactoryController;
+
 /**
  * R0b0ts
  * <p/>
@@ -10,6 +13,8 @@ package de.mineformers.robots.proxy;
  */
 public class CommonProxy {
 
-
+    public void registerTileEntities() {
+        GameRegistry.registerTileEntity(TileFactoryController.class, TileFactoryController.class.getSimpleName());
+    }
 
 }
