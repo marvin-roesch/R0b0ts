@@ -1,8 +1,10 @@
 package de.mineformers.robots;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -10,15 +12,21 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import de.mineformers.robots.api.R0b0tsPlugin;
 import de.mineformers.robots.block.ModBlocks;
 import de.mineformers.robots.config.ConfigurationHandler;
 import de.mineformers.robots.creativetab.CreativeTabR0b0ts;
 import de.mineformers.robots.entity.ModEntities;
 import de.mineformers.robots.item.ModItems;
 import de.mineformers.robots.lib.Reference;
+import de.mineformers.robots.api.registry.ModuleRegistry;
+import de.mineformers.robots.module.ModuleBlank;
+import de.mineformers.robots.module.ModuleCrafting;
 import de.mineformers.robots.network.PacketHandler;
+import de.mineformers.robots.plugin.PluginHandler;
 import de.mineformers.robots.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraftforge.common.MinecraftForge;
 
 import java.io.File;
 
@@ -56,11 +64,17 @@ public class R0b0ts {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        MinecraftForge.EVENT_BUS.register(PluginHandler.instance());
+        PluginHandler.registerDefaults();
         ConfigurationHandler.init(new File(event.getModConfigurationDirectory(), Reference.MOD_ID + ".cfg"));
 
         ModBlocks.init();
         ModItems.init();
         ModEntities.init();
+        ModuleRegistry.instance().registerModule(new ModuleBlank());
+        ModuleRegistry.instance().registerModule(new ModuleCrafting());
+        for (R0b0tsPlugin plugin : PluginHandler.plugins())
+            plugin.preInit(ModuleRegistry.instance());
     }
 
     @EventHandler
@@ -68,10 +82,27 @@ public class R0b0ts {
         NetworkRegistry.instance().registerGuiHandler(this, proxy);
         proxy.registerTileEntities();
         proxy.registerRenderers();
+        for (R0b0tsPlugin plugin : PluginHandler.plugins())
+            plugin.init();
     }
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-
+        for (R0b0tsPlugin plugin : PluginHandler.plugins())
+            plugin.postInit();
+        ModContainer container = FMLCommonHandler.instance().findContainerFor(this);
+        container.getMetadata().description += "\n\n";
+        if (PluginHandler.plugins().size() == 0)
+            container.getMetadata().description += "\247cNo plugins loaded";
+        else {
+            container.getMetadata().description += "\247aLoaded plugins:\n";
+            int i = 0;
+            for (R0b0tsPlugin plugin : PluginHandler.plugins()) {
+                if (i > 0)
+                    container.getMetadata().description += ", ";
+                container.getMetadata().description += plugin.getName() + " (" + plugin.getVersion() + ")";
+                i++;
+            }
+        }
     }
 }

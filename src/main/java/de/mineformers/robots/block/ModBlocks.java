@@ -21,7 +21,7 @@ public class ModBlocks {
 
     public static void init() {
         factoryController = new BlockFactoryController(BlockIds.FACTORY_CONTROLLER);
-        factory = new BlockFactory(BlockIds.FACTORY_GLASS);
+        factory = new BlockFactory(BlockIds.FACTORY_BASE);
 
         GameRegistry.registerBlock(factoryController, Strings.FACTORY_CONTROLLER_NAME);
         GameRegistry.registerBlock(factory, ItemBlockFactory.class, Strings.FACTORY_BASE_NAME);

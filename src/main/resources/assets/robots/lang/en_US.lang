@@ -1,6 +1,7 @@
 itemGroup.r0b0ts=R0b0ts
 
 # Item localizations
+item.robots:module.name=Robot module
 item.robots:debug.name=R0b0ts debug tool
 
 # Block localizations
@@ -9,4 +10,13 @@ tile.robots:factory.glass.name=Factory glass
 tile.robots:factory.frame.name=Factory frame
 
 # GUI localizations
+inventory.robots:factoryController=Robot factory
 gui.robots:label.information=Information
+
+# Module localizations
+module.robots:blank.name=<blank>
+module.robots:crafting.name=Crafting
+
+# Tooltip localizations
+tooltip.robots:moduleType=Type
+tooltip.robots:moduleDesc=Description

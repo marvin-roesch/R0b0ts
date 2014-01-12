@@ -2,7 +2,6 @@ package de.mineformers.robots.block;
 
 import de.mineformers.robots.R0b0ts;
 import de.mineformers.robots.lib.Reference;
-import de.mineformers.robots.lib.RenderIds;
 import de.mineformers.robots.lib.Strings;
 import de.mineformers.robots.tileentity.TileFactoryController;
 import net.minecraft.block.ITileEntityProvider;
@@ -29,6 +28,7 @@ import net.minecraftforge.common.ForgeDirection;
 public class BlockFactoryController extends BlockBase implements ITileEntityProvider {
 
     private Icon frontIcon;
+    private Icon activeIcon;
     private Icon sideIcon;
     private Icon topIcon;
 
@@ -37,11 +37,21 @@ public class BlockFactoryController extends BlockBase implements ITileEntityProv
     }
 
     @Override
+    public void onNeighborBlockChange(World world, int x, int y, int z, int neighborID) {
+        if (world.getBlockTileEntity(x, y, z) instanceof TileFactoryController) {
+            TileFactoryController tile = (TileFactoryController) world.getBlockTileEntity(x, y, z);
+            tile.validateMultiblock();
+        }
+    }
+
+    @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
         if (!player.isSneaking()) {
             player.openGui(R0b0ts.instance, 0, world, x, y, z);
+            return true;
         } else {
-            player.addChatMessage("" + ((TileFactoryController)world.getBlockTileEntity(x, y, z)).getOrientation());
+            if(world.isRemote)
+                player.addChatMessage("" + ForgeDirection.getOrientation(side));
         }
         return false;
     }
@@ -50,6 +60,7 @@ public class BlockFactoryController extends BlockBase implements ITileEntityProv
     public void registerIcons(IconRegister iconRegister) {
         super.registerIcons(iconRegister);
         frontIcon = iconRegister.registerIcon(Reference.RESOURCE_PREFIX + "factoryController");
+        activeIcon = iconRegister.registerIcon(Reference.RESOURCE_PREFIX + "factoryControllerActive");
         sideIcon = iconRegister.registerIcon(Reference.RESOURCE_PREFIX + "factoryControllerSide");
         topIcon = iconRegister.registerIcon(Reference.RESOURCE_PREFIX + "factoryControllerTop");
     }
@@ -58,8 +69,9 @@ public class BlockFactoryController extends BlockBase implements ITileEntityProv
     public Icon getBlockTexture(IBlockAccess world, int x, int y, int z, int side) {
         if (world.getBlockTileEntity(x, y, z) instanceof TileFactoryController) {
             TileFactoryController tile = (TileFactoryController) world.getBlockTileEntity(x, y, z);
-            if (side == tile.getOrientation().ordinal())
-                return frontIcon;
+            if (tile.getOrientation() != null)
+                if (side == tile.getOrientation().ordinal())
+                    return tile.isValidMultiblock() ? activeIcon : frontIcon;
         }
 
         if (side == 0 || side == 1)
@@ -99,6 +111,8 @@ public class BlockFactoryController extends BlockBase implements ITileEntityProv
 
             TileFactoryController controller = (TileFactoryController) world.getBlockTileEntity(x, y, z);
             controller.setOrientation(direction);
+            if (!world.isRemote)
+                controller.validateMultiblock();
         }
     }
 

@@ -3,9 +3,11 @@ package de.mineformers.robots.proxy;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import de.mineformers.robots.client.gui.WindowRobotFactory;
-import de.mineformers.robots.client.gui.minecraft.WidgetGuiScreen;
+import de.mineformers.robots.client.gui.minecraft.WidgetGuiContainer;
+import de.mineformers.robots.inventory.ContainerFactoryController;
 import de.mineformers.robots.tileentity.TileFactoryController;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.world.World;
 
 /**
@@ -28,14 +30,19 @@ public class CommonProxy implements IGuiHandler {
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+        switch (ID) {
+            case 0:
+                return new ContainerFactoryController(player.inventory, (IInventory) world.getBlockTileEntity(x, y, z));
+        }
         return null;
     }
 
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        switch(ID) {
+        IInventory inventory = (IInventory) world.getBlockTileEntity(x, y, z);
+        switch (ID) {
             case 0:
-                return new WidgetGuiScreen(176, 176, new WindowRobotFactory());
+                return new WidgetGuiContainer(176, 200, new WindowRobotFactory(), new ContainerFactoryController(player.inventory, inventory), inventory, true);
         }
         return null;
     }

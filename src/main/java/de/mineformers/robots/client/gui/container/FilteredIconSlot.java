@@ -1,5 +1,7 @@
 package de.mineformers.robots.client.gui.container;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import de.mineformers.robots.client.gui.util.StackFilter;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
@@ -28,6 +30,7 @@ public class FilteredIconSlot extends FilteredSlot {
         this.texture = texture;
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public ResourceLocation getBackgroundIconTexture() {
         return texture;

@@ -2,6 +2,7 @@ package de.mineformers.robots.config;
 
 import cpw.mods.fml.common.FMLLog;
 import de.mineformers.robots.lib.BlockIds;
+import de.mineformers.robots.lib.ItemIds;
 import de.mineformers.robots.lib.Reference;
 import de.mineformers.robots.lib.Strings;
 import net.minecraftforge.common.Configuration;
@@ -25,8 +26,10 @@ public class ConfigurationHandler {
         configuration = new Configuration(configFile);
 
         try {
+            ItemIds.MODULE = configuration.getItem(Strings.MODULE_BASE_NAME, ItemIds.MODULE_DEFAULT).getInt(ItemIds.MODULE_DEFAULT);
+
             BlockIds.FACTORY_CONTROLLER = configuration.getBlock(Strings.FACTORY_CONTROLLER_NAME, BlockIds.FACTORY_CONTROLLER_DEFAULT).getInt(BlockIds.FACTORY_CONTROLLER_DEFAULT);
-            BlockIds.FACTORY_GLASS = configuration.getBlock(Strings.FACTORY_BASE_NAME, BlockIds.FACTORY_GLASS_DEFAULT).getInt(BlockIds.FACTORY_GLASS_DEFAULT);
+            BlockIds.FACTORY_BASE = configuration.getBlock(Strings.FACTORY_BASE_NAME, BlockIds.FACTORY_BASE_DEFAULT).getInt(BlockIds.FACTORY_BASE_DEFAULT);
         } catch (Exception e) {
             FMLLog.log(Level.SEVERE, e, Reference.MOD_NAME
                     + " has had a problem loading its configuration");

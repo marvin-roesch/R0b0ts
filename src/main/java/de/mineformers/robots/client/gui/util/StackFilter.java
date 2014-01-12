@@ -58,7 +58,7 @@ public class StackFilter {
                 ItemStack stack = (ItemStack) obj;
                 return (stack.itemID == id || this.filterId == false) &&
                         (stack.getItemDamage() == damage || this.filterDamage == false) &&
-                        (stack.getTagCompound().equals(nbt) || this.filterNBT == false);
+                        ((stack.hasTagCompound() && stack.getTagCompound().equals(nbt)) || this.filterNBT == false);
             }
 
             if (obj instanceof StackFilter) {

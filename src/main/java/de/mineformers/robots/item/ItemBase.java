@@ -15,7 +15,7 @@ import net.minecraft.item.Item;
 public class ItemBase extends Item {
 
     public ItemBase(int id, String name) {
-        super(id);
+        super(id - Reference.ITEM_ID_SHIFT);
         this.setUnlocalizedName(Reference.RESOURCE_PREFIX + name);
         this.setTextureName(Reference.RESOURCE_PREFIX + name);
         this.setCreativeTab(R0b0ts.creativeTab);

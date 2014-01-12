@@ -11,9 +11,9 @@ package de.mineformers.robots.lib;
 public class BlockIds {
 
     public static final int FACTORY_CONTROLLER_DEFAULT = 3001;
-    public static final int FACTORY_GLASS_DEFAULT = 3002;
+    public static final int FACTORY_BASE_DEFAULT = 3002;
 
     public static int FACTORY_CONTROLLER;
-    public static int FACTORY_GLASS;
+    public static int FACTORY_BASE;
 
 }

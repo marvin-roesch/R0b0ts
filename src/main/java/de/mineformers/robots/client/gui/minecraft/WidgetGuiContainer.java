@@ -2,15 +2,17 @@ package de.mineformers.robots.client.gui.minecraft;
 
 import de.mineformers.robots.client.gui.component.container.UIPanel;
 import de.mineformers.robots.client.gui.component.inventory.UISlot;
+import de.mineformers.robots.util.LangHelper;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 /**
  * GUISystem
@@ -41,7 +43,7 @@ public class WidgetGuiContainer extends GuiContainer {
         this.xSize = width;
         this.ySize = height;
         if (inventory != null)
-            this.name = inventory.getInvName();
+            this.name = LangHelper.translate(inventory.getInvName());
         this.autoDrawSlots = autoDrawSlots;
     }
 
@@ -72,29 +74,14 @@ public class WidgetGuiContainer extends GuiContainer {
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
-        int xStart = (width - panel.getWidth()) / 2;
-        int yStart = (height - panel.getHeight()) / 2;
+        int xStart = (xSize - panel.getWidth()) / 2;
+        int yStart = (ySize - panel.getHeight()) / 2;
 
         panel.setScreenPos(xStart, yStart);
-        panel.drawForeground(mouseX, mouseY);
+        //panel.drawForeground(mouseX, mouseY);
         if (name != null)
             de.mineformers.robots.client.gui.util.RenderHelper.drawString(name, xStart + 5, yStart + 5, 0x404040, false, 1);
-        if (autoDrawSlots) {
-            UISlot widget = new UISlot(18, 18);
-
-            for (Object o : inventorySlots.inventorySlots) {
-                if (o instanceof Slot) {
-                    Slot slot = (Slot) o;
-                    if (!(slot.inventory instanceof InventoryPlayer)) {
-                        GL11.glPushMatrix();
-                        GL11.glTranslatef(xStart + slot.xDisplayPosition - 1, yStart
-                                + slot.yDisplayPosition - 1, 0);
-                        widget.draw(mouseX, mouseY);
-                        GL11.glPopMatrix();
-                    }
-                }
-            }
-        }
+        GL11.glColor4f(1, 1, 1, 1);
     }
 
     @Override
@@ -107,14 +94,28 @@ public class WidgetGuiContainer extends GuiContainer {
 
         panel.setScreenPos(xStart, yStart);
 
-        RenderHelper.enableGUIStandardItemLighting();
         panel.drawBackground(mouseX, mouseY);
         panel.draw(mouseX, mouseY);
-    }
+        if (autoDrawSlots) {
+            UISlot widget = new UISlot(18, 18);
 
-    @Override
-    public void drawScreen(int mouseX, int mouseY, float tick) {
-        super.drawScreen(mouseX, mouseY, tick);
+            for (Object o : inventorySlots.inventorySlots) {
+                if (o instanceof Slot) {
+                    Slot slot = (Slot) o;
+                    widget.setScreenPos(xStart + slot.xDisplayPosition - 1, yStart
+                            + slot.yDisplayPosition - 1);
+                    GL11.glColor4f(1, 1, 1, 1);
+                    widget.draw(mouseX, mouseY);
+                    if (!slot.getHasStack())
+                        if (slot.getBackgroundIconTexture() != null && !slot.getBackgroundIconTexture().getResourcePath().contains("textures/atlas/items.png")) {
+                            de.mineformers.robots.client.gui.util.RenderHelper.drawRectangleStretched(slot.getBackgroundIconTexture(), xStart + slot.xDisplayPosition, yStart
+                                    + slot.yDisplayPosition, 0, 0, 16, 16, 1F, 1F, 1);
+                        }
+                    GL11.glColor4f(1, 1, 1, 1);
+                }
+            }
+        }
+        GL11.glColor4f(1, 1, 1, 1);
     }
 
     @Override

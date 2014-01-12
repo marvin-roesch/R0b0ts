@@ -171,9 +171,9 @@ public class RenderHelper {
             RenderHelper.bindTexture(texture);
             float f = 0.00390625F;
             float f1 = 0.00390625F;
-            if ((u > 0 && u % 1 != 0) || uMax % 1 != 0)
+            if ((u > 0 && u % 1 != 0) || uMax == 1 || uMax % 1 != 0)
                 f = 1;
-            if ((v > 0 && v % 1 != 0) || vMax % 1 != 0)
+            if ((v > 0 && v % 1 != 0) || vMax == 1 || vMax % 1 != 0)
                 f1 = 1;
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);

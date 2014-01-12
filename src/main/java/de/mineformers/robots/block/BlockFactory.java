@@ -5,10 +5,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 import de.mineformers.robots.lib.Reference;
 import de.mineformers.robots.lib.Strings;
 import de.mineformers.robots.tileentity.TileFactoryController;
+import de.mineformers.robots.util.Vector3;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MovingObjectPosition;
@@ -16,6 +16,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,6 +59,36 @@ public class BlockFactory extends BlockBase {
         return world.getBlockMetadata(x, y, z) == 1 ? getConnectedBlockTexture(world, x, y, z, side, world.getBlockMetadata(x, y, z), frameIcons) : getConnectedBlockTexture(world, x, y, z, side, world.getBlockMetadata(x, y, z), glassIcons);
     }
 
+    @Override
+    public void onNeighborBlockChange(World world, int x, int y, int z, int neighborID) {
+        for (ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
+            if (world.getBlockId(x + side.offsetX, y + side.offsetY, z + side.offsetZ) == this.blockID) {
+                if (this.passBlockChange(world, new Vector3(x, y, z), new ArrayList<Vector3>()))
+                    return;
+            } else if (world.getBlockId(x + side.offsetX, y + side.offsetY, z + side.offsetZ) == ModBlocks.factoryController.blockID) {
+                ModBlocks.factoryController.onNeighborBlockChange(world, x + side.offsetX, y + side.offsetY, z + side.offsetZ, world.getBlockId(x, y, z));
+                return;
+            }
+        }
+    }
+
+    private boolean passBlockChange(World world, Vector3 pos, ArrayList<Vector3> exceptions) {
+        int x = (int) pos.x;
+        int y = (int) pos.y;
+        int z = (int) pos.z;
+        exceptions.add(pos);
+        for (ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
+            if (!exceptions.contains(new Vector3(x + side.offsetX, y + side.offsetY, z + side.offsetZ)) && world.getBlockId(x + side.offsetX, y + side.offsetY, z + side.offsetZ) == this.blockID)
+                return this.passBlockChange(world, new Vector3(x + side.offsetX, y + side.offsetY, z + side.offsetZ), exceptions);
+            else if (world.getBlockId(x + side.offsetX, y + side.offsetY, z + side.offsetZ) == ModBlocks.factoryController.blockID) {
+                ModBlocks.factoryController.onNeighborBlockChange(world, x + side.offsetX, y + side.offsetY, z + side.offsetZ, world.getBlockId(x, y, z));
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public Icon getConnectedBlockTexture(IBlockAccess world, int x, int y, int z, int side, int meta, Icon[] icons) {
         boolean isOpenUp = false, isOpenDown = false, isOpenLeft = false, isOpenRight = false;
         switch (side) {
@@ -85,11 +116,11 @@ public class BlockFactory extends BlockBase {
                 } else if (isOpenUp && isOpenDown && isOpenRight) {
                     return icons[12];
                 } else if (isOpenUp && isOpenLeft && isOpenRight) {
-                    if(world.getBlockTileEntity(x, y - 1, z) instanceof TileFactoryController)
+                    if (world.getBlockTileEntity(x, y - 1, z) instanceof TileFactoryController)
                         return icons[15];
                     return icons[13];
                 } else if (isOpenDown && isOpenLeft && isOpenRight) {
-                    if(world.getBlockTileEntity(x, y + 1, z) instanceof TileFactoryController)
+                    if (world.getBlockTileEntity(x, y + 1, z) instanceof TileFactoryController)
                         return icons[15];
                     return icons[14];
                 } else if (isOpenDown && isOpenUp) {
@@ -138,11 +169,11 @@ public class BlockFactory extends BlockBase {
                 } else if (isOpenUp && isOpenDown && isOpenRight) {
                     return icons[12];
                 } else if (isOpenUp && isOpenLeft && isOpenRight) {
-                    if(world.getBlockTileEntity(x, y - 1, z) instanceof TileFactoryController)
+                    if (world.getBlockTileEntity(x, y - 1, z) instanceof TileFactoryController)
                         return icons[15];
                     return icons[13];
                 } else if (isOpenDown && isOpenLeft && isOpenRight) {
-                    if(world.getBlockTileEntity(x, y + 1, z) instanceof TileFactoryController)
+                    if (world.getBlockTileEntity(x, y + 1, z) instanceof TileFactoryController)
                         return icons[15];
                     return icons[14];
                 } else if (isOpenDown && isOpenUp) {
@@ -191,11 +222,11 @@ public class BlockFactory extends BlockBase {
                 } else if (isOpenUp && isOpenDown && isOpenRight) {
                     return icons[14];
                 } else if (isOpenUp && isOpenLeft && isOpenRight) {
-                    if(world.getBlockTileEntity(x, y - 1, z) instanceof TileFactoryController)
+                    if (world.getBlockTileEntity(x, y - 1, z) instanceof TileFactoryController)
                         return icons[15];
                     return icons[11];
                 } else if (isOpenDown && isOpenLeft && isOpenRight) {
-                    if(world.getBlockTileEntity(x, y + 1, z) instanceof TileFactoryController)
+                    if (world.getBlockTileEntity(x, y + 1, z) instanceof TileFactoryController)
                         return icons[15];
                     return icons[12];
                 } else if (isOpenDown && isOpenUp) {
@@ -256,11 +287,11 @@ public class BlockFactory extends BlockBase {
                 } else if (isOpenUp && isOpenDown && isOpenRight) {
                     return icons[13];
                 } else if (isOpenUp && isOpenLeft && isOpenRight) {
-                    if(world.getBlockTileEntity(x, y - 1, z) instanceof TileFactoryController)
+                    if (world.getBlockTileEntity(x, y - 1, z) instanceof TileFactoryController)
                         return icons[15];
                     return icons[11];
                 } else if (isOpenDown && isOpenLeft && isOpenRight) {
-                    if(world.getBlockTileEntity(x, y + 1, z) instanceof TileFactoryController)
+                    if (world.getBlockTileEntity(x, y + 1, z) instanceof TileFactoryController)
                         return icons[15];
                     return icons[12];
                 } else if (isOpenDown && isOpenUp) {
@@ -321,11 +352,11 @@ public class BlockFactory extends BlockBase {
                 } else if (isOpenUp && isOpenDown && isOpenRight) {
                     return icons[13];
                 } else if (isOpenUp && isOpenLeft && isOpenRight) {
-                    if(world.getBlockTileEntity(x, y - 1, z) instanceof TileFactoryController)
+                    if (world.getBlockTileEntity(x, y - 1, z) instanceof TileFactoryController)
                         return icons[15];
                     return icons[11];
                 } else if (isOpenDown && isOpenLeft && isOpenRight) {
-                    if(world.getBlockTileEntity(x, y + 1, z) instanceof TileFactoryController)
+                    if (world.getBlockTileEntity(x, y + 1, z) instanceof TileFactoryController)
                         return icons[15];
                     return icons[12];
                 } else if (isOpenDown && isOpenUp) {
@@ -386,11 +417,11 @@ public class BlockFactory extends BlockBase {
                 } else if (isOpenUp && isOpenDown && isOpenRight) {
                     return icons[14];
                 } else if (isOpenUp && isOpenLeft && isOpenRight) {
-                    if(world.getBlockTileEntity(x, y - 1, z) instanceof TileFactoryController)
+                    if (world.getBlockTileEntity(x, y - 1, z) instanceof TileFactoryController)
                         return icons[15];
                     return icons[11];
                 } else if (isOpenDown && isOpenLeft && isOpenRight) {
-                    if(world.getBlockTileEntity(x, y + 1, z) instanceof TileFactoryController)
+                    if (world.getBlockTileEntity(x, y + 1, z) instanceof TileFactoryController)
                         return icons[15];
                     return icons[12];
                 } else if (isOpenDown && isOpenUp) {
@@ -430,13 +461,6 @@ public class BlockFactory extends BlockBase {
         }
 
         return icons[0];
-    }
-
-    @Override
-    public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
-        if (!par1World.isRemote)
-            par5EntityPlayer.addChatMessage("" + par6);
-        return false;
     }
 
     @Override

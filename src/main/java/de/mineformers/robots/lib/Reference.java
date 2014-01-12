@@ -20,4 +20,6 @@ public class Reference {
     public static final String SERVER_PROXY_CLASS = "de.mineformers.robots.proxy.CommonProxy";
     public static final String CLIENT_PROXY_CLASS = "de.mineformers.robots.proxy.ClientProxy";
 
+    public static final int ITEM_ID_SHIFT = 256;
+
 }

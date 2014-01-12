@@ -1,6 +1,7 @@
 package de.mineformers.robots.util;
 
 import de.mineformers.robots.client.gui.system.Global;
+import de.mineformers.robots.lib.Reference;
 import net.minecraft.util.StatCollector;
 
 /**
@@ -18,7 +19,7 @@ public class LangHelper {
     }
 
     public static String translate(String type, String key) {
-        return translate(Global.MOD_ID, type, key);
+        return translate(Reference.RESOURCE_PATH, type, key);
     }
 
     public static String translate(String modid, String type, String key) {
