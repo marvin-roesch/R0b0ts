@@ -18,8 +18,6 @@ import de.mineformers.robots.client.model.ModelRobot;
 import de.mineformers.robots.tileentity.TileFactoryController;
 import de.mineformers.robots.util.LangHelper;
 import de.mineformers.robots.util.ResourceHelper;
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
@@ -37,6 +35,7 @@ public class WindowRobotFactory extends UIWindow {
     private UIButton btnStart;
     private UIButton btnClose;
     private UILabel currentModule;
+    private UILabel currentArmor;
 
     public WindowRobotFactory(TileFactoryController tile) {
         super.initComponent();
@@ -47,6 +46,7 @@ public class WindowRobotFactory extends UIWindow {
         UIProgressBar energy = new UIProgressBar(Orientation.VERTICAL_BOTTOM, 14, 42, 66, 134);
         energy.setValue(50);
         currentModule = new UILabel(ModuleRegistry.instance().getModule("blank").getLocalizedName());
+        currentArmor = new UILabel(ModuleRegistry.instance().getModule("blank").getLocalizedName());
 
         btnStart = new UIButton(78, 15, LangHelper.translate("gui", "button.start"));
         btnStart.addListener(this);
@@ -56,10 +56,14 @@ public class WindowRobotFactory extends UIWindow {
         btnClose.addListener(this);
         btnClose.setAction("close");
 
-        layout.addComponent(new UILabel(EnumChatFormatting.UNDERLINE + LangHelper.translate("gui", "label.module") + ":"), 88, 12);
-        layout.addComponent(currentModule, 88, 14 + mc.fontRenderer.FONT_HEIGHT);
-        layout.addComponent(energy, 0, 12);
-        layout.addComponent(canvas, 36, 12);
+        layout.addComponent(new UILabel(EnumChatFormatting.UNDERLINE + LangHelper.translate("gui", "label.module") + ":"), 72, 12);
+        layout.addComponent(currentModule, 72, 14 + mc.fontRenderer.FONT_HEIGHT);
+        layout.addComponent(new UILabel(EnumChatFormatting.UNDERLINE + LangHelper.translate("gui", "label.chipset") + ":"), 72, 16 + mc.fontRenderer.FONT_HEIGHT * 2);
+        layout.addComponent(currentModule, 72, 18 + mc.fontRenderer.FONT_HEIGHT * 3);
+        layout.addComponent(new UILabel(EnumChatFormatting.UNDERLINE + LangHelper.translate("gui", "label.armor") + ":"), 72, 20 + mc.fontRenderer.FONT_HEIGHT * 4);
+        layout.addComponent(currentArmor, 72, 22 + mc.fontRenderer.FONT_HEIGHT * 5);
+        //layout.addComponent(energy, 0, 12);
+        layout.addComponent(canvas, 20, 12);
         layout.addComponent(btnStart, 3, 95);
         layout.addComponent(btnClose, 85, 95);
         UIFlowLayout infoLayout = new UIFlowLayout(100, 50);
@@ -81,10 +85,19 @@ public class WindowRobotFactory extends UIWindow {
         }
     }
 
+    public void setCurrentArmor(int id) {
+        if (currentArmor != null) {
+            if (id == -1)
+                this.currentArmor.setText(EnumChatFormatting.ITALIC + StatCollector.translateToLocal("module." + ModuleRegistry.instance().getModule("blank").getUnlocalizedName() + ".name"));
+            else
+                this.currentArmor.setText(tile.getStackInSlot(2).getItem().getStatName());
+        }
+    }
+
     public void setCurrentModule(String label) {
         if (currentModule != null) {
             if (label.equals(ModuleRegistry.instance().getModule("blank").getLocalizedName()))
-                this.setCurrentModule(EnumChatFormatting.ITALIC + StatCollector.translateToLocal("module." + ModuleRegistry.instance().getModule("blank").getUnlocalizedName() + ".name"));
+                this.currentModule.setText(EnumChatFormatting.ITALIC + StatCollector.translateToLocal("module." + ModuleRegistry.instance().getModule("blank").getUnlocalizedName() + ".name"));
             else
                 this.currentModule.setText(label);
         }

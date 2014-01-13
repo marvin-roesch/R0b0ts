@@ -2,6 +2,7 @@ itemGroup.r0b0ts=R0b0ts
 
 # Item localizations
 item.robots:module.name=Robot module
+item.robots:buddy.name=BuddyBot
 item.robots:debug.name=R0b0ts debug tool
 
 # Block localizations
@@ -13,6 +14,8 @@ tile.robots:factory.frame.name=Factory frame
 inventory.robots:factoryController=Robot factory
 gui.robots:label.information=Information
 gui.robots:label.module=Module
+gui.robots:label.chipset=Chipset
+gui.robots:label.armor=Armor
 gui.robots:button.start=Start
 gui.robots:button.close=Close
 

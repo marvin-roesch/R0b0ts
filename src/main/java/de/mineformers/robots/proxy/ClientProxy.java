@@ -7,8 +7,10 @@ import de.mineformers.robots.api.registry.ModuleRegistry;
 import de.mineformers.robots.client.gui.WindowRobotFactory;
 import de.mineformers.robots.client.gui.component.container.UIPanel;
 import de.mineformers.robots.client.gui.minecraft.WidgetGuiContainer;
+import de.mineformers.robots.client.renderer.entity.RenderBuddyBot;
 import de.mineformers.robots.client.renderer.entity.RenderRobot;
 import de.mineformers.robots.client.renderer.tileentity.TileFactoryControllerRenderer;
+import de.mineformers.robots.entity.EntityBuddyBot;
 import de.mineformers.robots.entity.EntityRobot;
 import de.mineformers.robots.tileentity.TileFactoryController;
 import net.minecraft.client.Minecraft;
@@ -34,6 +36,7 @@ public class ClientProxy extends CommonProxy {
                 RobotModule module = ModuleRegistry.instance().getModule(tile.getSelectedModule());
                 String localized = module.getLocalizedName();
                 ((WindowRobotFactory) panel).setCurrentModule(localized);
+                ((WindowRobotFactory) panel).setCurrentArmor(tile.getArmorId());
             }
         }
     }
@@ -41,6 +44,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void registerRenderers() {
         RenderingRegistry.registerEntityRenderingHandler(EntityRobot.class, new RenderRobot());
+        RenderingRegistry.registerEntityRenderingHandler(EntityBuddyBot.class, new RenderBuddyBot());
         ClientRegistry.bindTileEntitySpecialRenderer(TileFactoryController.class, new TileFactoryControllerRenderer());
     }
 }

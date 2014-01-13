@@ -12,6 +12,7 @@ public class Strings {
 
     /* Item names */
     public static final String MODULE_BASE_NAME = "module";
+    public static final String BUDDY_NAME = "buddy";
     public static final String DEBUG_TOOL_NAME = "debug";
 
     /* Block names */

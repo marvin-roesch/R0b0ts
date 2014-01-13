@@ -1,6 +1,7 @@
 package de.mineformers.robots.block;
 
 import de.mineformers.robots.R0b0ts;
+import de.mineformers.robots.entity.EntityBuddyBot;
 import de.mineformers.robots.lib.Reference;
 import de.mineformers.robots.lib.Strings;
 import de.mineformers.robots.tileentity.TileFactoryController;
@@ -55,6 +56,14 @@ public class BlockFactoryController extends BlockBase implements ITileEntityProv
             } else
                 player.openGui(R0b0ts.instance, 0, world, x, y, z);
             return true;
+        } else {
+            if (!world.isRemote) {
+                EntityBuddyBot buddy = new EntityBuddyBot(world);
+                buddy.setPosition(x, y + 1, z);
+                buddy.setOwner(player.getCommandSenderName());
+                buddy.setCustomNameTag(player.getDisplayName() + "'s buddy");
+                world.spawnEntityInWorld(buddy);
+            }
         }
         return false;
     }

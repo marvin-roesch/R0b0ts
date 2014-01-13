@@ -11,6 +11,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -29,10 +30,10 @@ public class ContainerFactoryController extends Container {
 
     public ContainerFactoryController(InventoryPlayer inventoryPlayer, IInventory inventory) {
         tile = (TileFactoryController) inventory;
-        this.addSlotToContainer(new RobotModuleSlot(inventory, 0, 22, 18));
-        this.addSlotToContainer(new FilteredIconSlot(inventory, 1, 22, 36, ResourceHelper.getModResource("textures/gui/slotModule.png"), new StackFilter(ItemIds.MODULE)));
-        this.addSlotToContainer(new FilteredIconSlot(inventory, 2, 22, 54, ResourceHelper.getModResource("textures/gui/slotModule.png"), new StackFilter(ItemIds.MODULE)));
-        this.addSlotToContainer(new FilteredIconSlot(inventory, 3, 22, 72, ResourceHelper.getModResource("textures/gui/slotModule.png"), new StackFilter(ItemIds.MODULE)));
+        this.addSlotToContainer(new RobotModuleSlot(inventory, 0, 5, 18));
+        this.addSlotToContainer(new FilteredIconSlot(inventory, 1, 5, 36, ResourceHelper.getModResource("textures/gui/slotChipset.png"), new StackFilter(ItemIds.MODULE)));
+        this.addSlotToContainer(new FilteredIconSlot(inventory, 2, 5, 54, ResourceHelper.getModResource("textures/gui/slotArmor.png"), new StackFilter(Item.plateChain.itemID), new StackFilter(Item.plateDiamond.itemID), new StackFilter(Item.plateGold.itemID), new StackFilter(Item.plateIron.itemID), new StackFilter(Item.plateLeather.itemID)));
+        this.addSlotToContainer(new FilteredIconSlot(inventory, 3, 5, 72, ResourceHelper.getModResource("textures/gui/slotModule.png"), new StackFilter(ItemIds.MODULE)));
 
         for (int inventoryRowIndex = 0; inventoryRowIndex < PLAYER_INVENTORY_ROWS; ++inventoryRowIndex) {
             for (int inventoryColumnIndex = 0; inventoryColumnIndex < PLAYER_INVENTORY_COLUMNS; ++inventoryColumnIndex) {
@@ -56,12 +57,17 @@ public class ContainerFactoryController extends Container {
             itemStack = slotItemStack.copy();
 
             if (slotIndex < 4) {
-                if (!this.mergeItemStack(slotItemStack, 3, inventorySlots.size(), false)) {
+                if (!this.mergeItemStack(slotItemStack, 4, inventorySlots.size(), false)) {
                     return null;
                 }
             } else {
                 if (slotItemStack.getItem() instanceof ItemModule) {
-                    if (!this.mergeItemStack(slotItemStack, 0, 1, false)) {
+                    if (!this.mergeItemStack(slotItemStack, 0, inventorySlots.size(), false)) {
+                        return null;
+                    }
+                }
+                if (((Slot) inventorySlots.get(2)).isItemValid(slotItemStack)) {
+                    if (!this.mergeItemStack(slotItemStack, 2, 1, false)) {
                         return null;
                     }
                 }
@@ -69,12 +75,15 @@ public class ContainerFactoryController extends Container {
 
             if (slotItemStack.stackSize == 0) {
                 slot.putStack((ItemStack) null);
+                return null;
             } else {
                 slot.onSlotChanged();
             }
+
+            slot.putStack(slotItemStack);
         }
 
-        return itemStack;
+        return null;
     }
 
     @Override

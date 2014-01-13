@@ -16,9 +16,11 @@ import net.minecraft.item.Item;
 public class ModItems {
 
     public static Item module;
+    public static Item buddy;
 
     public static void init() {
         module = new ItemModule(ItemIds.MODULE);
+        buddy = new ItemBuddy(ItemIds.BUDDY);
 
         GameRegistry.registerItem(module, Strings.MODULE_BASE_NAME);
     }

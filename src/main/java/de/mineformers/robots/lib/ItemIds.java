@@ -11,7 +11,9 @@ package de.mineformers.robots.lib;
 public class ItemIds {
 
     public static final int MODULE_DEFAULT = 3000;
+    public static final int BUDDY_DEFAULT = 3001;
 
     public static int MODULE;
+    public static int BUDDY;
 
 }

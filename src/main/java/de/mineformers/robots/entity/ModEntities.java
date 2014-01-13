@@ -16,6 +16,8 @@ public class ModEntities {
     public static void init() {
         EntityRegistry.registerModEntity(EntityRobot.class, "EntityRobot", 0,
                 R0b0ts.instance, 80, 3, true);
+        EntityRegistry.registerModEntity(EntityBuddyBot.class, "EntityBuddyBot", 1,
+                R0b0ts.instance, 80, 3, true);
     }
 
 }

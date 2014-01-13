@@ -29,6 +29,7 @@ public class TileFactoryController extends TileBase implements IInventory {
     private ForgeDirection orientation;
     private boolean validMultiblock;
     private String selectedModule;
+    private int armorId;
 
     public TileFactoryController() {
         inventory = new ItemStack[4];
@@ -45,6 +46,14 @@ public class TileFactoryController extends TileBase implements IInventory {
 
     public ForgeDirection getOrientation() {
         return orientation;
+    }
+
+    public void setArmorId(int armorId) {
+        this.armorId = armorId;
+    }
+
+    public int getArmorId() {
+        return armorId;
     }
 
     public void validateMultiblock() {
@@ -190,7 +199,7 @@ public class TileFactoryController extends TileBase implements IInventory {
 
     @Override
     public Packet getDescriptionPacket() {
-        return new PacketFactoryController(xCoord, yCoord, zCoord, orientation, validMultiblock, selectedModule).makePacket();
+        return new PacketFactoryController(xCoord, yCoord, zCoord, orientation, validMultiblock, selectedModule, (getStackInSlot(2) == null ? -1 : getStackInSlot(2).itemID)).makePacket();
     }
 
     /* Inventory code */
@@ -247,6 +256,7 @@ public class TileFactoryController extends TileBase implements IInventory {
         } else {
             selectedModule = "blank";
         }
+        armorId = (getStackInSlot(2) == null ? -1 : getStackInSlot(2).itemID);
         NetworkHelper.sendTilePacket(this);
     }
 
