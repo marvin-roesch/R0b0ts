@@ -1,0 +1,28 @@
+itemGroup.r0b0ts=R0b0ts
+
+# Item localizations
+item.robots:module.name=Robotermodul
+item.robots:debug.name=R0b0ts Debug-Tool
+
+# Block localizations
+tile.robots:factoryController.name=Fabrik-Controller
+tile.robots:factory.glass.name=Fabrikglas
+tile.robots:factory.frame.name=Fabrikrahmen
+
+# GUI localizations
+inventory.robots:factoryController=Roboterfabrik
+gui.robots:label.information=Information
+gui.robots:label.module=Modul
+gui.robots:button.start=Starten
+gui.robots:button.close=Schließen
+
+# Module localizations
+module.robots:blank.name=<leer>
+module.robots:crafting.name=Fertigung
+
+# Tooltip localizations
+tooltip.robots:moduleType=Typ
+tooltip.robots:moduleDesc=Beschreibung
+
+# Message localizations
+chat.robots:invalidMultiblock=Keine gültige Multiblockstruktur
