@@ -1,5 +1,7 @@
 package de.mineformers.robots.tileentity;
 
+import de.mineformers.robots.R0b0ts;
+import de.mineformers.robots.api.util.ModuleHelper;
 import de.mineformers.robots.lib.BlockIds;
 import de.mineformers.robots.lib.Reference;
 import de.mineformers.robots.lib.Strings;
@@ -26,9 +28,11 @@ public class TileFactoryController extends TileBase implements IInventory {
     private ItemStack[] inventory;
     private ForgeDirection orientation;
     private boolean validMultiblock;
+    private String selectedModule;
 
     public TileFactoryController() {
-        inventory = new ItemStack[3];
+        inventory = new ItemStack[4];
+        selectedModule = "blank";
     }
 
     public void setOrientation(int ordinal) {
@@ -175,9 +179,18 @@ public class TileFactoryController extends TileBase implements IInventory {
         this.validMultiblock = validMultiblock;
     }
 
+    public void setSelectedModule(String selectedModule) {
+        this.selectedModule = selectedModule;
+        R0b0ts.proxy.updateFactoryGui(this);
+    }
+
+    public String getSelectedModule() {
+        return selectedModule;
+    }
+
     @Override
     public Packet getDescriptionPacket() {
-        return new PacketFactoryController(xCoord, yCoord, zCoord, orientation, validMultiblock).makePacket();
+        return new PacketFactoryController(xCoord, yCoord, zCoord, orientation, validMultiblock, selectedModule).makePacket();
     }
 
     /* Inventory code */
@@ -223,6 +236,18 @@ public class TileFactoryController extends TileBase implements IInventory {
         if (itemStack != null && itemStack.stackSize > getInventoryStackLimit()) {
             itemStack.stackSize = getInventoryStackLimit();
         }
+        this.onInventoryChanged();
+    }
+
+    @Override
+    public void onInventoryChanged() {
+        super.onInventoryChanged();
+        if (this.getStackInSlot(0) != null) {
+            selectedModule = ModuleHelper.fromItemStack(this.getStackInSlot(0)).getIdentifier();
+        } else {
+            selectedModule = "blank";
+        }
+        NetworkHelper.sendTilePacket(this);
     }
 
     @Override

@@ -20,6 +20,10 @@ import net.minecraft.world.World;
  */
 public class CommonProxy implements IGuiHandler {
 
+    public void updateFactoryGui(TileFactoryController tile) {
+
+    }
+
     public void registerRenderers() {
 
     }
@@ -42,7 +46,7 @@ public class CommonProxy implements IGuiHandler {
         IInventory inventory = (IInventory) world.getBlockTileEntity(x, y, z);
         switch (ID) {
             case 0:
-                return new WidgetGuiContainer(176, 200, new WindowRobotFactory(), new ContainerFactoryController(player.inventory, inventory), inventory, true);
+                return new WidgetGuiContainer(176, 200, new WindowRobotFactory((TileFactoryController)inventory), new ContainerFactoryController(player.inventory, inventory), inventory, true);
         }
         return null;
     }

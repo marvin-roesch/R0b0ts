@@ -1,4 +1,4 @@
-package de.mineformers.robots.client.renderer;
+package de.mineformers.robots.client.renderer.tileentity;
 
 import de.mineformers.robots.client.model.ModelRobot;
 import de.mineformers.robots.tileentity.TileFactoryController;

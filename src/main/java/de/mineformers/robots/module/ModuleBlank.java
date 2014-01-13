@@ -16,4 +16,8 @@ public class ModuleBlank extends RobotModule {
         super("blank", "robots:blank", "robots:modules/blank", null);
     }
 
+    @Override
+    public String getLocalizedName() {
+        return "\2477\247o" + super.getLocalizedName() + "\247r";
+    }
 }

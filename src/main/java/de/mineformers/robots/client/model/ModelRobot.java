@@ -14,13 +14,17 @@ import org.lwjgl.opengl.GL11;
 public class ModelRobot extends ModelBiped {
 
     public void justRender() {
+        justRender(true);
+    }
+
+    public void justRender(boolean offset) {
         this.bipedBody.render(0.0625F);
         this.bipedRightArm.render(0.0625F);
         this.bipedLeftArm.render(0.0625F);
         this.bipedRightLeg.render(0.0625F);
         this.bipedLeftLeg.render(0.0625F);
         this.bipedHeadwear.render(0.0625F);
-        GL11.glTranslatef(0, 0, 0.1F);
+        if (offset) GL11.glTranslatef(0, 0, 0.1F);
         this.bipedHead.render(0.0625F);
     }
 

@@ -1,6 +1,9 @@
 package de.mineformers.robots.api;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.util.StatCollector;
 
 /**
  * R0b0ts
@@ -39,5 +42,10 @@ public class RobotModule {
 
     public EntityAIBase getAiTask() {
         return aiTask;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public String getLocalizedName() {
+        return StatCollector.translateToLocal("module." + unlocalizedName + ".name");
     }
 }

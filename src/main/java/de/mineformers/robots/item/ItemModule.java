@@ -43,11 +43,7 @@ public class ItemModule extends ItemBase {
             list.add("Press shift for more information");
         else {
             RobotModule module = ModuleHelper.fromItemStack(stack);
-            if (module.getIdentifier().equals("blank"))
-                list.add("\247c" + LangHelper.translate("tooltip", "moduleType") + ": \247r" + "\2477\247o" + LangHelper.translate("module." + module.getUnlocalizedName() + ".name"));
-            else {
-                list.add("\247c" + LangHelper.translate("tooltip", "moduleType") + ": \247r" + LangHelper.translate("module." + module.getUnlocalizedName() + ".name"));
-            }
+            list.add("\247c" + LangHelper.translate("tooltip", "moduleType") + ": \247r" + module.getLocalizedName());
         }
     }
 

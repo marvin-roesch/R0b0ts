@@ -110,10 +110,10 @@ public class Vector3 {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof Vector3) {
+        if (obj instanceof Vector3) {
             Vector3 vec = (Vector3) obj;
             return vec.x == x && vec.y == y && vec.z == z;
-        } else if(obj instanceof Vec3) {
+        } else if (obj instanceof Vec3) {
             Vec3 vec = (Vec3) obj;
             return vec.xCoord == x && vec.yCoord == y && vec.zCoord == z;
         }

@@ -1,6 +1,5 @@
 package de.mineformers.robots.util;
 
-import de.mineformers.robots.client.gui.system.Global;
 import de.mineformers.robots.lib.Reference;
 import net.minecraft.util.StatCollector;
 

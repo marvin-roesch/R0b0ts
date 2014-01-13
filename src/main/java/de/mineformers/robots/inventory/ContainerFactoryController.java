@@ -4,6 +4,7 @@ import de.mineformers.robots.client.gui.container.FilteredIconSlot;
 import de.mineformers.robots.client.gui.util.StackFilter;
 import de.mineformers.robots.item.ItemModule;
 import de.mineformers.robots.lib.ItemIds;
+import de.mineformers.robots.tileentity.TileFactoryController;
 import de.mineformers.robots.util.ResourceHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -22,13 +23,16 @@ import net.minecraft.item.ItemStack;
  */
 public class ContainerFactoryController extends Container {
 
+    TileFactoryController tile;
     private final int PLAYER_INVENTORY_ROWS = 3;
     private final int PLAYER_INVENTORY_COLUMNS = 9;
 
     public ContainerFactoryController(InventoryPlayer inventoryPlayer, IInventory inventory) {
-        this.addSlotToContainer(new FilteredIconSlot(inventory, 0, 5, 30, ResourceHelper.getModResource("textures/gui/slotModule.png"), new StackFilter(ItemIds.MODULE)));
-        this.addSlotToContainer(new FilteredIconSlot(inventory, 1, 5, 50, ResourceHelper.getModResource("textures/gui/slotModule.png"), new StackFilter(ItemIds.MODULE)));
-        this.addSlotToContainer(new FilteredIconSlot(inventory, 2, 5, 70, ResourceHelper.getModResource("textures/gui/slotModule.png"), new StackFilter(ItemIds.MODULE)));
+        tile = (TileFactoryController) inventory;
+        this.addSlotToContainer(new RobotModuleSlot(inventory, 0, 22, 18));
+        this.addSlotToContainer(new FilteredIconSlot(inventory, 1, 22, 36, ResourceHelper.getModResource("textures/gui/slotModule.png"), new StackFilter(ItemIds.MODULE)));
+        this.addSlotToContainer(new FilteredIconSlot(inventory, 2, 22, 54, ResourceHelper.getModResource("textures/gui/slotModule.png"), new StackFilter(ItemIds.MODULE)));
+        this.addSlotToContainer(new FilteredIconSlot(inventory, 3, 22, 72, ResourceHelper.getModResource("textures/gui/slotModule.png"), new StackFilter(ItemIds.MODULE)));
 
         for (int inventoryRowIndex = 0; inventoryRowIndex < PLAYER_INVENTORY_ROWS; ++inventoryRowIndex) {
             for (int inventoryColumnIndex = 0; inventoryColumnIndex < PLAYER_INVENTORY_COLUMNS; ++inventoryColumnIndex) {
@@ -51,7 +55,7 @@ public class ContainerFactoryController extends Container {
             ItemStack slotItemStack = slot.getStack();
             itemStack = slotItemStack.copy();
 
-            if (slotIndex < 3) {
+            if (slotIndex < 4) {
                 if (!this.mergeItemStack(slotItemStack, 3, inventorySlots.size(), false)) {
                     return null;
                 }

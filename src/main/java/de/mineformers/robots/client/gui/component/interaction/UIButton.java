@@ -117,7 +117,8 @@ public class UIButton extends UIComponent {
     public void onClick(MouseClickEvent event) {
         switch (event.mouseButton) {
             case LEFT:
-                mc.sndManager.playSoundFX("random.click", 1.0F, 1.0F);
+                if (enabled)
+                    mc.sndManager.playSoundFX("random.click", 1.0F, 1.0F);
                 break;
         }
     }

@@ -1,10 +1,7 @@
 package de.mineformers.robots.plugin;
 
-import com.google.common.eventbus.Subscribe;
-import cpw.mods.fml.common.Loader;
 import de.mineformers.robots.api.R0b0tsPlugin;
 import de.mineformers.robots.api.event.RegisterPluginEvent;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeSubscribe;
 
 import java.util.Collection;

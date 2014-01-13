@@ -5,14 +5,11 @@ import de.mineformers.robots.client.gui.component.inventory.UISlot;
 import de.mineformers.robots.util.LangHelper;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 
 /**
  * GUISystem
@@ -74,13 +71,10 @@ public class WidgetGuiContainer extends GuiContainer {
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
-        int xStart = (xSize - panel.getWidth()) / 2;
-        int yStart = (ySize - panel.getHeight()) / 2;
-
-        panel.setScreenPos(xStart, yStart);
+        panel.setScreenPos(0, 0);
         //panel.drawForeground(mouseX, mouseY);
         if (name != null)
-            de.mineformers.robots.client.gui.util.RenderHelper.drawString(name, xStart + 5, yStart + 5, 0x404040, false, 1);
+            de.mineformers.robots.client.gui.util.RenderHelper.drawString(name, 0 + 5, 0 + 5, 0x404040, false, 1);
         GL11.glColor4f(1, 1, 1, 1);
     }
 
@@ -89,8 +83,8 @@ public class WidgetGuiContainer extends GuiContainer {
                                                    int mouseY) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
-        int xStart = (width - panel.getWidth()) / 2;
-        int yStart = (height - panel.getHeight()) / 2;
+        int xStart = (width - xSize) / 2;
+        int yStart = (height - ySize) / 2;
 
         panel.setScreenPos(xStart, yStart);
 
@@ -133,4 +127,10 @@ public class WidgetGuiContainer extends GuiContainer {
             panel.mouseScroll(-dWheel, k, l);
         }
     }
+
+    public UIPanel getPanel() {
+        return panel;
+    }
+
+
 }

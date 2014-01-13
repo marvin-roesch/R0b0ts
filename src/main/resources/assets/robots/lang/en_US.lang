@@ -12,6 +12,9 @@ tile.robots:factory.frame.name=Factory frame
 # GUI localizations
 inventory.robots:factoryController=Robot factory
 gui.robots:label.information=Information
+gui.robots:label.module=Module
+gui.robots:button.start=Start
+gui.robots:button.close=Close
 
 # Module localizations
 module.robots:blank.name=<blank>
@@ -20,3 +23,6 @@ module.robots:crafting.name=Crafting
 # Tooltip localizations
 tooltip.robots:moduleType=Type
 tooltip.robots:moduleDesc=Description
+
+# Message localizations
+chat.robots:invalidMultiblock=Not a valid multiblock structure

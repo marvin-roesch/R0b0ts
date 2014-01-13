@@ -26,6 +26,7 @@ public abstract class UIComponent {
     protected boolean visible;
     protected int width, height;
     private String tooltip;
+    private String action;
 
     private EventBus eventBus;
 
@@ -35,6 +36,14 @@ public abstract class UIComponent {
         this.zLevel = 0;
         eventBus = new EventBus();
         this.visible = true;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public String getAction() {
+        return action;
     }
 
     public void setParent(UIComponent parent) {

@@ -4,6 +4,7 @@ import de.mineformers.robots.R0b0ts;
 import de.mineformers.robots.lib.Reference;
 import de.mineformers.robots.lib.Strings;
 import de.mineformers.robots.tileentity.TileFactoryController;
+import de.mineformers.robots.util.LangHelper;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -47,11 +48,13 @@ public class BlockFactoryController extends BlockBase implements ITileEntityProv
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
         if (!player.isSneaking()) {
-            player.openGui(R0b0ts.instance, 0, world, x, y, z);
+            if (!((TileFactoryController) world.getBlockTileEntity(x, y, z)).isValidMultiblock()) {
+                if (world.isRemote) {
+                    player.addChatMessage(LangHelper.translate("chat", "invalidMultiblock"));
+                }
+            } else
+                player.openGui(R0b0ts.instance, 0, world, x, y, z);
             return true;
-        } else {
-            if(world.isRemote)
-                player.addChatMessage("" + ForgeDirection.getOrientation(side));
         }
         return false;
     }

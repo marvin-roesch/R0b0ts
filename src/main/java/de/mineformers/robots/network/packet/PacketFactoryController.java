@@ -19,14 +19,16 @@ public class PacketFactoryController extends PacketTileSync {
 
     private int orientation;
     private boolean validMultiblock;
+    private String selectedModule;
 
     public PacketFactoryController() {
     }
 
-    public PacketFactoryController(int x, int y, int z, ForgeDirection orientation, boolean validMultiblock) {
+    public PacketFactoryController(int x, int y, int z, ForgeDirection orientation, boolean validMultiblock, String selectedModule) {
         super(x, y, z);
         this.orientation = orientation.ordinal();
         this.validMultiblock = validMultiblock;
+        this.selectedModule = selectedModule;
     }
 
     @Override
@@ -34,6 +36,7 @@ public class PacketFactoryController extends PacketTileSync {
         super.write(out);
         out.writeInt(orientation);
         out.writeBoolean(validMultiblock);
+        out.writeUTF(selectedModule);
     }
 
     @Override
@@ -41,6 +44,7 @@ public class PacketFactoryController extends PacketTileSync {
         super.read(in);
         orientation = in.readInt();
         validMultiblock = in.readBoolean();
+        selectedModule = in.readUTF();
     }
 
     @Override
@@ -48,6 +52,7 @@ public class PacketFactoryController extends PacketTileSync {
         TileFactoryController tile = (TileFactoryController) tileEntity;
         tile.setOrientation(orientation);
         tile.setValidMultiblock(validMultiblock);
+        tile.setSelectedModule(selectedModule);
         player.worldObj.markBlockForRenderUpdate(x, y, z);
     }
 }
