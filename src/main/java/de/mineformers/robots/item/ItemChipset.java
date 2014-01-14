@@ -2,7 +2,9 @@ package de.mineformers.robots.item;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import de.mineformers.robots.api.RobotChipset;
 import de.mineformers.robots.api.RobotModule;
+import de.mineformers.robots.api.registry.ChipsetRegistry;
 import de.mineformers.robots.api.registry.ModuleRegistry;
 import de.mineformers.robots.api.util.RobotHelper;
 import de.mineformers.robots.lib.Reference;
@@ -27,12 +29,12 @@ import java.util.List;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class ItemModule extends ItemBase {
+public class ItemChipset extends ItemBase {
 
     private HashMap<String, Icon> icons;
 
-    public ItemModule(int id) {
-        super(id, Strings.MODULE_BASE_NAME);
+    public ItemChipset(int id) {
+        super(id, Strings.CHIPSET_BASE_NAME);
         icons = new HashMap<String, Icon>();
         this.setMaxStackSize(1);
     }
@@ -42,8 +44,10 @@ public class ItemModule extends ItemBase {
         if (!GuiScreen.isShiftKeyDown())
             list.add("Press shift for more information");
         else {
-            RobotModule module = RobotHelper.getModuleFromItemStack(stack);
-            list.add("\247c" + LangHelper.translate("tooltip", "moduleType") + ": \247r" + module.getLocalizedName());
+            RobotChipset chipset = RobotHelper.getChipsetFromItemStack(stack);
+            list.add("\247c" + LangHelper.translate("tooltip", "moduleType") + ": \247r" + chipset.getLocalizedName());
+            if(chipset.getDescription() != null)
+                list.add("\247c" + LangHelper.translate("tooltip", "moduleDesc") + ": \247r" + chipset.getLocalizedDescription());
         }
     }
 
@@ -51,9 +55,9 @@ public class ItemModule extends ItemBase {
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubItems(int id, CreativeTabs tabs, List list) {
-        for (RobotModule module : ModuleRegistry.instance().getModules()) {
+        for (RobotChipset chipset : ChipsetRegistry.instance().getChipsets()) {
             NBTTagCompound tag = new NBTTagCompound();
-            tag.setString("ModuleName", module.getIdentifier());
+            tag.setString("ChipsetName", chipset.getIdentifier());
             ItemStack is = new ItemStack(this, 1, 0);
             is.setTagCompound(tag);
             list.add(is);
@@ -63,8 +67,8 @@ public class ItemModule extends ItemBase {
     @Override
     @SideOnly(Side.CLIENT)
     public Icon getIcon(ItemStack stack, int renderPass) {
-        RobotModule module = RobotHelper.getModuleFromItemStack(stack);
-        return icons.get(module.getIdentifier());
+        RobotChipset chipset = RobotHelper.getChipsetFromItemStack(stack);
+        return icons.get(chipset.getIdentifier());
     }
 
     @Override
@@ -80,9 +84,9 @@ public class ItemModule extends ItemBase {
 
     @Override
     public void registerIcons(IconRegister iconRegister) {
-        itemIcon = iconRegister.registerIcon(Reference.RESOURCE_PREFIX + "modules/blank");
-        for (RobotModule module : ModuleRegistry.instance().getModules()) {
-            icons.put(module.getIdentifier(), iconRegister.registerIcon(module.getIconPath()));
+        itemIcon = iconRegister.registerIcon(Reference.RESOURCE_PREFIX + "chipsets/blank");
+        for (RobotChipset chipset : ChipsetRegistry.instance().getChipsets()) {
+            icons.put(chipset.getIdentifier(), iconRegister.registerIcon(chipset.getIconPath()));
         }
     }
 }

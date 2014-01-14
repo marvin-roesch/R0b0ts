@@ -1,12 +1,14 @@
 package de.mineformers.robots.tileentity;
 
 import de.mineformers.robots.R0b0ts;
-import de.mineformers.robots.api.util.ModuleHelper;
+import de.mineformers.robots.api.Robot;
+import de.mineformers.robots.api.util.RobotHelper;
 import de.mineformers.robots.lib.BlockIds;
 import de.mineformers.robots.lib.Reference;
 import de.mineformers.robots.lib.Strings;
 import de.mineformers.robots.network.packet.PacketFactoryController;
 import de.mineformers.robots.util.NetworkHelper;
+import de.mineformers.robots.util.PrivateRobotHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -29,11 +31,16 @@ public class TileFactoryController extends TileBase implements IInventory {
     private ForgeDirection orientation;
     private boolean validMultiblock;
     private String selectedModule;
+    private String selectedChipset;
     private int armorId;
+
+    private int progress;
+    private boolean progressing;
 
     public TileFactoryController() {
         inventory = new ItemStack[4];
         selectedModule = "blank";
+        selectedChipset = "blank";
     }
 
     public void setOrientation(int ordinal) {
@@ -54,6 +61,49 @@ public class TileFactoryController extends TileBase implements IInventory {
 
     public int getArmorId() {
         return armorId;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
+    }
+
+    public void setProgressing(boolean progressing) {
+        this.progressing = progressing;
+    }
+
+    public int getProgress() {
+        return progress;
+    }
+
+    public boolean isProgressing() {
+        return progressing;
+    }
+
+    @Override
+    public void updateEntity() {
+        super.updateEntity();
+        if (!worldObj.isRemote)
+            if (progressing) {
+                if (!selectedModule.equals("blank") && !selectedChipset.equals("blank") && armorId != -1) {
+                    if (isValidMultiblock()) {
+                        if (progress < 100)
+                            progress++;
+                        if (progress >= 100)
+                            if (getStackInSlot(3) == null) {
+                                setInventorySlotContents(3, PrivateRobotHelper.createItemStackFromRobot(getStackInSlot(1).hasDisplayName() ? getStackInSlot(1).getDisplayName() : null, new Robot(selectedModule, selectedChipset, armorId)));
+                                progress = 0;
+                                progressing = false;
+                                setInventorySlotContents(0, null);
+                                setInventorySlotContents(1, null);
+                                setInventorySlotContents(2, null);
+                            }
+                        NetworkHelper.sendTilePacket(this);
+                    }
+                } else {
+                    progressing = false;
+                    progress = 0;
+                }
+            }
     }
 
     public void validateMultiblock() {
@@ -155,6 +205,8 @@ public class TileFactoryController extends TileBase implements IInventory {
         super.writeToNBT(tagCompound);
         tagCompound.setInteger("Orientation", orientation.ordinal());
         tagCompound.setBoolean("ValidMultiblock", validMultiblock);
+        tagCompound.setBoolean("IsProgressing", progressing);
+        tagCompound.setInteger("Progress", progress);
         NBTTagList tagList = new NBTTagList();
         for (int currentIndex = 0; currentIndex < inventory.length; ++currentIndex) {
             if (inventory[currentIndex] != null) {
@@ -172,6 +224,8 @@ public class TileFactoryController extends TileBase implements IInventory {
         super.readFromNBT(tagCompound);
         orientation = ForgeDirection.getOrientation(tagCompound.getInteger("Orientation"));
         validMultiblock = tagCompound.getBoolean("ValidMultiblock");
+        progressing = tagCompound.getBoolean("IsProgressing");
+        progress = tagCompound.getInteger("Progress");
         NBTTagList tagList = tagCompound.getTagList("Items");
         inventory = new ItemStack[this.getSizeInventory()];
         for (int i = 0; i < tagList.tagCount(); ++i) {
@@ -193,13 +247,22 @@ public class TileFactoryController extends TileBase implements IInventory {
         R0b0ts.proxy.updateFactoryGui(this);
     }
 
+    public void setSelectedChipset(String selectedChipset) {
+        this.selectedChipset = selectedChipset;
+        R0b0ts.proxy.updateFactoryGui(this);
+    }
+
     public String getSelectedModule() {
         return selectedModule;
     }
 
+    public String getSelectedChipset() {
+        return selectedChipset;
+    }
+
     @Override
     public Packet getDescriptionPacket() {
-        return new PacketFactoryController(xCoord, yCoord, zCoord, orientation, validMultiblock, selectedModule, (getStackInSlot(2) == null ? -1 : getStackInSlot(2).itemID)).makePacket();
+        return new PacketFactoryController(xCoord, yCoord, zCoord, orientation, validMultiblock, selectedModule, selectedChipset, (getStackInSlot(2) == null ? -1 : getStackInSlot(2).itemID), progressing, progress).makePacket();
     }
 
     /* Inventory code */
@@ -252,11 +315,17 @@ public class TileFactoryController extends TileBase implements IInventory {
     public void onInventoryChanged() {
         super.onInventoryChanged();
         if (this.getStackInSlot(0) != null) {
-            selectedModule = ModuleHelper.fromItemStack(this.getStackInSlot(0)).getIdentifier();
+            selectedModule = RobotHelper.getModuleFromItemStack(this.getStackInSlot(0)).getIdentifier();
         } else {
             selectedModule = "blank";
         }
+        if (this.getStackInSlot(1) != null) {
+            selectedChipset = RobotHelper.getChipsetFromItemStack(this.getStackInSlot(1)).getIdentifier();
+        } else {
+            selectedChipset = "blank";
+        }
         armorId = (getStackInSlot(2) == null ? -1 : getStackInSlot(2).itemID);
+
         NetworkHelper.sendTilePacket(this);
     }
 

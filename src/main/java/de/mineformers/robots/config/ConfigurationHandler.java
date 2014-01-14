@@ -28,6 +28,8 @@ public class ConfigurationHandler {
         try {
             ItemIds.MODULE = configuration.getItem(Strings.MODULE_BASE_NAME, ItemIds.MODULE_DEFAULT).getInt(ItemIds.MODULE_DEFAULT);
             ItemIds.BUDDY = configuration.getItem(Strings.BUDDY_NAME, ItemIds.BUDDY_DEFAULT).getInt(ItemIds.BUDDY_DEFAULT);
+            ItemIds.CHIPSET = configuration.getItem(Strings.CHIPSET_BASE_NAME, ItemIds.CHIPSET_DEFAULT).getInt(ItemIds.CHIPSET_DEFAULT);
+            ItemIds.ROBOT = configuration.getItem(Strings.ROBOT_NAME, ItemIds.ROBOT_DEFAULT).getInt(ItemIds.ROBOT_DEFAULT);
 
             BlockIds.FACTORY_CONTROLLER = configuration.getBlock(Strings.FACTORY_CONTROLLER_NAME, BlockIds.FACTORY_CONTROLLER_DEFAULT).getInt(BlockIds.FACTORY_CONTROLLER_DEFAULT);
             BlockIds.FACTORY_BASE = configuration.getBlock(Strings.FACTORY_BASE_NAME, BlockIds.FACTORY_BASE_DEFAULT).getInt(BlockIds.FACTORY_BASE_DEFAULT);

@@ -44,10 +44,8 @@ public abstract class PacketTileSync extends PacketBase {
 
     @Override
     public void execute(EntityPlayer player, Side side) {
-        if (side.isClient()) {
-            if (player.worldObj.getBlockTileEntity(x, y, z) instanceof TileBase) {
-                sync(player, (TileBase) player.worldObj.getBlockTileEntity(x, y, z));
-            }
+        if (player.worldObj.getBlockTileEntity(x, y, z) instanceof TileBase) {
+            sync(player, (TileBase) player.worldObj.getBlockTileEntity(x, y, z));
         }
     }
 

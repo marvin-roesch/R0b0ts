@@ -2,7 +2,9 @@ itemGroup.r0b0ts=R0b0ts
 
 # Item localizations
 item.robots:module.name=Robot module
+item.robots:chipset.name=Robot chipset
 item.robots:buddy.name=BuddyBot
+item.robots:robot.name=Robot
 item.robots:debug.name=R0b0ts debug tool
 
 # Block localizations
@@ -19,9 +21,13 @@ gui.robots:label.armor=Armor
 gui.robots:button.start=Start
 gui.robots:button.close=Close
 
-# Module localizations
+# Module & chipset localizations
 module.robots:blank.name=<blank>
 module.robots:crafting.name=Crafting
+
+chipset.robots:blank.name=<blank>
+chipset.robots:basic.name=Basic
+chipset.robots:basic.description=16 block range
 
 # Tooltip localizations
 tooltip.robots:moduleType=Type

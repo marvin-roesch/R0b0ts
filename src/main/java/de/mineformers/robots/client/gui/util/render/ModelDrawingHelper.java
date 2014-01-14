@@ -1,8 +1,10 @@
 package de.mineformers.robots.client.gui.util.render;
 
+import de.mineformers.robots.api.registry.ChipsetRegistry;
 import de.mineformers.robots.client.gui.util.RenderHelper;
 import de.mineformers.robots.client.model.ModelRobot;
 import de.mineformers.robots.item.ModItems;
+import de.mineformers.robots.proxy.ClientProxy;
 import de.mineformers.robots.tileentity.TileFactoryController;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -82,16 +84,13 @@ public class ModelDrawingHelper implements IDrawingHelper {
         GL11.glTranslatef((float) par0, (float) par1, 50.0F);
         GL11.glScalef((float) (-par2), (float) par2, (float) par2);
         GL11.glRotatef(180F, 0, 1, 0);
-        /*current = System.currentTimeMillis();
-        if(current - last >= 0) {
-            last = current;
-            rotation += 0.1F;
-        }*/
         rotation += 0.3F;
         GL11.glRotatef(rotation, 0, 1, 0);
 
-        RenderHelper.bindTexture(texture);
+        RenderHelper.bindTexture(ClientProxy.getRobotTexture(tile.getArmorId()));
         model.justRender(false);
+        RenderHelper.bindTexture(ChipsetRegistry.instance().getChipset(tile.getSelectedChipset()).getHeadTexture());
+        model.renderEye(false);
         if (tile.getStackInSlot(0) != null) {
             Tessellator tessellator = Tessellator.instance;
             GL11.glPushMatrix();

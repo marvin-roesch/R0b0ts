@@ -17,12 +17,19 @@ public class ModItems {
 
     public static Item module;
     public static Item buddy;
+    public static Item chipset;
+    public static Item robot;
 
     public static void init() {
         module = new ItemModule(ItemIds.MODULE);
         buddy = new ItemBuddy(ItemIds.BUDDY);
+        chipset = new ItemChipset(ItemIds.CHIPSET);
+        robot = new ItemRobot(ItemIds.ROBOT);
 
         GameRegistry.registerItem(module, Strings.MODULE_BASE_NAME);
+        GameRegistry.registerItem(buddy, Strings.BUDDY_NAME);
+        GameRegistry.registerItem(chipset, Strings.CHIPSET_BASE_NAME);
+        GameRegistry.registerItem(robot, Strings.ROBOT_NAME);
     }
 
 }

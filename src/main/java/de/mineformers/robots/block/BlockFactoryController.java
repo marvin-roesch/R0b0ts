@@ -39,6 +39,13 @@ public class BlockFactoryController extends BlockBase implements ITileEntityProv
     }
 
     @Override
+    public int getLightValue(IBlockAccess world, int x, int y, int z) {
+        if (world.getBlockTileEntity(x, y, z) == null)
+            return 0;
+        return ((TileFactoryController) world.getBlockTileEntity(x, y, z)).isValidMultiblock() ? 15 : 0;
+    }
+
+    @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, int neighborID) {
         if (world.getBlockTileEntity(x, y, z) instanceof TileFactoryController) {
             TileFactoryController tile = (TileFactoryController) world.getBlockTileEntity(x, y, z);

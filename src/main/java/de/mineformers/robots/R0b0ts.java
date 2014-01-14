@@ -13,8 +13,11 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import de.mineformers.robots.api.R0b0tsPlugin;
+import de.mineformers.robots.api.registry.ChipsetRegistry;
 import de.mineformers.robots.api.registry.ModuleRegistry;
 import de.mineformers.robots.block.ModBlocks;
+import de.mineformers.robots.chipset.ChipsetBasic;
+import de.mineformers.robots.chipset.ChipsetBlank;
 import de.mineformers.robots.config.ConfigurationHandler;
 import de.mineformers.robots.creativetab.CreativeTabR0b0ts;
 import de.mineformers.robots.entity.ModEntities;
@@ -73,6 +76,8 @@ public class R0b0ts {
         ModEntities.init();
         ModuleRegistry.instance().registerModule(new ModuleBlank());
         ModuleRegistry.instance().registerModule(new ModuleCrafting());
+        ChipsetRegistry.instance().registerChipset(new ChipsetBlank());
+        ChipsetRegistry.instance().registerChipset(new ChipsetBasic());
         for (R0b0tsPlugin plugin : PluginHandler.plugins())
             plugin.preInit(ModuleRegistry.instance());
     }

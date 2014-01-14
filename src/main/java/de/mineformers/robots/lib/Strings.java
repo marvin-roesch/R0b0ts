@@ -12,7 +12,9 @@ public class Strings {
 
     /* Item names */
     public static final String MODULE_BASE_NAME = "module";
+    public static final String CHIPSET_BASE_NAME = "chipset";
     public static final String BUDDY_NAME = "buddy";
+    public static final String ROBOT_NAME = "robot";
     public static final String DEBUG_TOOL_NAME = "debug";
 
     /* Block names */

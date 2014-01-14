@@ -1,7 +1,9 @@
 package de.mineformers.robots.inventory;
 
 import de.mineformers.robots.client.gui.container.FilteredIconSlot;
+import de.mineformers.robots.client.gui.container.OutputSlot;
 import de.mineformers.robots.client.gui.util.StackFilter;
+import de.mineformers.robots.item.ItemChipset;
 import de.mineformers.robots.item.ItemModule;
 import de.mineformers.robots.lib.ItemIds;
 import de.mineformers.robots.tileentity.TileFactoryController;
@@ -31,9 +33,9 @@ public class ContainerFactoryController extends Container {
     public ContainerFactoryController(InventoryPlayer inventoryPlayer, IInventory inventory) {
         tile = (TileFactoryController) inventory;
         this.addSlotToContainer(new RobotModuleSlot(inventory, 0, 5, 18));
-        this.addSlotToContainer(new FilteredIconSlot(inventory, 1, 5, 36, ResourceHelper.getModResource("textures/gui/slotChipset.png"), new StackFilter(ItemIds.MODULE)));
-        this.addSlotToContainer(new FilteredIconSlot(inventory, 2, 5, 54, ResourceHelper.getModResource("textures/gui/slotArmor.png"), new StackFilter(Item.plateChain.itemID), new StackFilter(Item.plateDiamond.itemID), new StackFilter(Item.plateGold.itemID), new StackFilter(Item.plateIron.itemID), new StackFilter(Item.plateLeather.itemID)));
-        this.addSlotToContainer(new FilteredIconSlot(inventory, 3, 5, 72, ResourceHelper.getModResource("textures/gui/slotModule.png"), new StackFilter(ItemIds.MODULE)));
+        this.addSlotToContainer(new RobotChipsetSlot(inventory, 1, 5, 36));
+        this.addSlotToContainer(new FilteredIconSlot(inventory, 2, 5, 54, ResourceHelper.getModResource("textures/gui/slotArmor.png"), new StackFilter(Item.plateChain.itemID), new StackFilter(Item.plateDiamond.itemID), new StackFilter(Item.plateGold.itemID), new StackFilter(Item.plateIron.itemID)));
+        this.addSlotToContainer(new OutputSlot(inventory, 3, 151, 94));
 
         for (int inventoryRowIndex = 0; inventoryRowIndex < PLAYER_INVENTORY_ROWS; ++inventoryRowIndex) {
             for (int inventoryColumnIndex = 0; inventoryColumnIndex < PLAYER_INVENTORY_COLUMNS; ++inventoryColumnIndex) {
@@ -62,12 +64,17 @@ public class ContainerFactoryController extends Container {
                 }
             } else {
                 if (slotItemStack.getItem() instanceof ItemModule) {
-                    if (!this.mergeItemStack(slotItemStack, 0, inventorySlots.size(), false)) {
+                    if (!this.mergeItemStack(slotItemStack, 0, 1, false)) {
+                        return null;
+                    }
+                }
+                if (slotItemStack.getItem() instanceof ItemChipset) {
+                    if (!this.mergeItemStack(slotItemStack, 1, 2, false)) {
                         return null;
                     }
                 }
                 if (((Slot) inventorySlots.get(2)).isItemValid(slotItemStack)) {
-                    if (!this.mergeItemStack(slotItemStack, 2, 1, false)) {
+                    if (!this.mergeItemStack(slotItemStack, 2, 3, false)) {
                         return null;
                     }
                 }
