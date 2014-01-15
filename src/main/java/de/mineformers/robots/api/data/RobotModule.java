@@ -21,7 +21,6 @@ public abstract class RobotModule {
     private String identifier;
     private String iconPath;
     private String unlocalizedName;
-    private Object[] recipe;
 
     public RobotModule(String identifier, String unlocalizedName, String iconPath) {
         this.identifier = identifier;
@@ -29,12 +28,8 @@ public abstract class RobotModule {
         this.iconPath = iconPath;
     }
 
-    public void setRecipe(Object[] recipe) {
-        this.recipe = recipe;
-    }
+    public void registerRecipe(ItemStack result, ItemStack blank) {
 
-    public Object[] getRecipe() {
-        return recipe;
     }
 
     public String getIdentifier() {

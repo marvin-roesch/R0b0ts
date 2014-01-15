@@ -3,6 +3,7 @@ package de.mineformers.robots.api.data;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
@@ -22,7 +23,6 @@ public class RobotChipset {
     private String unlocalizedName;
     private String description;
     private int range;
-    private Object[] recipe;
 
     public RobotChipset(String identifier, String unlocalizedName, String iconPath, int range, ResourceLocation headTexture) {
         this.identifier = identifier;
@@ -32,12 +32,8 @@ public class RobotChipset {
         this.headTexture = headTexture;
     }
 
-    public void setRecipe(Object[] recipe) {
-        this.recipe = recipe;
-    }
+    public void registerRecipe(ItemStack result, ItemStack blank) {
 
-    public Object[] getRecipe() {
-        return recipe;
     }
 
     public String getIdentifier() {

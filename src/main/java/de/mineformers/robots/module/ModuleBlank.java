@@ -1,9 +1,13 @@
 package de.mineformers.robots.module;
 
-import de.mineformers.robots.api.data.RobotModule;
+import cpw.mods.fml.common.registry.GameRegistry;
 import de.mineformers.robots.api.data.IModuleData;
+import de.mineformers.robots.api.data.RobotModule;
 import de.mineformers.robots.entity.EntityRobot;
+import net.minecraft.block.Block;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 /**
  * R0b0ts
@@ -17,6 +21,12 @@ public class ModuleBlank extends RobotModule {
 
     public ModuleBlank() {
         super("blank", "robots:blank", "robots:modules/blank");
+    }
+
+    @Override
+    public void registerRecipe(ItemStack result, ItemStack blank) {
+        GameRegistry.addShapedRecipe(result, "isi", "srs", "isi", 'r', new ItemStack(Item.redstone),
+                'i', new ItemStack(Item.ingotIron), 's', new ItemStack(Block.stone));
     }
 
     @Override

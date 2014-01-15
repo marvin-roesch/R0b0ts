@@ -13,6 +13,8 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import de.mineformers.robots.api.R0b0tsPlugin;
+import de.mineformers.robots.api.data.RobotChipset;
+import de.mineformers.robots.api.data.RobotModule;
 import de.mineformers.robots.api.registry.ChipsetRegistry;
 import de.mineformers.robots.api.registry.ModuleRegistry;
 import de.mineformers.robots.block.ModBlocks;
@@ -31,6 +33,7 @@ import de.mineformers.robots.module.ModuleCrafting;
 import de.mineformers.robots.network.PacketHandler;
 import de.mineformers.robots.plugin.PluginHandler;
 import de.mineformers.robots.proxy.CommonProxy;
+import de.mineformers.robots.util.PrivateRobotHelper;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -117,5 +120,10 @@ public class R0b0ts {
                 i++;
             }
         }
+
+        for(RobotModule module : ModuleRegistry.instance().getModules())
+            module.registerRecipe(PrivateRobotHelper.createModuleStack(module), PrivateRobotHelper.createDefaultModule());
+        for(RobotChipset chipset : ChipsetRegistry.instance().getChipsets())
+            chipset.registerRecipe(PrivateRobotHelper.createChipsetStack(chipset), PrivateRobotHelper.createDefaultChipset());
     }
 }

@@ -480,38 +480,38 @@ public class BlockFactory extends BlockBase {
 
     @Override
     public void registerIcons(IconRegister par1IconRegister) {
-        glassIcons[0] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "/glass");
-        glassIcons[1] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "/glass_1_d");
-        glassIcons[2] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "/glass_1_u");
-        glassIcons[3] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "/glass_1_l");
-        glassIcons[4] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "/glass_1_r");
-        glassIcons[5] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "/glass_2_h");
-        glassIcons[6] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "/glass_2_v");
-        glassIcons[7] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "/glass_2_dl");
-        glassIcons[8] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "/glass_2_dr");
-        glassIcons[9] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "/glass_2_ul");
-        glassIcons[10] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "/glass_2_ur");
-        glassIcons[11] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "/glass_3_d");
-        glassIcons[12] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "/glass_3_u");
-        glassIcons[13] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "/glass_3_l");
-        glassIcons[14] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "/glass_3_r");
-        glassIcons[15] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "/glass_4");
-        frameIcons[0] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "/frame");
-        frameIcons[1] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "/frame_1_d");
-        frameIcons[2] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "/frame_1_u");
-        frameIcons[3] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "/frame_1_l");
-        frameIcons[4] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "/frame_1_r");
-        frameIcons[5] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "/frame_2_h");
-        frameIcons[6] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "/frame_2_v");
-        frameIcons[7] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "/frame_2_dl");
-        frameIcons[8] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "/frame_2_dr");
-        frameIcons[9] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "/frame_2_ul");
-        frameIcons[10] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "/frame_2_ur");
-        frameIcons[11] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "/frame_3_d");
-        frameIcons[12] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "/frame_3_u");
-        frameIcons[13] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "/frame_3_l");
-        frameIcons[14] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "/frame_3_r");
-        frameIcons[15] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "/frame_4");
+        glassIcons[0] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "glass");
+        glassIcons[1] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "glass_1_d");
+        glassIcons[2] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "glass_1_u");
+        glassIcons[3] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "glass_1_l");
+        glassIcons[4] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "glass_1_r");
+        glassIcons[5] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "glass_2_h");
+        glassIcons[6] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "glass_2_v");
+        glassIcons[7] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "glass_2_dl");
+        glassIcons[8] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "glass_2_dr");
+        glassIcons[9] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "glass_2_ul");
+        glassIcons[10] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "glass_2_ur");
+        glassIcons[11] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "glass_3_d");
+        glassIcons[12] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "glass_3_u");
+        glassIcons[13] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "glass_3_l");
+        glassIcons[14] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "glass_3_r");
+        glassIcons[15] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "glass_4");
+        frameIcons[0] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "frame");
+        frameIcons[1] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "frame_1_d");
+        frameIcons[2] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "frame_1_u");
+        frameIcons[3] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "frame_1_l");
+        frameIcons[4] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "frame_1_r");
+        frameIcons[5] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "frame_2_h");
+        frameIcons[6] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "frame_2_v");
+        frameIcons[7] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "frame_2_dl");
+        frameIcons[8] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "frame_2_dr");
+        frameIcons[9] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "frame_2_ul");
+        frameIcons[10] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "frame_2_ur");
+        frameIcons[11] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "frame_3_d");
+        frameIcons[12] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "frame_3_u");
+        frameIcons[13] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "frame_3_l");
+        frameIcons[14] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "frame_3_r");
+        frameIcons[15] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "frame_4");
     }
 
     public boolean isOpaqueCube() {
