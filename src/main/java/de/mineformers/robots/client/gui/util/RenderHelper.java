@@ -5,6 +5,8 @@ import de.mineformers.robots.client.gui.system.Global;
 import de.mineformers.robots.util.ResourceHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -19,6 +21,8 @@ import org.lwjgl.util.Color;
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
 public class RenderHelper {
+
+    private final static RenderItem renderItem = new RenderItem();
 
     public static Minecraft getMC() {
         return FMLClientHandler.instance().getClient();
@@ -80,7 +84,7 @@ public class RenderHelper {
                                        boolean drawShadow) {
         String[] splits = text.split("<br>");
         for (int i = 0; i < splits.length; i++) {
-            getMC().fontRenderer.drawString(splits[i], x, y + i * 10, color,
+            getMC().fontRenderer.drawString(splits[i], x, y + i * (getMC().fontRenderer.FONT_HEIGHT + 1), color,
                     drawShadow);
         }
     }
@@ -333,6 +337,10 @@ public class RenderHelper {
             tessellator.draw();
         }
         GL11.glDisable(GL11.GL_SCISSOR_TEST);
+    }
+
+    public static void renderItemIntoGUI(ItemStack stack, int x, int y) {
+        renderItem.renderItemIntoGUI(getMC().fontRenderer, getMC().getTextureManager(), stack, x, y);
     }
 
 }

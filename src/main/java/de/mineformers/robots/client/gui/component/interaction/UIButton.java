@@ -113,12 +113,15 @@ public class UIButton extends UIComponent {
         return this.isInsideRegion(mouseX, mouseY, screenX, screenY, screenX + width, screenY + height);
     }
 
+    public void setText(String text) {
+        this.text = text;
+    }
+
     @Subscribe
     public void onClick(MouseClickEvent event) {
         switch (event.mouseButton) {
             case LEFT:
-                if (enabled)
-                    mc.sndManager.playSoundFX("random.click", 1.0F, 1.0F);
+                mc.sndManager.playSoundFX("random.click", 1.0F, 1.0F);
                 break;
         }
     }

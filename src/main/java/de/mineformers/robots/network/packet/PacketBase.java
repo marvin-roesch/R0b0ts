@@ -26,6 +26,7 @@ public abstract class PacketBase {
         ImmutableBiMap.Builder<Integer, Class<? extends PacketBase>> builder = ImmutableBiMap.builder();
         builder.put(0, PacketFactoryController.class);
         builder.put(1, PacketStartFactory.class);
+        builder.put(2, PacketBuddyBotSit.class);
         idMap = builder.build();
     }
 

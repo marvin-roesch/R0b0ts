@@ -6,6 +6,7 @@ import de.mineformers.robots.api.registry.ChipsetRegistry;
 import de.mineformers.robots.api.registry.ModuleRegistry;
 import de.mineformers.robots.client.gui.component.container.UIWindow;
 import de.mineformers.robots.client.gui.component.decorative.UICanvas;
+import de.mineformers.robots.client.gui.component.decorative.UICraftingSpace;
 import de.mineformers.robots.client.gui.component.decorative.UILabel;
 import de.mineformers.robots.client.gui.component.interaction.UIButton;
 import de.mineformers.robots.client.gui.component.interaction.UIProgressBar;
@@ -21,6 +22,9 @@ import de.mineformers.robots.network.packet.PacketStartFactory;
 import de.mineformers.robots.tileentity.TileFactoryController;
 import de.mineformers.robots.util.LangHelper;
 import de.mineformers.robots.util.ResourceHelper;
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
@@ -42,6 +46,7 @@ public class WindowRobotFactory extends UIWindow {
     private UIProgressBar progress;
 
     public WindowRobotFactory(TileFactoryController tile) {
+        super();
         super.initComponent();
         this.tile = tile;
 

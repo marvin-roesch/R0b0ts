@@ -1,6 +1,9 @@
 package de.mineformers.robots.entity;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import de.mineformers.robots.client.audio.SoundHandler;
+import de.mineformers.robots.client.gui.WindowIngameManual;
+import de.mineformers.robots.client.gui.minecraft.WidgetGuiScreen;
 import de.mineformers.robots.item.ModItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -52,8 +55,8 @@ public class EntityBuddyBot extends EntityTameable {
     public boolean interact(EntityPlayer player) {
         if (!player.isSneaking()) {
             if (this.isTamed()) {
-                if (player.getCommandSenderName().equalsIgnoreCase(this.getOwnerName()) && !this.worldObj.isRemote) {
-                    this.aiSit.setSitting(!this.isSitting());
+                if (player.getCommandSenderName().equalsIgnoreCase(this.getOwnerName()) && this.worldObj.isRemote) {
+                    FMLCommonHandler.instance().showGuiScreen(new WidgetGuiScreen(200, 200, new WindowIngameManual(this)));
                 }
             }
         } else {

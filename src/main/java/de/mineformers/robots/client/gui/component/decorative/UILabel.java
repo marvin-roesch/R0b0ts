@@ -67,6 +67,6 @@ public class UILabel extends UIComponent {
 
     @Override
     public void draw(int mouseX, int mouseY) {
-        this.drawString(text, screenX, screenY, color, drawShadow);
+        this.drawSplitString(text, screenX, screenY, color, drawShadow);
     }
 }
