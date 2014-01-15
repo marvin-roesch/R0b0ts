@@ -1,7 +1,10 @@
 package de.mineformers.robots.chipset;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import de.mineformers.robots.api.data.RobotChipset;
 import de.mineformers.robots.util.ResourceHelper;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 /**
  * R0b0ts
@@ -18,4 +21,8 @@ public class ChipsetBasic extends RobotChipset {
         this.setDescription("robots:basic");
     }
 
+    @Override
+     public void registerRecipe(ItemStack result, ItemStack blank) {
+        GameRegistry.addShapelessRecipe(result, blank, new ItemStack(Item.redstone));
+    }
 }
