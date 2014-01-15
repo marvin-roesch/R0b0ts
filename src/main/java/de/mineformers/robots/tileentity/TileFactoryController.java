@@ -1,7 +1,9 @@
 package de.mineformers.robots.tileentity;
 
 import de.mineformers.robots.R0b0ts;
-import de.mineformers.robots.api.Robot;
+import de.mineformers.robots.api.data.IModuleData;
+import de.mineformers.robots.api.data.Robot;
+import de.mineformers.robots.api.registry.ModuleRegistry;
 import de.mineformers.robots.api.util.RobotHelper;
 import de.mineformers.robots.lib.BlockIds;
 import de.mineformers.robots.lib.Reference;
@@ -90,7 +92,9 @@ public class TileFactoryController extends TileBase implements IInventory {
                             progress++;
                         if (progress >= 100)
                             if (getStackInSlot(3) == null) {
-                                setInventorySlotContents(3, PrivateRobotHelper.createItemStackFromRobot(getStackInSlot(1).hasDisplayName() ? getStackInSlot(1).getDisplayName() : null, new Robot(selectedModule, selectedChipset, armorId)));
+                                IModuleData data = ModuleRegistry.instance().getModule(selectedModule).getData();
+                                data.readFromNBT(getStackInSlot(0).getTagCompound().getCompoundTag("ModuleData"));
+                                setInventorySlotContents(3, PrivateRobotHelper.createItemStackFromRobot(getStackInSlot(1).hasDisplayName() ? getStackInSlot(1).getDisplayName() : null, new Robot(selectedModule, selectedChipset, armorId, data)));
                                 progress = 0;
                                 progressing = false;
                                 setInventorySlotContents(0, null);

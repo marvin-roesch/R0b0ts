@@ -1,6 +1,6 @@
 package de.mineformers.robots.chipset;
 
-import de.mineformers.robots.api.RobotChipset;
+import de.mineformers.robots.api.data.RobotChipset;
 import de.mineformers.robots.util.ResourceHelper;
 
 /**
@@ -14,7 +14,7 @@ import de.mineformers.robots.util.ResourceHelper;
 public class ChipsetBlank extends RobotChipset {
 
     public ChipsetBlank() {
-        super("blank", "robots:blank", "robots:chipsets/blank", ResourceHelper.getModResource("textures/entities/robot.png"));
+        super("blank", "robots:blank", "robots:chipsets/blank", -1, ResourceHelper.getModResource("textures/entities/robot.png"));
     }
 
     @Override

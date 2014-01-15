@@ -1,8 +1,9 @@
 package de.mineformers.robots.api.util;
 
-import de.mineformers.robots.api.Robot;
-import de.mineformers.robots.api.RobotChipset;
-import de.mineformers.robots.api.RobotModule;
+import de.mineformers.robots.api.data.IModuleData;
+import de.mineformers.robots.api.data.Robot;
+import de.mineformers.robots.api.data.RobotChipset;
+import de.mineformers.robots.api.data.RobotModule;
 import de.mineformers.robots.api.registry.ChipsetRegistry;
 import de.mineformers.robots.api.registry.ModuleRegistry;
 import net.minecraft.item.ItemStack;
@@ -23,8 +24,10 @@ public class RobotHelper {
         RobotChipset chipset = getChipsetFromItemStack(stack);
         int armorId = stack.getTagCompound().hasKey("ArmorID") ? stack.getTagCompound().getInteger("ArmorID") : -1;
         stack.getTagCompound().setInteger("ArmorID", armorId);
-
-        return new Robot(module, chipset, armorId);
+        IModuleData data = module.getData();
+        if(data != null)
+            data.readFromNBT(stack.getTagCompound().getCompoundTag("ModuleData"));
+        return new Robot(module, chipset, armorId, data);
     }
 
     public static RobotModule getModuleFromItemStack(ItemStack stack) {

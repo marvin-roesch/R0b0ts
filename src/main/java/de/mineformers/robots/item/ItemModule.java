@@ -2,7 +2,8 @@ package de.mineformers.robots.item;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import de.mineformers.robots.api.RobotModule;
+import de.mineformers.robots.api.data.RobotModule;
+import de.mineformers.robots.api.data.IModuleData;
 import de.mineformers.robots.api.registry.ModuleRegistry;
 import de.mineformers.robots.api.util.RobotHelper;
 import de.mineformers.robots.lib.Reference;
@@ -54,6 +55,11 @@ public class ItemModule extends ItemBase {
         for (RobotModule module : ModuleRegistry.instance().getModules()) {
             NBTTagCompound tag = new NBTTagCompound();
             tag.setString("ModuleName", module.getIdentifier());
+            NBTTagCompound moduleDataTag = new NBTTagCompound();
+            IModuleData data = module.getData();
+            if (data != null)
+                data.writeToNBT(moduleDataTag);
+            tag.setCompoundTag("ModuleData", moduleDataTag);
             ItemStack is = new ItemStack(this, 1, 0);
             is.setTagCompound(tag);
             list.add(is);

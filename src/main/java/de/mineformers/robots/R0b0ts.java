@@ -16,14 +16,17 @@ import de.mineformers.robots.api.R0b0tsPlugin;
 import de.mineformers.robots.api.registry.ChipsetRegistry;
 import de.mineformers.robots.api.registry.ModuleRegistry;
 import de.mineformers.robots.block.ModBlocks;
+import de.mineformers.robots.chipset.ChipsetAdvanced;
 import de.mineformers.robots.chipset.ChipsetBasic;
 import de.mineformers.robots.chipset.ChipsetBlank;
+import de.mineformers.robots.chipset.ChipsetExpert;
 import de.mineformers.robots.config.ConfigurationHandler;
 import de.mineformers.robots.creativetab.CreativeTabR0b0ts;
 import de.mineformers.robots.entity.ModEntities;
 import de.mineformers.robots.item.ModItems;
 import de.mineformers.robots.lib.Reference;
 import de.mineformers.robots.module.ModuleBlank;
+import de.mineformers.robots.module.ModuleCollect;
 import de.mineformers.robots.module.ModuleCrafting;
 import de.mineformers.robots.network.PacketHandler;
 import de.mineformers.robots.plugin.PluginHandler;
@@ -71,13 +74,18 @@ public class R0b0ts {
         PluginHandler.registerDefaults();
         ConfigurationHandler.init(new File(event.getModConfigurationDirectory(), Reference.MOD_ID + ".cfg"));
 
+        proxy.registerHandlers();
+
         ModBlocks.init();
         ModItems.init();
         ModEntities.init();
         ModuleRegistry.instance().registerModule(new ModuleBlank());
         ModuleRegistry.instance().registerModule(new ModuleCrafting());
+        ModuleRegistry.instance().registerModule(new ModuleCollect());
         ChipsetRegistry.instance().registerChipset(new ChipsetBlank());
         ChipsetRegistry.instance().registerChipset(new ChipsetBasic());
+        ChipsetRegistry.instance().registerChipset(new ChipsetAdvanced());
+        ChipsetRegistry.instance().registerChipset(new ChipsetExpert());
         for (R0b0tsPlugin plugin : PluginHandler.plugins())
             plugin.preInit(ModuleRegistry.instance());
     }

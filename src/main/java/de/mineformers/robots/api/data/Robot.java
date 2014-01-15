@@ -1,4 +1,4 @@
-package de.mineformers.robots.api;
+package de.mineformers.robots.api.data;
 
 import de.mineformers.robots.api.registry.ChipsetRegistry;
 import de.mineformers.robots.api.registry.ModuleRegistry;
@@ -14,17 +14,19 @@ import de.mineformers.robots.api.registry.ModuleRegistry;
 public class Robot {
 
     private RobotModule module;
+    private IModuleData data;
     private RobotChipset chipset;
     private int armorId;
 
-    public Robot(String moduleId, String chipsetId, int armorId) {
-        this(ModuleRegistry.instance().getModule(moduleId), ChipsetRegistry.instance().getChipset(chipsetId), armorId);
+    public Robot(String moduleId, String chipsetId, int armorId, IModuleData data) {
+        this(ModuleRegistry.instance().getModule(moduleId), ChipsetRegistry.instance().getChipset(chipsetId), armorId, data);
     }
 
-    public Robot(RobotModule module, RobotChipset chipset, int armorId) {
+    public Robot(RobotModule module, RobotChipset chipset, int armorId, IModuleData data) {
         this.module = module;
         this.chipset = chipset;
         this.armorId = armorId;
+        this.data = data;
     }
 
     public RobotModule getModule() {
@@ -37,5 +39,9 @@ public class Robot {
 
     public int getArmorId() {
         return armorId;
+    }
+
+    public IModuleData getData() {
+        return data;
     }
 }

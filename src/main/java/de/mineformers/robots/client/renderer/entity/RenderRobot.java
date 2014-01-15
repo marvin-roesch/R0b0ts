@@ -1,11 +1,10 @@
 package de.mineformers.robots.client.renderer.entity;
 
-import de.mineformers.robots.api.Robot;
+import de.mineformers.robots.api.data.Robot;
 import de.mineformers.robots.client.gui.util.RenderHelper;
 import de.mineformers.robots.client.model.ModelRobot;
 import de.mineformers.robots.entity.EntityRobot;
 import de.mineformers.robots.item.ModItems;
-import de.mineformers.robots.lib.Reference;
 import de.mineformers.robots.proxy.ClientProxy;
 import de.mineformers.robots.util.PrivateRobotHelper;
 import net.minecraft.client.Minecraft;
@@ -59,7 +58,7 @@ public class RenderRobot extends RendererLivingEntity {
         GL11.glTranslatef(0, 0.35F, -0.1F);
         GL11.glRotatef(180, 1, 0, 0);
         GL11.glScalef(0.5F, 0.5F, 1F);
-        ItemStack itemstack = PrivateRobotHelper.createItemStackFromRobot(null, new Robot(robot.getModule(), robot.getChipset(), robot.getArmorId()));
+        ItemStack itemstack = PrivateRobotHelper.createItemStackFromRobot(null, new Robot(robot.getModule(), robot.getChipset(), robot.getArmorId(), robot.getModule().getData()));
         Icon icon = ModItems.module.getIcon(itemstack, 0);
         float f4 = icon.getMinU();
         float f5 = icon.getMaxU();
@@ -86,6 +85,8 @@ public class RenderRobot extends RendererLivingEntity {
             }
 
             GL11.glColor4f(1, 1, 1, 1.0F);
+            GL11.glRotatef(180, 0, 1, 0);
+            GL11.glTranslatef(-1, 0, 0.05F);
             ItemRenderer.renderItemIn2D(tessellator, f5, f6, f4, f7, icon.getIconWidth(), icon.getIconHeight(), f12);
 
             if (itemstack.hasEffect(0)) {

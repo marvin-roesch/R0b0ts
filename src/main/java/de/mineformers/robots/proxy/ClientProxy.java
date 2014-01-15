@@ -2,9 +2,10 @@ package de.mineformers.robots.proxy;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import de.mineformers.robots.api.RobotModule;
+import de.mineformers.robots.api.data.RobotModule;
 import de.mineformers.robots.api.registry.ChipsetRegistry;
 import de.mineformers.robots.api.registry.ModuleRegistry;
+import de.mineformers.robots.client.audio.SoundHandler;
 import de.mineformers.robots.client.gui.WindowRobotFactory;
 import de.mineformers.robots.client.gui.component.container.UIPanel;
 import de.mineformers.robots.client.gui.minecraft.WidgetGuiContainer;
@@ -19,6 +20,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
 
 /**
  * R0b0ts
@@ -58,6 +60,12 @@ public class ClientProxy extends CommonProxy {
                 ((WindowRobotFactory) panel).setButtonState(tile.getArmorId() != -1 && !tile.getSelectedModule().equals("blank") && !tile.getSelectedChipset().equals("blank") && !tile.isProgressing());
             }
         }
+    }
+
+    @Override
+    public void registerHandlers() {
+        super.registerHandlers();
+        MinecraftForge.EVENT_BUS.register(new SoundHandler());
     }
 
     @Override

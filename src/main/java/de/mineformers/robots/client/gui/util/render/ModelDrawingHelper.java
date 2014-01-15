@@ -124,6 +124,8 @@ public class ModelDrawingHelper implements IDrawingHelper {
                 }
 
                 GL11.glColor4f(1, 1, 1, 1.0F);
+                GL11.glRotatef(180, 0, 1, 0);
+                GL11.glTranslatef(-1, 0, 0.05F);
                 ItemRenderer.renderItemIn2D(tessellator, f5, f6, f4, f7, icon.getIconWidth(), icon.getIconHeight(), f12);
 
                 if (itemstack.hasEffect(0)) {

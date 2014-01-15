@@ -24,10 +24,17 @@ gui.robots:button.close=Close
 # Module & chipset localizations
 module.robots:blank.name=<blank>
 module.robots:crafting.name=Crafting
+module.robots:collect.name=Collecting
 
 chipset.robots:blank.name=<blank>
 chipset.robots:basic.name=Basic
-chipset.robots:basic.description=16 block range
+chipset.robots:basic.description=8 block range
+
+chipset.robots:advanced.name=Advanced
+chipset.robots:advanced.description=16 block range
+
+chipset.robots:expert.name=Expert
+chipset.robots:expert.description=32 block range
 
 # Tooltip localizations
 tooltip.robots:moduleType=Type

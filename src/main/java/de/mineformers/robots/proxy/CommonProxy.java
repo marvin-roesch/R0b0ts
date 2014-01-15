@@ -28,6 +28,10 @@ public class CommonProxy implements IGuiHandler {
 
     }
 
+    public void registerHandlers() {
+
+    }
+
     public void registerTileEntities() {
         GameRegistry.registerTileEntity(TileFactoryController.class, TileFactoryController.class.getSimpleName());
     }

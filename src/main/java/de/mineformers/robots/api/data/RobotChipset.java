@@ -1,4 +1,4 @@
-package de.mineformers.robots.api;
+package de.mineformers.robots.api.data;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -21,13 +21,23 @@ public class RobotChipset {
     private final ResourceLocation headTexture;
     private String unlocalizedName;
     private String description;
+    private int range;
     private Object[] recipe;
 
-    public RobotChipset(String identifier, String unlocalizedName, String iconPath, ResourceLocation headTexture) {
+    public RobotChipset(String identifier, String unlocalizedName, String iconPath, int range, ResourceLocation headTexture) {
         this.identifier = identifier;
         this.unlocalizedName = unlocalizedName;
         this.iconPath = iconPath;
+        this.range = range;
         this.headTexture = headTexture;
+    }
+
+    public void setRecipe(Object[] recipe) {
+        this.recipe = recipe;
+    }
+
+    public Object[] getRecipe() {
+        return recipe;
     }
 
     public String getIdentifier() {
@@ -52,6 +62,10 @@ public class RobotChipset {
 
     public String getDescription() {
         return description;
+    }
+
+    public int getRange() {
+        return range;
     }
 
     @SideOnly(Side.CLIENT)

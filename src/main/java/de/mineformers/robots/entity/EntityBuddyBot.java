@@ -1,5 +1,6 @@
 package de.mineformers.robots.entity;
 
+import de.mineformers.robots.client.audio.SoundHandler;
 import de.mineformers.robots.item.ModItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -69,6 +70,21 @@ public class EntityBuddyBot extends EntityTameable {
             }
         }
         return true;
+    }
+
+    @Override
+    protected String getLivingSound() {
+        return SoundHandler.ROBOT_BLIP;
+    }
+
+    @Override
+    protected String getHurtSound() {
+        return SoundHandler.ROBOT_BLIP;
+    }
+
+    @Override
+    protected String getDeathSound() {
+        return SoundHandler.ROBOT_DEATH;
     }
 
     @Override

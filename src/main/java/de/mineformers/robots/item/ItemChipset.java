@@ -2,10 +2,8 @@ package de.mineformers.robots.item;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import de.mineformers.robots.api.RobotChipset;
-import de.mineformers.robots.api.RobotModule;
+import de.mineformers.robots.api.data.RobotChipset;
 import de.mineformers.robots.api.registry.ChipsetRegistry;
-import de.mineformers.robots.api.registry.ModuleRegistry;
 import de.mineformers.robots.api.util.RobotHelper;
 import de.mineformers.robots.lib.Reference;
 import de.mineformers.robots.lib.Strings;

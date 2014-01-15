@@ -1,9 +1,10 @@
 package de.mineformers.robots.api.registry;
 
-import de.mineformers.robots.api.RobotChipset;
+import de.mineformers.robots.api.data.RobotChipset;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  * R0b0ts
@@ -16,7 +17,7 @@ import java.util.HashMap;
 public class ChipsetRegistry {
 
     private static ChipsetRegistry instance;
-    private HashMap<String, RobotChipset> chipsets;
+    private LinkedHashMap<String, RobotChipset> chipsets;
 
     public static ChipsetRegistry instance() {
         if (instance == null)
@@ -25,7 +26,7 @@ public class ChipsetRegistry {
     }
 
     private ChipsetRegistry() {
-        chipsets = new HashMap<String, RobotChipset>();
+        chipsets = new LinkedHashMap<String, RobotChipset>();
     }
 
     public void registerChipset(RobotChipset chipset) {

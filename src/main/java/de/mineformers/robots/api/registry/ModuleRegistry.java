@@ -1,9 +1,10 @@
 package de.mineformers.robots.api.registry;
 
-import de.mineformers.robots.api.RobotModule;
+import de.mineformers.robots.api.data.RobotModule;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  * R0b0ts
@@ -16,7 +17,7 @@ import java.util.HashMap;
 public class ModuleRegistry {
 
     private static ModuleRegistry instance;
-    private HashMap<String, RobotModule> modules;
+    private LinkedHashMap<String, RobotModule> modules;
 
     public static ModuleRegistry instance() {
         if (instance == null)
@@ -25,7 +26,7 @@ public class ModuleRegistry {
     }
 
     private ModuleRegistry() {
-        modules = new HashMap<String, RobotModule>();
+        modules = new LinkedHashMap<String, RobotModule>();
     }
 
     public void registerModule(RobotModule module) {

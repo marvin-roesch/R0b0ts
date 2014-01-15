@@ -6,16 +6,16 @@ import de.mineformers.robots.util.ResourceHelper;
 /**
  * R0b0ts
  * <p/>
- * ChipsetBasic
+ * ChipsetExpert
  *
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class ChipsetBasic extends RobotChipset {
+public class ChipsetExpert extends RobotChipset {
 
-    public ChipsetBasic() {
-        super("basic", "robots:basic", "robots:chipsets/basic", 8, ResourceHelper.getModResource("textures/entities/chipset_basic.png"));
-        this.setDescription("robots:basic");
+    public ChipsetExpert() {
+        super("expert", "robots:expert", "robots:chipsets/expert", 32, ResourceHelper.getModResource("textures/entities/chipset_expert.png"));
+        this.setDescription("robots:expert");
     }
 
 }

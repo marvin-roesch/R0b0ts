@@ -1,6 +1,7 @@
 package de.mineformers.robots.util;
 
-import de.mineformers.robots.api.Robot;
+import de.mineformers.robots.api.data.Robot;
+import de.mineformers.robots.api.data.IModuleData;
 import de.mineformers.robots.item.ModItems;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -23,6 +24,11 @@ public class PrivateRobotHelper {
         stack.getTagCompound().setString("ModuleName", robot.getModule().getIdentifier());
         stack.getTagCompound().setString("ChipsetName", robot.getChipset().getIdentifier());
         stack.getTagCompound().setInteger("ArmorID", robot.getArmorId());
+        NBTTagCompound moduleDataTag = new NBTTagCompound();
+        IModuleData data = robot.getData();
+        if (data != null)
+            data.writeToNBT(moduleDataTag);
+        stack.getTagCompound().setCompoundTag("ModuleData", moduleDataTag);
         return stack;
     }
 
