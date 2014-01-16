@@ -5,7 +5,6 @@ import de.mineformers.robots.api.data.RobotChipset;
 import de.mineformers.robots.util.ResourceHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 /**

@@ -1,9 +1,8 @@
 package de.mineformers.robots.client.gui.manual;
 
+import de.mineformers.robots.client.gui.WindowIngameManual;
 import de.mineformers.robots.client.gui.component.decorative.UICraftingSpace;
-import de.mineformers.robots.client.gui.component.decorative.UILabel;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ShapedRecipes;
+import org.w3c.dom.Element;
 
 /**
  * R0b0ts
@@ -13,19 +12,20 @@ import net.minecraft.item.crafting.ShapedRecipes;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class PageCrafting extends ManualPage {
+public class PageCrafting extends PageText {
 
-    private UILabel text;
     private UICraftingSpace craftingSpace;
 
-    public PageCrafting(String heading, String text, ItemStack result, ItemStack[] items) {
-        super(heading);
-        this.text = new UILabel(text);
-        int y = (text.split("<br>").length + 1) * (mc.fontRenderer.FONT_HEIGHT + 1) + 4;
+    private void init(String recipeKey) {
+        int y = text.getHeight() + 4;
         this.craftingSpace = new UICraftingSpace();
-        craftingSpace.setRecipe(new ShapedRecipes(3, 3, items, result));
-        this.addComponent(this.text, 0, mc.fontRenderer.FONT_HEIGHT + 2);
+        craftingSpace.setRecipe(WindowIngameManual.recipes.get(recipeKey));
         this.addComponent(craftingSpace, 23, y);
     }
 
+    @Override
+    public void loadFromXML(Element element) {
+        super.loadFromXML(element);
+        this.init(element.getElementsByTagName("recipe").item(0).getTextContent());
+    }
 }

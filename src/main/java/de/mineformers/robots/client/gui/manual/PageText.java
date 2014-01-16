@@ -1,6 +1,8 @@
 package de.mineformers.robots.client.gui.manual;
 
 import de.mineformers.robots.client.gui.component.decorative.UILabel;
+import de.mineformers.robots.proxy.ClientProxy;
+import org.w3c.dom.Element;
 
 /**
  * R0b0ts
@@ -12,12 +14,17 @@ import de.mineformers.robots.client.gui.component.decorative.UILabel;
  */
 public class PageText extends ManualPage {
 
-    private UILabel text;
+    protected UILabel text;
 
-    public PageText(String heading, String text) {
-        super(heading);
+    private void init(String text) {
         this.text = new UILabel(text);
+        this.text.setFontRenderer("small");
         this.addComponent(this.text, 0, this.mc.fontRenderer.FONT_HEIGHT + 2);
     }
 
+    @Override
+    public void loadFromXML(Element element) {
+        super.loadFromXML(element);
+        this.init(element.getElementsByTagName("text").item(0).getTextContent());
+    }
 }

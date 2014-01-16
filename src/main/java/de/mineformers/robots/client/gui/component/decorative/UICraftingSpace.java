@@ -20,9 +20,11 @@ public class UICraftingSpace extends UIComponent {
 
     private static final ResourceLocation texture = new ResourceLocation("textures/gui/container/crafting_table.png");
     private ShapedRecipes recipe;
+    private final UITooltip tooltip;
 
     public UICraftingSpace() {
         super(texture);
+        this.tooltip = new UITooltip();
         this.width = 126;
         this.height = 64;
     }
@@ -38,16 +40,32 @@ public class UICraftingSpace extends UIComponent {
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         if (recipe != null) {
             net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
-            for (int x = 0; x < recipe.recipeWidth; x++) {
-                for (int y = 0; y < recipe.recipeHeight; y++) {
-                    if (recipe.recipeItems[x + y] != null) {
+            int i = 0;
+            for (int y = 1; y <= recipe.recipeHeight; y++) {
+                for (int x = 1; x <= recipe.recipeWidth; x++) {
+                    if (recipe.recipeItems[i] != null) {
                         GL11.glColor4f(1, 1, 1, 1);
-                        RenderHelper.renderItemIntoGUI(recipe.recipeItems[x + y], screenX + 6 + 18 * x, screenY + 6 + 18 * y);
+                        int posX = screenX + 6 + 18 * (x - 1);
+                        int posY = screenY + 6 + 18 * (y - 1);
+                        if (this.isInsideRegion(mouseX, mouseY, posX, posY, posX + 18, posY + 18)) {
+                            tooltip.reset();
+                            tooltip.addLine(recipe.recipeItems[i].getDisplayName());
+                            tooltip.draw(mouseX, mouseY);
+                        }
+                        RenderHelper.renderItemIntoGUI(recipe.recipeItems[i], posX, posY);
                     }
+                    i++;
                 }
             }
-            RenderHelper.renderItemIntoGUI(recipe.getRecipeOutput(), screenX + 100, screenY + 24);
-            net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
+            if (recipe.getRecipeOutput() != null) {
+                if (this.isInsideRegion(mouseX, mouseY, screenX + 100, screenY + 24, screenX + 100 + 18, screenY + 24 + 18)) {
+                    tooltip.reset();
+                    tooltip.addLine(recipe.getRecipeOutput().getDisplayName());
+                    tooltip.draw(mouseX, mouseY);
+                }
+                RenderHelper.renderItemIntoGUI(recipe.getRecipeOutput(), screenX + 100, screenY + 24);
+                net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
+            }
         }
     }
 

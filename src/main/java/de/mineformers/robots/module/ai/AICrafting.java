@@ -2,7 +2,6 @@ package de.mineformers.robots.module.ai;
 
 import de.mineformers.robots.entity.EntityRobot;
 import de.mineformers.robots.util.Vector3;
-import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.inventory.IInventory;

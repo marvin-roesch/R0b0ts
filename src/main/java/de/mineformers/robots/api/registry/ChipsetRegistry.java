@@ -3,7 +3,6 @@ package de.mineformers.robots.api.registry;
 import de.mineformers.robots.api.data.RobotChipset;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 /**

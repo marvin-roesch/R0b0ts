@@ -18,6 +18,31 @@ import java.io.IOException;
 public class UIImage extends UIComponent {
 
     private int scale;
+    private int uvWidth, uvHeight;
+
+    public UIImage(ResourceLocation image, int width, int height) {
+        super(image);
+        this.width = width;
+        this.height = height;
+        try {
+            BufferedImage temp = ImageIO.read(mc.getResourceManager().getResource(image).getInputStream());
+            this.uvWidth = temp.getWidth();
+            this.uvHeight = temp.getHeight();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        scale = 1;
+    }
+
+    public UIImage(ResourceLocation image, int width, int height, int uvWidth, int uvHeight) {
+        super(image);
+        this.width = width;
+        this.height = height;
+        this.uvWidth = uvWidth;
+        this.uvHeight = uvHeight;
+        scale = 1;
+    }
+
 
     public UIImage(ResourceLocation image) {
         this(image, 1);
@@ -29,6 +54,8 @@ public class UIImage extends UIComponent {
             BufferedImage temp = ImageIO.read(mc.getResourceManager().getResource(image).getInputStream());
             this.width = temp.getWidth() * scale;
             this.height = temp.getHeight() * scale;
+            this.uvWidth = temp.getWidth();
+            this.uvHeight = temp.getHeight();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -47,8 +74,8 @@ public class UIImage extends UIComponent {
 
     @Override
     public void draw(int mouseX, int mouseY) {
-        if (!texture.getResourcePath().toLowerCase().startsWith("textures/items") && !texture.getResourcePath().toLowerCase().startsWith("texturs/blocks"))
-            this.drawRectangle(screenX, screenY, 0, 0, width, height);
+        if (!texture.getResourcePath().toLowerCase().startsWith("textures/items") && !texture.getResourcePath().toLowerCase().startsWith("textures/blocks"))
+            this.drawRectangleStretched(screenX, screenY, 0, 0, width, height, uvWidth, uvHeight);
         else
             this.drawRectangleStretched(screenX, screenY, 0, 0, 16 * scale, 16 * scale, 256, 256);
     }

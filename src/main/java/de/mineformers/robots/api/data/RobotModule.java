@@ -2,7 +2,6 @@ package de.mineformers.robots.api.data;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import de.mineformers.robots.api.data.IModuleData;
 import de.mineformers.robots.entity.EntityRobot;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.item.ItemStack;

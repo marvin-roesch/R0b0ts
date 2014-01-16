@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manual>
+    <page type="welcome">
+        <heading>Welcome</heading>
+        <text><![CDATA[I'm your personal BuddyBot.<br>I'll give you advice on how to<br>create your very own robots!<br>turn to the next page to get<br>started.<br><br>Content:]]></text>
+        <links>
+            <link>
+                <action>recipes</action>
+                <label>Recipes</label>
+                <jump>1</jump>
+            </link>
+            <link>
+                <action>factory</action>
+                <label>Building the factory</label>
+                <jump>2</jump>
+            </link>
+            <link>
+                <action>robots</action>
+                <label>Creating robots</label>
+                <jump>3</jump>
+            </link>
+        </links>
+    </page>
+    <page type="crafting">
+        <heading>Recipes</heading>
+        <text>Whatever</text>
+        <recipe>blankChipset</recipe>
+    </page>
+    <page type="picture">
+        <heading>How to build the factory</heading>
+        <text><![CDATA[Just build the following structure<br>out of factory frames,<br>glass and the controller]]></text>
+        <picture>
+            <location>textures/pictures/build-factory.png</location>
+            <width>130</width>
+            <height>98</height>
+            <uvWidth>802</uvWidth>
+            <uvHeight>602</uvHeight>
+        </picture>
+    </page>
+    <page type="text">
+        <heading>Recipes</heading>
+        <text>Whatever</text>
+    </page>
+</manual>

@@ -1,10 +1,9 @@
 package de.mineformers.robots.util;
 
-import de.mineformers.robots.api.data.Robot;
 import de.mineformers.robots.api.data.IModuleData;
+import de.mineformers.robots.api.data.Robot;
 import de.mineformers.robots.api.data.RobotChipset;
 import de.mineformers.robots.api.data.RobotModule;
-import de.mineformers.robots.api.registry.ModuleRegistry;
 import de.mineformers.robots.item.ModItems;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

@@ -8,14 +8,16 @@ import de.mineformers.robots.client.gui.component.interaction.UIButton;
 import de.mineformers.robots.client.gui.component.interaction.UINavigationButton;
 import de.mineformers.robots.client.gui.component.layout.UIAbsoluteLayout;
 import de.mineformers.robots.client.gui.event.MouseClickEvent;
-import de.mineformers.robots.client.gui.manual.ManualPage;
-import de.mineformers.robots.client.gui.manual.PageCrafting;
-import de.mineformers.robots.client.gui.manual.PageWelcome;
+import de.mineformers.robots.client.gui.manual.*;
 import de.mineformers.robots.entity.EntityBuddyBot;
 import de.mineformers.robots.network.packet.PacketBuddyBotSit;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.ShapedRecipes;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
 /**
@@ -28,12 +30,22 @@ import java.util.LinkedList;
  */
 public class WindowIngameManual extends UIWindow {
 
+    public static Document document;
+    private static final HashMap<String, Class<? extends ManualPage>> pageClasses = new HashMap<String, Class<? extends ManualPage>>();
+    public static final HashMap<String, ShapedRecipes> recipes = new HashMap<String, ShapedRecipes>();
     private LinkedList<ManualPage> pages;
     private UINavigationButton btnPrev, btnNext;
     private UIButton btnSit;
     private UIPanel canvas;
     private EntityBuddyBot bot;
     private int currentPage;
+
+    static {
+        pageClasses.put("welcome", PageWelcome.class);
+        pageClasses.put("crafting", PageCrafting.class);
+        pageClasses.put("text", PageText.class);
+        pageClasses.put("picture", PagePicture.class);
+    }
 
     public WindowIngameManual(EntityBuddyBot bot) {
         super();
@@ -64,10 +76,21 @@ public class WindowIngameManual extends UIWindow {
     }
 
     private void initPages() {
-        pages.add(new PageWelcome());
-        pages.add(new PageCrafting("How to craft x", "An item", new ItemStack(Block.cobblestone), new ItemStack[]{new ItemStack(Block.stone), new ItemStack(Block.stone), new ItemStack(Block.stone),
-                new ItemStack(Block.stone), null, new ItemStack(Block.stone),
-                new ItemStack(Block.stone), new ItemStack(Block.stone), new ItemStack(Block.stone)}));
+        try {
+            NodeList nodes = document.getDocumentElement().getElementsByTagName("page");
+            if (nodes != null)
+                for (int i = 0; i < nodes.getLength(); i++) {
+                    if (nodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
+                        Element element = (Element) nodes.item(i);
+                        Class<? extends ManualPage> clazz = pageClasses.get(element.getAttribute("type"));
+                        ManualPage page = clazz.newInstance();
+                        page.loadFromXML(element);
+                        pages.add(page);
+                    }
+                }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Subscribe

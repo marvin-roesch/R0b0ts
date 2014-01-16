@@ -5,7 +5,6 @@ import de.mineformers.robots.client.gui.component.decorative.UITooltip;
 import de.mineformers.robots.client.gui.component.inventory.UIInfoTab;
 import de.mineformers.robots.client.gui.util.Orientation;
 import de.mineformers.robots.client.gui.util.Padding;
-import de.mineformers.robots.client.gui.util.RenderHelper;
 import org.lwjgl.opengl.GL11;
 
 import java.util.LinkedList;
@@ -77,14 +76,9 @@ public class UIWindow extends UIPanel {
         this.drawRectangleStretched(screenX + 5, screenY + 5, 37, 7, width - 10,
                 height - 10, 1, 1);
 
-        int scale = RenderHelper.computeGuiScale();
-
         if (layout != null) {
-            GL11.glScissor((screenX + padding.left) * scale, mc.displayHeight - (screenY + height - padding.bottom) * scale, (width - padding.right - padding.left) * scale, (height - padding.bottom - padding.top) * scale);
-            GL11.glEnable(GL11.GL_SCISSOR_TEST);
             layout.setScreenPos(screenX + padding.left, screenY + padding.top);
             layout.draw(mouseX, mouseY);
-            GL11.glDisable(GL11.GL_SCISSOR_TEST);
             layout.drawTooltips(mouseX, mouseY);
         }
 

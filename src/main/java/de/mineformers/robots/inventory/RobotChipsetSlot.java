@@ -3,7 +3,6 @@ package de.mineformers.robots.inventory;
 import de.mineformers.robots.api.util.RobotHelper;
 import de.mineformers.robots.client.gui.container.IconSlot;
 import de.mineformers.robots.item.ItemChipset;
-import de.mineformers.robots.item.ItemModule;
 import de.mineformers.robots.util.ResourceHelper;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;

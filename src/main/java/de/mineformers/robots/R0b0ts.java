@@ -125,5 +125,6 @@ public class R0b0ts {
             module.registerRecipe(PrivateRobotHelper.createModuleStack(module), PrivateRobotHelper.createDefaultModule());
         for(RobotChipset chipset : ChipsetRegistry.instance().getChipsets())
             chipset.registerRecipe(PrivateRobotHelper.createChipsetStack(chipset), PrivateRobotHelper.createDefaultChipset());
+        proxy.loadManual();
     }
 }

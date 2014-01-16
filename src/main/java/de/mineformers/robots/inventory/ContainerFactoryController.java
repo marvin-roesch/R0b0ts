@@ -5,7 +5,6 @@ import de.mineformers.robots.client.gui.container.OutputSlot;
 import de.mineformers.robots.client.gui.util.StackFilter;
 import de.mineformers.robots.item.ItemChipset;
 import de.mineformers.robots.item.ItemModule;
-import de.mineformers.robots.lib.ItemIds;
 import de.mineformers.robots.tileentity.TileFactoryController;
 import de.mineformers.robots.util.ResourceHelper;
 import net.minecraft.entity.player.EntityPlayer;

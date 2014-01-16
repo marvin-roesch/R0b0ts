@@ -179,6 +179,10 @@ public class RenderHelper {
                 f = 1;
             if ((v > 0 && v % 1 != 0) || vMax == 1 || vMax % 1 != 0)
                 f1 = 1;
+            if(uMax > 256)
+                f = f1 = f / 2;
+            if(uMax > 512)
+                f = f1 = f / 2;
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
             Tessellator tessellator = Tessellator.instance;

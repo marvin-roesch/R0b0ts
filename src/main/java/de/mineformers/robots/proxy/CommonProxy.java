@@ -2,10 +2,8 @@ package de.mineformers.robots.proxy;
 
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
-import de.mineformers.robots.client.gui.WindowIngameManual;
 import de.mineformers.robots.client.gui.WindowRobotFactory;
 import de.mineformers.robots.client.gui.minecraft.WidgetGuiContainer;
-import de.mineformers.robots.client.gui.minecraft.WidgetGuiScreen;
 import de.mineformers.robots.inventory.ContainerFactoryController;
 import de.mineformers.robots.tileentity.TileFactoryController;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,6 +25,10 @@ public class CommonProxy implements IGuiHandler {
     }
 
     public void registerRenderers() {
+
+    }
+
+    public void loadManual() {
 
     }
 

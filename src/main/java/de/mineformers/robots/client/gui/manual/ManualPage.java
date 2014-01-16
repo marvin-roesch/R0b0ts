@@ -2,6 +2,7 @@ package de.mineformers.robots.client.gui.manual;
 
 import de.mineformers.robots.client.gui.component.decorative.UILabel;
 import de.mineformers.robots.client.gui.component.layout.UIAbsoluteLayout;
+import org.w3c.dom.Element;
 
 /**
  * R0b0ts
@@ -11,14 +12,17 @@ import de.mineformers.robots.client.gui.component.layout.UIAbsoluteLayout;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class ManualPage extends UIAbsoluteLayout {
+public abstract class ManualPage extends UIAbsoluteLayout {
 
     protected UILabel heading;
 
-    public ManualPage(String heading) {
-        super();
-        this.heading = new UILabel("\247l" + heading);
+    private void init(String heading) {
+        this.heading = new UILabel("\247l" + heading, "small");
         this.addComponent(this.heading);
+    }
+
+    public void loadFromXML(Element element) {
+        this.init(element.getElementsByTagName("heading").item(0).getTextContent());
     }
 
 }

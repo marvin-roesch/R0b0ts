@@ -1,8 +1,8 @@
 package de.mineformers.robots.module;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import de.mineformers.robots.api.data.RobotModule;
 import de.mineformers.robots.api.data.IModuleData;
+import de.mineformers.robots.api.data.RobotModule;
 import de.mineformers.robots.entity.EntityRobot;
 import de.mineformers.robots.module.ai.AICrafting;
 import de.mineformers.robots.module.data.CraftingData;
