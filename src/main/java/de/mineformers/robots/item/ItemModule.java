@@ -16,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
+import net.minecraft.world.World;
 
 import java.util.HashMap;
 import java.util.List;
@@ -64,6 +65,11 @@ public class ItemModule extends ItemBase {
             is.setTagCompound(tag);
             list.add(is);
         }
+    }
+
+    @Override
+    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+        return RobotHelper.getModuleFromItemStack(stack).onItemRightClick(stack, world, player);
     }
 
     @Override

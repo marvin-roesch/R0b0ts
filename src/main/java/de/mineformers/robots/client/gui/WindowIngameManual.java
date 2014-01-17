@@ -11,6 +11,7 @@ import de.mineformers.robots.client.gui.event.MouseClickEvent;
 import de.mineformers.robots.client.gui.manual.*;
 import de.mineformers.robots.entity.EntityBuddyBot;
 import de.mineformers.robots.network.packet.PacketBuddyBotSit;
+import de.mineformers.robots.util.LangHelper;
 import net.minecraft.item.crafting.ShapedRecipes;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -52,7 +53,7 @@ public class WindowIngameManual extends UIWindow {
         this.bot = bot;
         pages = new LinkedList<ManualPage>();
         UIAbsoluteLayout layout = new UIAbsoluteLayout();
-        btnSit = new UIButton(55, 20, bot.isSitting() ? "Stand" : "Sit");
+        btnSit = new UIButton(55, 20, bot.isSitting() ? LangHelper.translate("gui", "button.stand") : LangHelper.translate("gui", "button.sit"));
         btnSit.setAction("sit");
         btnSit.addListener(this);
         btnPrev = new UINavigationButton(UINavigationButton.TYPE_PREV);
@@ -98,7 +99,7 @@ public class WindowIngameManual extends UIWindow {
         if (event.getComponent().getAction().equals(btnSit.getAction())) {
             bot.setSitting(!bot.isSitting());
             PacketDispatcher.sendPacketToServer(new PacketBuddyBotSit(bot.entityId).makePacket());
-            btnSit.setText(bot.isSitting() ? "Stand" : "Sit");
+            btnSit.setText(bot.isSitting() ? LangHelper.translate("gui", "button.stand") : LangHelper.translate("gui", "button.sit"));
         }
 
         if (event.getComponent().getAction().equals(btnNext.getAction())) {

@@ -37,7 +37,7 @@ public class AICollect extends EntityAIBase {
             return true;
         if (!robot.worldObj.isRemote) {
             if (robot.worldObj.getBlockTileEntity((int) pos.x, (int) pos.y, (int) pos.z) instanceof IInventory) {
-                if (target == null) {
+                if (target == null && robot.getStackInSlot(0) == null) {
                     int range = robot.getChipset().getRange();
                     List<?> entities = robot.worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(pos.x - range / 2, pos.y - 1, pos.z - range / 2, pos.x + range / 2, pos.y + 1, pos.z + range / 2));
                     if (entities.size() > 0 && robot.getStackInSlot(0) == null)
@@ -70,9 +70,10 @@ public class AICollect extends EntityAIBase {
                 } else {
                     IInventory inventory = (IInventory) robot.worldObj.getBlockTileEntity((int) pos.x, (int) pos.y, (int) pos.z);
                     if (robot.getStackInSlot(0) != null) {
-                        if (this.putStack(inventory, robot.getStackInSlot(0))) {
-                            robot.setInventorySlotContents(0, null);
-                        }
+                        if (hasSpaceFor(inventory, robot.getStackInSlot(0)))
+                            if (this.putStack(inventory, robot.getStackInSlot(0))) {
+                                robot.setInventorySlotContents(0, null);
+                            }
                     }
                 }
             }
@@ -110,15 +111,15 @@ public class AICollect extends EntityAIBase {
         return false;
     }
 
-    private boolean hasSpace(IInventory inventory) {
+    private boolean hasSpaceFor(IInventory inventory, ItemStack result) {
         for (int i = 0; i < inventory.getSizeInventory(); i++) {
             ItemStack stack = inventory.getStackInSlot(i);
             if (stack == null)
                 return true;
-            if (stack.stackSize < stack.getMaxStackSize())
-                return true;
+            if (stack.isItemEqual(result))
+                if (stack.stackSize < stack.getMaxStackSize())
+                    return true;
         }
         return false;
     }
-
 }

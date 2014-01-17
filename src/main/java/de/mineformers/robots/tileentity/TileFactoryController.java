@@ -86,7 +86,7 @@ public class TileFactoryController extends TileBase implements IInventory {
         super.updateEntity();
         if (!worldObj.isRemote)
             if (progressing) {
-                if (!selectedModule.equals("blank") && !selectedChipset.equals("blank") && armorId != -1) {
+                if (!selectedModule.equals("blank") && !selectedChipset.equals("blank") && armorId != -1 && ModuleRegistry.instance().getModule(selectedModule).validateStack(getStackInSlot(0))) {
                     if (isValidMultiblock()) {
                         if (progress < 100)
                             progress++;

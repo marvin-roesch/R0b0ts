@@ -2,33 +2,123 @@
 <manual>
     <page type="welcome">
         <heading>Welcome</heading>
-        <text><![CDATA[I'm your personal BuddyBot.<br>I'll give you advice on how to<br>create your very own robots!<br>turn to the next page to get<br>started.<br><br>Content:]]></text>
+        <text><![CDATA[I'm your personal BuddyBot.<br>
+I'll give you advice on how to create<br>
+your very own robots! Turn to the next<br>
+page to get started.<br><br>
+§nContent:]]></text>
         <links>
+            <link>
+                <action>basics</action>
+                <label>Basics</label>
+                <jump>1</jump>
+            </link>
             <link>
                 <action>recipes</action>
                 <label>Recipes</label>
-                <jump>1</jump>
+                <jump>2</jump>
             </link>
             <link>
                 <action>factory</action>
                 <label>Building the factory</label>
-                <jump>2</jump>
+                <jump>8</jump>
             </link>
             <link>
                 <action>robots</action>
                 <label>Creating robots</label>
-                <jump>3</jump>
+                <jump>9</jump>
             </link>
         </links>
     </page>
-    <page type="crafting">
+    <page type="text">
+        <heading>Basics</heading>
+        <text><![CDATA[Robots consist of multiple parts:<br>
+§nModules§r<br>
+Modules are the parts of your robot<br>
+which determine its functionality.<br>
+§nChipsets§r<br>
+Your robot's chipset defines its range of<br>
+operation<br>
+§nArmor§r<br>
+A robot isn't indestructible!<br>
+Therefore you have to equip it with armor<br>
+Currently only Chain, Iron, Gold and Diamond<br>
+chestplates are allowed.]]></text>
+    </page>
+    <page type="text">
         <heading>Recipes</heading>
-        <text>Whatever</text>
+        <text><![CDATA[This mod adds a couple of different<br>
+recipes you need to craft, when you<br>
+want to create your own robots.<br>
+You'll find them on the following<br>
+pages.<br>
+In this manual we mainly describe<br>
+the basic recipes, but there are<br>
+specific recipes for each module and<br>
+chipset. To lookup those we recommend<br>
+tools like NotEnoughItems.<br>
+Also, we can't display recipes added<br>
+by add-ons to this mod here due to<br>
+technical reasons.]]></text>
+    </page>
+    <page type="crafting">
+        <heading>Blank chipset</heading>
+        <text><![CDATA[The blank chipset is used as base<br>
+for all the other chipsets. Most chipsets<br>
+follow a shapeless pattern with the<br>
+blank one + a dust like Redstone,<br>
+Lapis Lazuli or Glowstone.
+]]></text>
         <recipe>blankChipset</recipe>
+    </page>
+    <page type="crafting">
+        <heading>Blank module</heading>
+        <text><![CDATA[The blank module is used as base<br>
+for all the other modules. Most modules<br>
+follow a shapeless pattern with the<br>
+blank one + block or item which fits<br>
+their function best.
+]]></text>
+        <recipe>blankModule</recipe>
+    </page>
+    <page type="crafting">
+        <heading>Factory controller</heading>
+        <text><![CDATA[The factory controller is used<br>
+as master block of a robot factory.<br>
+It holds all relevant data and also<br>
+is the main interface for users.<br>
+It's used in the factory structure.
+]]></text>
+        <recipe>factoryController</recipe>
+    </page>
+    <page type="crafting">
+        <heading>Factory frame</heading>
+        <text><![CDATA[The factory frame is used<br>
+as building part of the robot<br>
+factory. It doesn't have any<br>
+important function, but it's<br>
+rendered with connected textures.
+]]></text>
+        <recipe>factoryFrame</recipe>
+    </page>
+    <page type="crafting">
+        <heading>Factory glass</heading>
+        <text><![CDATA[The factory glass is used<br>
+as building part of the robot<br>
+factory. It doesn't have any<br>
+important function, but it's<br>
+rendered with connected textures.<br>
+It's not necessarily needed<br>
+in the structure.
+]]></text>
+        <recipe>factoryGlass</recipe>
     </page>
     <page type="picture">
         <heading>How to build the factory</heading>
-        <text><![CDATA[Just build the following structure<br>out of factory frames,<br>glass and the controller]]></text>
+        <text><![CDATA[Just build the following structure<br>
+out of factory frames,<br>
+factory glass (can be frames as well)<br>
+and the controller]]></text>
         <picture>
             <location>textures/pictures/build-factory.png</location>
             <width>130</width>

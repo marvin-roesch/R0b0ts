@@ -1,5 +1,6 @@
 package de.mineformers.robots.item;
 
+import de.mineformers.robots.api.data.IModuleData;
 import de.mineformers.robots.api.data.Robot;
 import de.mineformers.robots.api.util.RobotHelper;
 import de.mineformers.robots.entity.EntityRobot;
@@ -45,10 +46,13 @@ public class ItemRobot extends ItemBase {
             Robot robot = RobotHelper.getRobotFromItemStack(stack);
             EntityRobot entity = new EntityRobot(world, new Vector3(x, y, z));
             entity.setModule(robot.getModule());
+            IModuleData data = entity.getModuleData();
+            data.readFromNBT(stack.getTagCompound().getCompoundTag("ModuleData"));
+            entity.setModuleData(data);
             entity.setChipset(robot.getChipset());
             entity.setArmorId(robot.getArmorId());
             entity.setPosition(x + dir.offsetX + 0.5F, y + dir.offsetY + 0.5F, z + dir.offsetZ + 0.5F);
-            entity.setCustomNameTag(stack.hasDisplayName() ? stack.getDisplayName() : player.getDisplayName() + "'s robot");
+            entity.setCustomNameTag(stack.hasDisplayName() ? stack.getDisplayName() : String.format(LangHelper.translate("misc", "robotFormat"), player.getDisplayName()));
             entity.setOwner(player.getCommandSenderName());
             world.spawnEntityInWorld(entity);
             if (!player.capabilities.isCreativeMode)

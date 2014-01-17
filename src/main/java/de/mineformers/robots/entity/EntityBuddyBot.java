@@ -5,6 +5,7 @@ import de.mineformers.robots.client.audio.SoundHandler;
 import de.mineformers.robots.client.gui.WindowIngameManual;
 import de.mineformers.robots.client.gui.minecraft.WidgetGuiScreen;
 import de.mineformers.robots.item.ModItems;
+import de.mineformers.robots.util.LangHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.ai.EntityAIFollowOwner;
@@ -68,7 +69,7 @@ public class EntityBuddyBot extends EntityTameable {
                     worldObj.spawnEntityInWorld(item);
                     this.setDead();
                 } else {
-                    player.addChatMessage("Don't touch me, human! You're not my master.");
+                    player.addChatMessage(LangHelper.translate("chat", "notMaster"));
                 }
             }
         }
@@ -103,10 +104,5 @@ public class EntityBuddyBot extends EntityTameable {
     @Override
     public Entity getOwner() {
         return this.func_130012_q();
-    }
-
-    @Override
-    public String getCustomNameTag() {
-        return this.getOwnerName() + "'s buddy";
     }
 }

@@ -12,6 +12,7 @@ import de.mineformers.robots.client.gui.component.interaction.UIProgressBar;
 import de.mineformers.robots.client.gui.component.inventory.UIInfoTab;
 import de.mineformers.robots.client.gui.component.layout.UIAbsoluteLayout;
 import de.mineformers.robots.client.gui.component.layout.UIFlowLayout;
+import de.mineformers.robots.client.gui.component.layout.UITableLayout;
 import de.mineformers.robots.client.gui.event.MouseClickEvent;
 import de.mineformers.robots.client.gui.util.Orientation;
 import de.mineformers.robots.client.gui.util.render.ModelDrawingHelper;
@@ -71,8 +72,8 @@ public class WindowRobotFactory extends UIWindow {
         layout.addComponent(canvas, 20, 12);
         layout.addComponent(btnStart, 2, 89);
         layout.addComponent(progress, 80, 90);
-        UIFlowLayout infoLayout = new UIFlowLayout(100, 50);
-        UILabel label = new UILabel("Produces robots");
+        UIAbsoluteLayout infoLayout = new UIAbsoluteLayout();
+        UILabel label = new UILabel(LangHelper.translate("info.robots:robotFactory"));
         label.setColor(0xe0e0e0);
         infoLayout.addComponent(label);
         UIInfoTab info = new UIInfoTab(infoLayout, new ResourceDrawingHelper(ResourceHelper.getModResource("textures/gui/info.png"), 16, 16, 0, 0, 16, 16), Orientation.HORIZONTAL_LEFT, LangHelper.translate("gui.robots:label.information"));
@@ -82,7 +83,8 @@ public class WindowRobotFactory extends UIWindow {
 
     @Subscribe
     public void onMouseClick(MouseClickEvent event) {
-        PacketDispatcher.sendPacketToServer(new PacketStartFactory(tile.xCoord, tile.yCoord, tile.zCoord).makePacket());
+        if (btnStart.isEnabled())
+            PacketDispatcher.sendPacketToServer(new PacketStartFactory(tile.xCoord, tile.yCoord, tile.zCoord).makePacket());
     }
 
     public void setCurrentArmor(int id) {

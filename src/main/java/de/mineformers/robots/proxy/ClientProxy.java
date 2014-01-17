@@ -5,6 +5,7 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 import de.mineformers.robots.api.data.RobotModule;
 import de.mineformers.robots.api.registry.ChipsetRegistry;
 import de.mineformers.robots.api.registry.ModuleRegistry;
+import de.mineformers.robots.block.ModBlocks;
 import de.mineformers.robots.client.audio.SoundHandler;
 import de.mineformers.robots.client.gui.WindowIngameManual;
 import de.mineformers.robots.client.gui.WindowRobotFactory;
@@ -20,6 +21,7 @@ import de.mineformers.robots.tileentity.TileFactoryController;
 import de.mineformers.robots.util.PrivateRobotHelper;
 import de.mineformers.robots.util.RecipeHelper;
 import de.mineformers.robots.util.ResourceHelper;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.item.Item;
@@ -67,7 +69,7 @@ public class ClientProxy extends CommonProxy {
                 ((WindowRobotFactory) panel).setCurrentChipset(ChipsetRegistry.instance().getChipset(tile.getSelectedChipset()).getLocalizedName());
                 ((WindowRobotFactory) panel).setCurrentArmor(tile.getArmorId());
                 ((WindowRobotFactory) panel).setProgress(tile.getProgress());
-                ((WindowRobotFactory) panel).setButtonState(tile.getArmorId() != -1 && !tile.getSelectedModule().equals("blank") && !tile.getSelectedChipset().equals("blank") && !tile.isProgressing());
+                ((WindowRobotFactory) panel).setButtonState(tile.getArmorId() != -1 && !tile.getSelectedModule().equals("blank") && !tile.getSelectedChipset().equals("blank") && !tile.isProgressing() && ModuleRegistry.instance().getModule(tile.getSelectedModule()).validateStack(tile.getStackInSlot(0)));
             }
         }
     }
@@ -90,12 +92,32 @@ public class ClientProxy extends CommonProxy {
 
     private void addManualRecipes() {
         ItemStack redstone = new ItemStack(Item.redstone);
+        ItemStack stone = new ItemStack(Block.stone);
+        ItemStack iron = new ItemStack(Item.ingotIron);
+        ItemStack glassPane = new ItemStack(Block.thinGlass);
+        ItemStack glass = new ItemStack(Block.glass);
         ItemStack gold = new ItemStack(Item.ingotGold);
         ItemStack greenDye = new ItemStack(Item.dyePowder, 1, 2);
         WindowIngameManual.recipes.put("blankChipset", RecipeHelper.createShaped(PrivateRobotHelper.createDefaultChipset(),
                 redstone, gold, redstone,
                 gold, greenDye, gold,
                 redstone, gold, redstone));
+        WindowIngameManual.recipes.put("blankModule", RecipeHelper.createShaped(PrivateRobotHelper.createDefaultModule(),
+                iron, stone, iron,
+                stone, redstone, stone,
+                iron, stone, iron));
+        WindowIngameManual.recipes.put("factoryController", RecipeHelper.createShaped(new ItemStack(ModBlocks.factoryController),
+                iron, redstone, iron,
+                greenDye, glassPane, greenDye,
+                iron, redstone, iron));
+        WindowIngameManual.recipes.put("factoryFrame", RecipeHelper.createShaped(new ItemStack(ModBlocks.factory, 1, 0),
+                iron, stone, iron,
+                stone, null, stone,
+                iron, stone, iron));
+        WindowIngameManual.recipes.put("factoryGlass", RecipeHelper.createShaped(new ItemStack(ModBlocks.factory, 1, 1),
+                iron, stone, iron,
+                stone, glass, stone,
+                iron, stone, iron));
     }
 
     @Override

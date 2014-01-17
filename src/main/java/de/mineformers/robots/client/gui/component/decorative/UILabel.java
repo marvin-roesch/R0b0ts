@@ -3,6 +3,7 @@ package de.mineformers.robots.client.gui.component.decorative;
 import de.mineformers.robots.client.gui.component.UIComponent;
 import de.mineformers.robots.client.gui.system.Global;
 import de.mineformers.robots.client.gui.util.RenderHelper;
+import de.mineformers.robots.client.gui.util.TextHelper;
 import de.mineformers.robots.proxy.ClientProxy;
 import org.lwjgl.util.Color;
 
@@ -23,9 +24,9 @@ public class UILabel extends UIComponent {
 
     public UILabel(String text, String fontRenderer) {
         super(Global.getTexture());
-        this.text = text;
+        this.text = text.replace("\n", "").replace("\r", "");
         this.color = 0x404040;
-        this.width = this.getStringWidth(text);
+        this.width = this.getStringWidth(TextHelper.getLongestString(text.split("<br>")));
         this.setFontRenderer(fontRenderer);
     }
 

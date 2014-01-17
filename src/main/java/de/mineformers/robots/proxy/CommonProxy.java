@@ -2,8 +2,10 @@ package de.mineformers.robots.proxy;
 
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
+import de.mineformers.robots.client.gui.WindowCraftingRecipe;
 import de.mineformers.robots.client.gui.WindowRobotFactory;
 import de.mineformers.robots.client.gui.minecraft.WidgetGuiContainer;
+import de.mineformers.robots.inventory.ContainerCraftingRecipe;
 import de.mineformers.robots.inventory.ContainerFactoryController;
 import de.mineformers.robots.tileentity.TileFactoryController;
 import net.minecraft.entity.player.EntityPlayer;
@@ -45,6 +47,8 @@ public class CommonProxy implements IGuiHandler {
         switch (ID) {
             case 0:
                 return new ContainerFactoryController(player.inventory, (IInventory) world.getBlockTileEntity(x, y, z));
+            case 1:
+                return new ContainerCraftingRecipe(player.inventory);
         }
         return null;
     }
@@ -55,6 +59,8 @@ public class CommonProxy implements IGuiHandler {
         switch (ID) {
             case 0:
                 return new WidgetGuiContainer(176, 200, new WindowRobotFactory((TileFactoryController) inventory), new ContainerFactoryController(player.inventory, inventory), inventory, true);
+            case 1:
+                return new WidgetGuiContainer(176, 200, new WindowCraftingRecipe(), new ContainerCraftingRecipe(player.inventory), null, true);
         }
         return null;
     }

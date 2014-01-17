@@ -1,7 +1,12 @@
 package de.mineformers.robots.util;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraft.world.World;
 
 /**
  * R0b0ts
@@ -22,6 +27,19 @@ public class RecipeHelper {
             }
         }
         return new ShapedRecipes(3, 3, temp, result);
+    }
+
+    public static ItemStack findMatches(World world, ItemStack[] input) {
+        InventoryCrafting inventory = new InventoryCrafting(new Container() {
+            @Override
+            public boolean canInteractWith(EntityPlayer entityplayer) {
+                return true;
+            }
+        }, 3, 3);
+        for (int i = 0; i < input.length; i++) {
+            inventory.setInventorySlotContents(i, input[i]);
+        }
+        return CraftingManager.getInstance().findMatchingRecipe(inventory, world);
     }
 
 }

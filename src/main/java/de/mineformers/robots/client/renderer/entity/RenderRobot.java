@@ -58,7 +58,7 @@ public class RenderRobot extends RendererLivingEntity {
         GL11.glTranslatef(0, 0.35F, -0.1F);
         GL11.glRotatef(180, 1, 0, 0);
         GL11.glScalef(0.5F, 0.5F, 1F);
-        ItemStack itemstack = PrivateRobotHelper.createItemStackFromRobot(null, new Robot(robot.getModule(), robot.getChipset(), robot.getArmorId(), robot.getModule().getData()));
+        ItemStack itemstack = PrivateRobotHelper.createModuleStack(robot.getModule());
         Icon icon = ModItems.module.getIcon(itemstack, 0);
         float f4 = icon.getMinU();
         float f5 = icon.getMaxU();

@@ -2,6 +2,7 @@ package de.mineformers.robots.item;
 
 import de.mineformers.robots.entity.EntityBuddyBot;
 import de.mineformers.robots.lib.Strings;
+import de.mineformers.robots.util.LangHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -28,7 +29,7 @@ public class ItemBuddy extends ItemBase {
             EntityBuddyBot buddy = new EntityBuddyBot(world);
             buddy.setPosition(x + dir.offsetX + 0.5F, y + dir.offsetY + 0.5F, z + dir.offsetZ + 0.5F);
             buddy.setOwner(player.getCommandSenderName());
-            buddy.setCustomNameTag(player.getDisplayName() + "'s buddy");
+            buddy.setCustomNameTag(stack.hasDisplayName() ? stack.getDisplayName() : String.format(LangHelper.translate("misc", "buddyFormat"), player.getDisplayName()));
             world.spawnEntityInWorld(buddy);
             if (!player.capabilities.isCreativeMode)
                 player.inventory.setInventorySlotContents(player.inventory.currentItem, null);

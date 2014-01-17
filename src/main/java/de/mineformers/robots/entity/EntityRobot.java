@@ -9,6 +9,7 @@ import de.mineformers.robots.api.registry.ModuleRegistry;
 import de.mineformers.robots.client.audio.SoundHandler;
 import de.mineformers.robots.lib.Reference;
 import de.mineformers.robots.lib.Strings;
+import de.mineformers.robots.util.LangHelper;
 import de.mineformers.robots.util.PrivateRobotHelper;
 import de.mineformers.robots.util.Vector3;
 import net.minecraft.entity.Entity;
@@ -23,6 +24,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 /**
  * R0b0ts
@@ -171,11 +174,17 @@ public class EntityRobot extends EntityLiving implements EntityOwnable, IInvento
                     worldObj.spawnEntityInWorld(item);
                     this.setDead();
                 } else {
-                    player.addChatMessage("You're not the owner of this robot");
+                    player.addChatMessage(LangHelper.translate("chat", "notOwner"));
                 }
             }
         }
         return true;
+    }
+
+    @Override
+    public void setDead() {
+        dropInventory();
+        super.setDead();
     }
 
     @Override
@@ -197,11 +206,46 @@ public class EntityRobot extends EntityLiving implements EntityOwnable, IInvento
         }
         tagCompound.setTag("Items", tagList);
 
-        NBTTagCompound moduleTag = new NBTTagCompound("ModuleData");
-        if (moduleData != null)
+        NBTTagCompound moduleTag = new NBTTagCompound();
+        if (moduleData != null) {
             moduleData.writeToNBT(moduleTag);
+        }
         tagCompound.setCompoundTag("ModuleData", moduleTag);
         tagCompound.setString("Owner", this.getOwnerName());
+    }
+
+    @Override
+    public ItemStack getHeldItem() {
+        return getStackInSlot(0);
+    }
+
+    protected void dropInventory() {
+
+        for (int i = 0; i < this.getSizeInventory(); i++) {
+
+            ItemStack itemStack = this.getStackInSlot(i);
+
+            if (itemStack != null && itemStack.stackSize > 0) {
+                Random rand = new Random();
+
+                float dX = rand.nextFloat() * 0.8F + 0.1F;
+                float dY = rand.nextFloat() * 0.8F + 0.1F;
+                float dZ = rand.nextFloat() * 0.8F + 0.1F;
+
+                EntityItem entityItem = new EntityItem(worldObj, posX + dX, posY + dY, posZ + dZ, new ItemStack(itemStack.itemID, itemStack.stackSize, itemStack.getItemDamage()));
+
+                if (itemStack.hasTagCompound()) {
+                    entityItem.getEntityItem().setTagCompound((NBTTagCompound) itemStack.getTagCompound().copy());
+                }
+
+                float factor = 0.05F;
+                entityItem.motionX = rand.nextGaussian() * factor;
+                entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
+                entityItem.motionZ = rand.nextGaussian() * factor;
+                worldObj.spawnEntityInWorld(entityItem);
+                itemStack.stackSize = 0;
+            }
+        }
     }
 
     @Override
@@ -222,10 +266,8 @@ public class EntityRobot extends EntityLiving implements EntityOwnable, IInvento
             }
         }
 
-        NBTTagCompound moduleTag = new NBTTagCompound("ModuleData");
         if (moduleData != null)
-            moduleData.readFromNBT(moduleTag);
-        tagCompound.setCompoundTag("ModuleData", moduleTag);
+            moduleData.readFromNBT(tagCompound.getCompoundTag("ModuleData"));
         this.setOwner(tagCompound.getString("Owner"));
     }
 
@@ -274,7 +316,6 @@ public class EntityRobot extends EntityLiving implements EntityOwnable, IInvento
     }
 
     public RobotModule getModule() {
-        this.moduleData = ModuleRegistry.instance().getModule(dataWatcher.getWatchableObjectString(14)).getData();
         return ModuleRegistry.instance().getModule(dataWatcher.getWatchableObjectString(14));
     }
 
@@ -282,7 +323,12 @@ public class EntityRobot extends EntityLiving implements EntityOwnable, IInvento
         this.moduleData = moduleData;
     }
 
+    public IModuleData getModuleData() {
+        return moduleData;
+    }
+
     public void setModule(RobotModule module) {
+        this.moduleData = module.getData();
         dataWatcher.updateObject(14, module.getIdentifier());
         this.tasks.addTask(1, this.getModule().getAI(this));
     }

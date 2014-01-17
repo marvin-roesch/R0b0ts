@@ -27,6 +27,7 @@ public abstract class PacketBase {
         builder.put(0, PacketFactoryController.class);
         builder.put(1, PacketStartFactory.class);
         builder.put(2, PacketBuddyBotSit.class);
+        builder.put(3, PacketSetRecipe.class);
         idMap = builder.build();
     }
 

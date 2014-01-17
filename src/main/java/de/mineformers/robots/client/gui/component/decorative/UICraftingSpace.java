@@ -3,6 +3,7 @@ package de.mineformers.robots.client.gui.component.decorative;
 import de.mineformers.robots.client.gui.component.UIComponent;
 import de.mineformers.robots.client.gui.util.RenderHelper;
 import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
@@ -33,6 +34,15 @@ public class UICraftingSpace extends UIComponent {
         this.recipe = recipe;
     }
 
+    public ShapedRecipes getRecipe() {
+        return recipe;
+    }
+
+    public void setStackAt(int x, int y, ItemStack stack) {
+        int slot = x + y * 3;
+        recipe.recipeItems[slot] = stack;
+    }
+
     @Override
     public void draw(int mouseX, int mouseY) {
         this.drawRectangle(screenX, screenY, 24, 11, 126, 64);
@@ -40,24 +50,22 @@ public class UICraftingSpace extends UIComponent {
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         if (recipe != null) {
             net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
-            int i = 0;
-            for (int y = 1; y <= recipe.recipeHeight; y++) {
-                for (int x = 1; x <= recipe.recipeWidth; x++) {
-                    if (recipe.recipeItems[i] != null) {
+            for (int y = 0; y < recipe.recipeHeight; y++) {
+                for (int x = 0; x < recipe.recipeWidth; x++) {
+                    if (recipe.recipeItems[x + y * 3] != null) {
                         GL11.glColor4f(1, 1, 1, 1);
-                        int posX = screenX + 6 + 18 * (x - 1);
-                        int posY = screenY + 6 + 18 * (y - 1);
+                        int posX = screenX + 6 + 18 * x;
+                        int posY = screenY + 6 + 18 * y;
                         if (this.isInsideRegion(mouseX, mouseY, posX, posY, posX + 18, posY + 18)) {
                             tooltip.reset();
-                            tooltip.addLine(recipe.recipeItems[i].getDisplayName());
+                            tooltip.addLine(recipe.recipeItems[x + y * 3].getDisplayName());
                             tooltip.draw(mouseX, mouseY);
                         }
-                        RenderHelper.renderItemIntoGUI(recipe.recipeItems[i], posX, posY);
+                        RenderHelper.renderItemIntoGUI(recipe.recipeItems[x + y * 3], posX, posY);
                     }
-                    i++;
                 }
             }
-            if (recipe.getRecipeOutput() != null) {
+            if (recipe.getRecipeOutput() != null && recipe.getRecipeOutput().itemID != 0) {
                 if (this.isInsideRegion(mouseX, mouseY, screenX + 100, screenY + 24, screenX + 100 + 18, screenY + 24 + 18)) {
                     tooltip.reset();
                     tooltip.addLine(recipe.getRecipeOutput().getDisplayName());
@@ -67,6 +75,11 @@ public class UICraftingSpace extends UIComponent {
                 net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
             }
         }
+    }
+
+    @Override
+    public boolean isHovered(int mouseX, int mouseY) {
+        return isInsideRegion(mouseX, mouseY, screenX + 5, screenY + 5, screenX + 131, screenY + 59);
     }
 
     @Override

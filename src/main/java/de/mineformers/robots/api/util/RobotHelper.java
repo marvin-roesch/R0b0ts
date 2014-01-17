@@ -38,6 +38,7 @@ public class RobotHelper {
         } else {
             NBTTagCompound tag = new NBTTagCompound();
             tag.setString("ModuleName", "blank");
+            tag.setCompoundTag("ModuleData", new NBTTagCompound());
             stack.setTagCompound(tag);
             return ModuleRegistry.instance().getModule("blank");
         }

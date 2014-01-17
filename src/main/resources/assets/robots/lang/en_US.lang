@@ -18,8 +18,12 @@ gui.robots:label.information=Information
 gui.robots:label.module=Module
 gui.robots:label.chipset=Chipset
 gui.robots:label.armor=Armor
+gui.robots:label.craftingModule=Crafting module
 gui.robots:button.start=Start
 gui.robots:button.close=Close
+gui.robots:button.set=Set
+gui.robots:button.sit=Sit
+gui.robots:button.stand=Stand
 
 # Module & chipset localizations
 module.robots:blank.name=<blank>
@@ -42,3 +46,12 @@ tooltip.robots:moduleDesc=Description
 
 # Message localizations
 chat.robots:invalidMultiblock=Not a valid multiblock structure
+chat.robots:notMaster=Don't touch me, human! You're not my master.
+chat.robots:notOwner=You're not the owner of this robot.
+
+# InfoTab contents
+info.robots:robotFactory=Produces robots<br>out of a module,<br>a chipset<br>and a chestplate.<br>Allowed armors:<br>Chain, Iron,<br>Gold, Diamond
+
+# Misc localizations
+misc.robots:robotFormat=%s's robot
+misc.robots:buddyFormat=%s's buddy

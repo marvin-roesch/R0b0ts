@@ -4,8 +4,10 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import de.mineformers.robots.entity.EntityRobot;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 
 /**
  * R0b0ts
@@ -31,6 +33,10 @@ public abstract class RobotModule {
 
     }
 
+    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+        return stack;
+    }
+
     public String getIdentifier() {
         return identifier;
     }
@@ -46,6 +52,10 @@ public abstract class RobotModule {
     public abstract EntityAIBase getAI(EntityRobot entity);
 
     public abstract IModuleData getData();
+
+    public boolean validateStack(ItemStack stack) {
+        return true;
+    }
 
     @SideOnly(Side.CLIENT)
     public String getLocalizedName() {

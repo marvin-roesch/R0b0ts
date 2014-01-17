@@ -104,6 +104,7 @@ public class R0b0ts {
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
+        ModBlocks.registerRecipes();
         for (R0b0tsPlugin plugin : PluginHandler.plugins())
             plugin.postInit();
         ModContainer container = FMLCommonHandler.instance().findContainerFor(this);
