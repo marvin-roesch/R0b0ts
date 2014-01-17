@@ -128,7 +128,15 @@ and the controller]]></text>
         </picture>
     </page>
     <page type="text">
-        <heading>Recipes</heading>
-        <text>Whatever</text>
+        <heading>Creating robots</heading>
+        <text><![CDATA[To create a robot, build the factory<br>
+and put your desired module, chipset<br>
+and armor for the robot in the slots.<br>
+Then hit "Start" and wait 5 seconds<br>
+until the robot is built. To place<br>
+it down in your world then, take<br>
+the item and right click a block<br>
+with it. The block should be an<br>
+inventory for most modules.]]></text>
     </page>
 </manual>

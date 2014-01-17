@@ -26,7 +26,7 @@ public class ModuleCollect extends RobotModule {
 
     @Override
     public void registerRecipe(ItemStack result, ItemStack blank) {
-        GameRegistry.addShapelessRecipe(result, blank, new ItemStack(Block.workbench));
+        GameRegistry.addShapelessRecipe(result, blank, new ItemStack(Block.hopperBlock));
     }
 
     @Override

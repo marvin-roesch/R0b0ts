@@ -100,11 +100,16 @@ public class R0b0ts {
         proxy.registerRenderers();
         for (R0b0tsPlugin plugin : PluginHandler.plugins())
             plugin.init();
+        ModBlocks.registerRecipes();
+        for (RobotModule module : ModuleRegistry.instance().getModules())
+            module.registerRecipe(PrivateRobotHelper.createModuleStack(module), PrivateRobotHelper.createDefaultModule());
+        for (RobotChipset chipset : ChipsetRegistry.instance().getChipsets())
+            chipset.registerRecipe(PrivateRobotHelper.createChipsetStack(chipset), PrivateRobotHelper.createDefaultChipset());
+        proxy.loadManual();
     }
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        ModBlocks.registerRecipes();
         for (R0b0tsPlugin plugin : PluginHandler.plugins())
             plugin.postInit();
         ModContainer container = FMLCommonHandler.instance().findContainerFor(this);
@@ -121,11 +126,5 @@ public class R0b0ts {
                 i++;
             }
         }
-
-        for (RobotModule module : ModuleRegistry.instance().getModules())
-            module.registerRecipe(PrivateRobotHelper.createModuleStack(module), PrivateRobotHelper.createDefaultModule());
-        for (RobotChipset chipset : ChipsetRegistry.instance().getChipsets())
-            chipset.registerRecipe(PrivateRobotHelper.createChipsetStack(chipset), PrivateRobotHelper.createDefaultChipset());
-        proxy.loadManual();
     }
 }
