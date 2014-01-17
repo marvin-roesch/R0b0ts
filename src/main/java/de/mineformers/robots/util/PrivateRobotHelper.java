@@ -53,7 +53,7 @@ public class PrivateRobotHelper {
     public static ItemStack createItemStackFromRobot(String customName, Robot robot) {
         ItemStack stack = new ItemStack(ModItems.robot);
         stack.setTagCompound(new NBTTagCompound());
-        if(customName != null)
+        if (customName != null)
             stack.setItemName(customName);
         stack.getTagCompound().setString("ModuleName", robot.getModule().getIdentifier());
         stack.getTagCompound().setString("ChipsetName", robot.getChipset().getIdentifier());

@@ -31,7 +31,7 @@ public class ModelBuddyBot extends ModelBiped {
         if (this.isChild) {
             float f6 = 2.0F;
             GL11.glPushMatrix();
-            if(isSitting)
+            if (isSitting)
                 GL11.glTranslatef(0, 0.325F, 0);
             GL11.glPushMatrix();
             GL11.glScalef(1.75F / f6, 1.75F / f6, 1.75F / f6);
@@ -68,16 +68,15 @@ public class ModelBuddyBot extends ModelBiped {
     @Override
     public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity par7Entity) {
         super.setRotationAngles(par1, par2, par3, par4, par5, par6, par7Entity);
-        this.bipedEye.rotateAngleY = par4 / (180F / (float)Math.PI);
-        this.bipedEye.rotateAngleX = par5 / (180F / (float)Math.PI);
-        if (this.isSitting)
-        {
-            this.bipedRightArm.rotateAngleX += -((float)Math.PI / 5F);
-            this.bipedLeftArm.rotateAngleX += -((float)Math.PI / 5F);
-            this.bipedRightLeg.rotateAngleX = -((float)Math.PI * 2.5F / 5F);
-            this.bipedLeftLeg.rotateAngleX = -((float)Math.PI * 2.5F / 5F);
-            this.bipedRightLeg.rotateAngleY = ((float)Math.PI / 10F);
-            this.bipedLeftLeg.rotateAngleY = -((float)Math.PI / 10F);
+        this.bipedEye.rotateAngleY = par4 / (180F / (float) Math.PI);
+        this.bipedEye.rotateAngleX = par5 / (180F / (float) Math.PI);
+        if (this.isSitting) {
+            this.bipedRightArm.rotateAngleX += -((float) Math.PI / 5F);
+            this.bipedLeftArm.rotateAngleX += -((float) Math.PI / 5F);
+            this.bipedRightLeg.rotateAngleX = -((float) Math.PI * 2.5F / 5F);
+            this.bipedLeftLeg.rotateAngleX = -((float) Math.PI * 2.5F / 5F);
+            this.bipedRightLeg.rotateAngleY = ((float) Math.PI / 10F);
+            this.bipedLeftLeg.rotateAngleY = -((float) Math.PI / 10F);
         }
     }
 }

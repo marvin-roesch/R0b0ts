@@ -11,8 +11,6 @@ import de.mineformers.robots.client.gui.component.interaction.UIButton;
 import de.mineformers.robots.client.gui.component.interaction.UIProgressBar;
 import de.mineformers.robots.client.gui.component.inventory.UIInfoTab;
 import de.mineformers.robots.client.gui.component.layout.UIAbsoluteLayout;
-import de.mineformers.robots.client.gui.component.layout.UIFlowLayout;
-import de.mineformers.robots.client.gui.component.layout.UITableLayout;
 import de.mineformers.robots.client.gui.event.MouseClickEvent;
 import de.mineformers.robots.client.gui.util.Orientation;
 import de.mineformers.robots.client.gui.util.render.ModelDrawingHelper;

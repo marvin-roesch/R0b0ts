@@ -1,6 +1,5 @@
 package de.mineformers.robots.client.renderer.entity;
 
-import de.mineformers.robots.api.data.Robot;
 import de.mineformers.robots.client.gui.util.RenderHelper;
 import de.mineformers.robots.client.model.ModelRobot;
 import de.mineformers.robots.entity.EntityRobot;
@@ -11,8 +10,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.RendererLivingEntity;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -29,7 +28,7 @@ import org.lwjgl.opengl.GL11;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class RenderRobot extends RendererLivingEntity {
+public class RenderRobot extends RenderLiving {
 
     private static final ResourceLocation RES_ITEM_GLINT = new ResourceLocation("textures/misc/enchanted_item_glint.png");
     private final RenderItem customRenderItem;

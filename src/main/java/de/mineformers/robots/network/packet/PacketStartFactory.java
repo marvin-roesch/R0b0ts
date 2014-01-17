@@ -16,7 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 public class PacketStartFactory extends PacketTileSync {
 
     public PacketStartFactory() {
-        
+
     }
 
     public PacketStartFactory(int x, int y, int z) {

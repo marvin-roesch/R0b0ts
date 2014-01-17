@@ -1,7 +1,6 @@
 package de.mineformers.robots.client.gui.manual;
 
 import de.mineformers.robots.client.gui.component.decorative.UILabel;
-import de.mineformers.robots.proxy.ClientProxy;
 import org.w3c.dom.Element;
 
 /**

@@ -22,7 +22,7 @@ public class ChipsetBasic extends RobotChipset {
     }
 
     @Override
-     public void registerRecipe(ItemStack result, ItemStack blank) {
+    public void registerRecipe(ItemStack result, ItemStack blank) {
         GameRegistry.addShapelessRecipe(result, blank, new ItemStack(Item.redstone));
     }
 }

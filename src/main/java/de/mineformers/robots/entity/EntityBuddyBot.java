@@ -38,6 +38,12 @@ public class EntityBuddyBot extends EntityTameable {
     }
 
     @Override
+    public void setSitting(boolean par1) {
+        super.setSitting(par1);
+        this.aiSit.setSitting(par1);
+    }
+
+    @Override
     protected boolean canDespawn() {
         return false;
     }

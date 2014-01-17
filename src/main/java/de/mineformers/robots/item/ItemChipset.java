@@ -44,7 +44,7 @@ public class ItemChipset extends ItemBase {
         else {
             RobotChipset chipset = RobotHelper.getChipsetFromItemStack(stack);
             list.add("\247c" + LangHelper.translate("tooltip", "moduleType") + ": \247r" + chipset.getLocalizedName());
-            if(chipset.getDescription() != null)
+            if (chipset.getDescription() != null)
                 list.add("\247c" + LangHelper.translate("tooltip", "moduleDesc") + ": \247r" + chipset.getLocalizedDescription());
         }
     }

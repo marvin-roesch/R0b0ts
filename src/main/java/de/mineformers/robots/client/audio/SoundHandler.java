@@ -18,26 +18,22 @@ public class SoundHandler {
     private static final String SOUND_RESOURCE_LOCATION = Reference.RESOURCE_PATH.toLowerCase() + ":";
     private static final String SOUND_PREFIX = Reference.RESOURCE_PATH.toLowerCase() + ":";
 
-    public static String[] soundFiles = {SOUND_RESOURCE_LOCATION + "blip1.ogg", SOUND_RESOURCE_LOCATION + "blip2.ogg", SOUND_RESOURCE_LOCATION + "death.ogg" };
+    public static String[] soundFiles = {SOUND_RESOURCE_LOCATION + "blip1.ogg", SOUND_RESOURCE_LOCATION + "blip2.ogg", SOUND_RESOURCE_LOCATION + "death.ogg"};
 
     public static String ROBOT_DEATH = SOUND_PREFIX + "death";
     public static String ROBOT_BLIP = SOUND_PREFIX + "blip";
 
     @ForgeSubscribe
-    public void onSoundLoad(SoundLoadEvent event)
-    {
+    public void onSoundLoad(SoundLoadEvent event) {
 
         // For each custom sound file we have defined in Sounds
-        for (String soundFile : soundFiles)
-        {
+        for (String soundFile : soundFiles) {
             // Try to add the custom sound file to the pool of sounds
-            try
-            {
+            try {
                 event.manager.addSound(soundFile);
             }
             // If we cannot add the custom sound file to the pool, log the exception
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 FMLLog.warning("Failed loading sound file: " + soundFile);
             }
         }

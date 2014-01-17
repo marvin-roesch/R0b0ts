@@ -5,12 +5,14 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import de.mineformers.robots.client.gui.WindowCraftingRecipe;
 import de.mineformers.robots.client.gui.WindowRobotFactory;
 import de.mineformers.robots.client.gui.minecraft.WidgetGuiContainer;
+import de.mineformers.robots.handler.PlayerHandler;
 import de.mineformers.robots.inventory.ContainerCraftingRecipe;
 import de.mineformers.robots.inventory.ContainerFactoryController;
 import de.mineformers.robots.tileentity.TileFactoryController;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 
 /**
  * R0b0ts
@@ -35,7 +37,9 @@ public class CommonProxy implements IGuiHandler {
     }
 
     public void registerHandlers() {
-
+        PlayerHandler playerHandler = new PlayerHandler();
+        MinecraftForge.EVENT_BUS.register(playerHandler);
+        GameRegistry.registerPlayerTracker(playerHandler);
     }
 
     public void registerTileEntities() {

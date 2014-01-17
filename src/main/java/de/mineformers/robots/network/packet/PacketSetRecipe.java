@@ -72,11 +72,11 @@ public class PacketSetRecipe extends PacketBase {
 
     @Override
     public void execute(EntityPlayer player, Side side) {
-        if(side.isServer()) {
-            if(player.getHeldItem().getItem() instanceof ItemModule) {
+        if (side.isServer()) {
+            if (player.getHeldItem().getItem() instanceof ItemModule) {
                 RobotModule module = RobotHelper.getModuleFromItemStack(player.getHeldItem());
                 NBTTagCompound moduleData = new NBTTagCompound();
-                if(module.getIdentifier().equals("crafting")) {
+                if (module.getIdentifier().equals("crafting")) {
                     CraftingData data = (CraftingData) module.getData();
                     data.setResult(recipe.getRecipeOutput());
                     data.setInput(recipe.recipeItems);

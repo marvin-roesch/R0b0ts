@@ -122,9 +122,9 @@ public class R0b0ts {
             }
         }
 
-        for(RobotModule module : ModuleRegistry.instance().getModules())
+        for (RobotModule module : ModuleRegistry.instance().getModules())
             module.registerRecipe(PrivateRobotHelper.createModuleStack(module), PrivateRobotHelper.createDefaultModule());
-        for(RobotChipset chipset : ChipsetRegistry.instance().getChipsets())
+        for (RobotChipset chipset : ChipsetRegistry.instance().getChipsets())
             chipset.registerRecipe(PrivateRobotHelper.createChipsetStack(chipset), PrivateRobotHelper.createDefaultChipset());
         proxy.loadManual();
     }

@@ -25,7 +25,7 @@ public class RobotHelper {
         int armorId = stack.getTagCompound().hasKey("ArmorID") ? stack.getTagCompound().getInteger("ArmorID") : -1;
         stack.getTagCompound().setInteger("ArmorID", armorId);
         IModuleData data = module.getData();
-        if(data != null)
+        if (data != null)
             data.readFromNBT(stack.getTagCompound().getCompoundTag("ModuleData"));
         return new Robot(module, chipset, armorId, data);
     }
