@@ -41,7 +41,7 @@ public class PageWelcome extends PageText {
 
     private void addLink(String action, String label, String jump) {
         this.links.put(action, Integer.valueOf(jump));
-        UILabel uiLabel = new UILabel(links.size() + ". " + label, "small");
+        UILabel uiLabel = new UILabel(links.size() + ". " + label, true);
         uiLabel.setAction(action);
         uiLabel.addListener(this);
         this.addComponent(uiLabel, 0, text.getHeight() + linkLabels.size() * (this.mc.fontRenderer.FONT_HEIGHT + 1));

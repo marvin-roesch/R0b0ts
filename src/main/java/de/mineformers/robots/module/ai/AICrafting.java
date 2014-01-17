@@ -79,7 +79,7 @@ public class AICrafting extends EntityAIBase {
                             if (slots[i] != -1)
                                 inventory.decrStackSize(slots[i], data.getInput()[i].stackSize);
                         }
-                        putStack(inventory, data.getResult());
+                        putStack(inventory, data.getResult().copy());
                     }
                 }
             }

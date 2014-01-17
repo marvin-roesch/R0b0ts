@@ -17,7 +17,7 @@ public abstract class ManualPage extends UIAbsoluteLayout {
     protected UILabel heading;
 
     private void init(String heading) {
-        this.heading = new UILabel("\247l" + heading, "small");
+        this.heading = new UILabel("\247l" + heading, true);
         this.addComponent(this.heading);
     }
 

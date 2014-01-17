@@ -11,7 +11,6 @@ import de.mineformers.robots.client.gui.WindowIngameManual;
 import de.mineformers.robots.client.gui.WindowRobotFactory;
 import de.mineformers.robots.client.gui.component.container.UIPanel;
 import de.mineformers.robots.client.gui.minecraft.WidgetGuiContainer;
-import de.mineformers.robots.client.gui.util.SmallFontRenderer;
 import de.mineformers.robots.client.renderer.entity.RenderBuddyBot;
 import de.mineformers.robots.client.renderer.entity.RenderRobot;
 import de.mineformers.robots.client.renderer.tileentity.TileFactoryControllerRenderer;
@@ -43,7 +42,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
  */
 public class ClientProxy extends CommonProxy {
 
-    public static SmallFontRenderer smallFontRenderer;
     private static final ResourceLocation robotDiamondTexture = ResourceHelper.getModResource("textures/entities/robot_diamond.png");
     private static final ResourceLocation robotGoldTexture = ResourceHelper.getModResource("textures/entities/robot_gold.png");
     private static final ResourceLocation robotDefaultTexture = ResourceHelper.getModResource("textures/entities/robot.png");
@@ -128,7 +126,6 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void registerRenderers() {
-        smallFontRenderer = new SmallFontRenderer(Minecraft.getMinecraft().gameSettings, new ResourceLocation("textures/font/ascii.png"), Minecraft.getMinecraft().renderEngine, false);
         RenderingRegistry.registerEntityRenderingHandler(EntityRobot.class, new RenderRobot());
         RenderingRegistry.registerEntityRenderingHandler(EntityBuddyBot.class, new RenderBuddyBot());
         ClientRegistry.bindTileEntitySpecialRenderer(TileFactoryController.class, new TileFactoryControllerRenderer());

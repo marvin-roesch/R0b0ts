@@ -16,8 +16,7 @@ public class PageText extends ManualPage {
     protected UILabel text;
 
     private void init(String text) {
-        this.text = new UILabel(text);
-        this.text.setFontRenderer("small");
+        this.text = new UILabel(text, true);
         this.addComponent(this.text, 0, this.mc.fontRenderer.FONT_HEIGHT + 2);
     }
 

@@ -4,7 +4,9 @@ import de.mineformers.robots.client.gui.component.UIComponent;
 import de.mineformers.robots.client.gui.system.Global;
 import de.mineformers.robots.client.gui.util.RenderHelper;
 import de.mineformers.robots.client.gui.util.TextHelper;
-import de.mineformers.robots.proxy.ClientProxy;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.util.ResourceLocation;
 import org.lwjgl.util.Color;
 
 /**
@@ -17,12 +19,17 @@ import org.lwjgl.util.Color;
  */
 public class UILabel extends UIComponent {
 
+    private static final FontRenderer smallFontRenderer = new FontRenderer(Minecraft.getMinecraft().gameSettings, new ResourceLocation("textures/font/ascii.png"), Minecraft.getMinecraft().renderEngine, true);
     private String text;
-    private String fontRenderer;
+    private FontRenderer fontRenderer;
     private int color;
     private boolean drawShadow;
 
-    public UILabel(String text, String fontRenderer) {
+    public UILabel(String text, boolean useSmallRenderer) {
+        this(text, useSmallRenderer ? smallFontRenderer : Minecraft.getMinecraft().fontRenderer);
+    }
+
+    public UILabel(String text, FontRenderer fontRenderer) {
         super(Global.getTexture());
         this.text = text.replace("\n", "").replace("\r", "");
         this.color = 0x404040;
@@ -31,12 +38,12 @@ public class UILabel extends UIComponent {
     }
 
     public UILabel(String text) {
-        this(text, "normal");
+        this(text, Minecraft.getMinecraft().fontRenderer);
     }
 
-    public void setFontRenderer(String fontRenderer) {
+    public void setFontRenderer(FontRenderer fontRenderer) {
         this.fontRenderer = fontRenderer;
-        this.height = (text.split("<br>").length + 1) * ((fontRenderer.equals("normal") ? mc.fontRenderer.FONT_HEIGHT : ClientProxy.smallFontRenderer.FONT_HEIGHT) + 1);
+        this.height = (text.split("<br>").length + 1) * (fontRenderer.FONT_HEIGHT + 1);
     }
 
     public void setDrawShadow(boolean drawShadow) {
@@ -81,12 +88,8 @@ public class UILabel extends UIComponent {
     public void draw(int mouseX, int mouseY) {
         String[] splits = text.split("<br>");
         for (int i = 0; i < splits.length; i++) {
-            if (fontRenderer.equals("normal"))
-                mc.fontRenderer.drawString(splits[i], screenX, screenY + i * (mc.fontRenderer.FONT_HEIGHT + 1), color,
-                        drawShadow);
-            else
-                ClientProxy.smallFontRenderer.drawString(splits[i], screenX, screenY + i * (ClientProxy.smallFontRenderer.FONT_HEIGHT + 1), color,
-                        drawShadow);
+            fontRenderer.drawString(splits[i], screenX, screenY + i * (mc.fontRenderer.FONT_HEIGHT + 1), color,
+                    drawShadow);
         }
     }
 }
