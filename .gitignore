@@ -1,11 +1,11 @@
-!build/
 build/*
+!build/
 !build/libs/
-!build/libs/*
+!build/libs/*.jar
 bin/*
 .gradle/*
-.settings/*
+.settings
 .classpath
 *.iml
+*.psd
 .project
-/build

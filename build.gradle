@@ -20,8 +20,8 @@ minecraft {
 	version = "1.6.4-9.11.1.964"
 }
 
-majorVersion = "1"
-minorVersion = "0"
+majorVersion = "0"
+minorVersion = "1"
 buildNumber = "dev"
 
 version = "${minecraft.version}-${majorVersion}.${minorVersion}"
