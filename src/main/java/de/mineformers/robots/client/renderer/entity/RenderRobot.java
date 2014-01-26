@@ -28,16 +28,20 @@ import org.lwjgl.opengl.GL11;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class RenderRobot extends RenderLiving {
+public class RenderRobot extends RenderLiving
+{
 
     private static final ResourceLocation RES_ITEM_GLINT = new ResourceLocation("textures/misc/enchanted_item_glint.png");
     private final RenderItem customRenderItem;
 
-    public RenderRobot() {
+    public RenderRobot()
+    {
         super(new ModelRobot(), 0.5F);
-        customRenderItem = new RenderItem() {
+        customRenderItem = new RenderItem()
+        {
             @Override
-            public boolean shouldBob() {
+            public boolean shouldBob()
+            {
                 return false;
             }
         };
@@ -46,7 +50,8 @@ public class RenderRobot extends RenderLiving {
     }
 
     @Override
-    protected void renderModel(EntityLivingBase par1EntityLivingBase, float par2, float par3, float par4, float par5, float par6, float par7) {
+    protected void renderModel(EntityLivingBase par1EntityLivingBase, float par2, float par3, float par4, float par5, float par6, float par7)
+    {
         super.renderModel(par1EntityLivingBase, par2, par3, par4, par5, par6, par7);
         EntityRobot robot = ((EntityRobot) par1EntityLivingBase);
         RenderHelper.bindTexture(robot.getChipset().getHeadTexture());
@@ -73,13 +78,16 @@ public class RenderRobot extends RenderLiving {
 
         GL11.glTranslatef(-f9, -f10, -((f12 + f11) * (float) b0 / 2.0F));
 
-        for (int k = 0; k < b0; ++k) {
+        for (int k = 0; k < b0; ++k)
+        {
             // Makes items offset when in 3D, like when in 2D, looks much better. Considered a vanilla bug...
             GL11.glTranslatef(0f, 0f, f12 + f11);
 
-            if (itemstack.getItemSpriteNumber() == 0) {
+            if (itemstack.getItemSpriteNumber() == 0)
+            {
                 RenderHelper.bindTexture(TextureMap.locationBlocksTexture);
-            } else {
+            } else
+            {
                 RenderHelper.bindTexture(TextureMap.locationItemsTexture);
             }
 
@@ -88,7 +96,8 @@ public class RenderRobot extends RenderLiving {
             GL11.glTranslatef(-1, 0, 0.05F);
             ItemRenderer.renderItemIn2D(tessellator, f5, f6, f4, f7, icon.getIconWidth(), icon.getIconHeight(), f12);
 
-            if (itemstack.hasEffect(0)) {
+            if (itemstack.hasEffect(0))
+            {
                 GL11.glDepthFunc(GL11.GL_EQUAL);
                 GL11.glDisable(GL11.GL_LIGHTING);
                 RenderManager.instance.renderEngine.bindTexture(RES_ITEM_GLINT);
@@ -123,7 +132,8 @@ public class RenderRobot extends RenderLiving {
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(Entity entity) {
+    protected ResourceLocation getEntityTexture(Entity entity)
+    {
         return ClientProxy.getRobotTexture(((EntityRobot) entity).getArmorId());
     }
 }

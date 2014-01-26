@@ -10,15 +10,18 @@ import de.mineformers.robots.client.gui.component.UIComponent;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class Event {
+public class Event
+{
 
     private UIComponent component;
 
-    public Event(UIComponent component) {
+    public Event(UIComponent component)
+    {
         this.component = component;
     }
 
-    public UIComponent getComponent() {
+    public UIComponent getComponent()
+    {
         return component;
     }
 }

@@ -4,6 +4,7 @@ import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import cpw.mods.fml.relauncher.Side;
 import de.mineformers.robots.tileentity.TileBase;
+import de.mineformers.robots.util.Vector3;
 import net.minecraft.entity.player.EntityPlayer;
 
 /**
@@ -14,37 +15,44 @@ import net.minecraft.entity.player.EntityPlayer;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public abstract class PacketTileSync extends PacketBase {
+public abstract class PacketTileSync extends PacketBase
+{
 
     protected int x, y, z;
 
-    public PacketTileSync() {
+    public PacketTileSync()
+    {
 
     }
 
-    public PacketTileSync(int x, int y, int z) {
+    public PacketTileSync(int x, int y, int z)
+    {
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
     @Override
-    public void write(ByteArrayDataOutput out) {
+    public void write(ByteArrayDataOutput out)
+    {
         out.writeInt(x);
         out.writeInt(y);
         out.writeInt(z);
     }
 
     @Override
-    public void read(ByteArrayDataInput in) {
+    public void read(ByteArrayDataInput in)
+    {
         this.x = in.readInt();
         this.y = in.readInt();
         this.z = in.readInt();
     }
 
     @Override
-    public void execute(EntityPlayer player, Side side) {
-        if (player.worldObj.getBlockTileEntity(x, y, z) instanceof TileBase) {
+    public void execute(EntityPlayer player, Side side)
+    {
+        if (player.worldObj.getBlockTileEntity(x, y, z) instanceof TileBase)
+        {
             sync(player, (TileBase) player.worldObj.getBlockTileEntity(x, y, z));
         }
     }

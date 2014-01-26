@@ -15,32 +15,38 @@ import java.util.ArrayList;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class UITooltip extends UIComponent {
+public class UITooltip extends UIComponent
+{
 
     private ArrayList<String> lines;
 
-    public UITooltip() {
+    public UITooltip()
+    {
         super(Global.getTexture());
         this.lines = new ArrayList<String>();
         this.setZIndex(301);
     }
 
-    public void addLine(String text) {
+    public void addLine(String text)
+    {
         lines.add(text);
     }
 
-    public void reset() {
+    public void reset()
+    {
         lines.clear();
     }
 
     @Override
-    public void update(int mouseX, int mouseY) {
+    public void update(int mouseX, int mouseY)
+    {
         this.screenX = mouseX;
         this.screenY = mouseY;
     }
 
     @Override
-    public void draw(int mouseX, int mouseY) {
+    public void draw(int mouseX, int mouseY)
+    {
         int startX = mouseX + 5;
         int startY = mouseY + 5;
         width = mc.fontRenderer.getStringWidth(TextHelper.getLongestString(lines.toArray(new String[lines.size()]))) + 10;
@@ -63,7 +69,8 @@ public class UITooltip extends UIComponent {
 
         startX += 6;
         startY += 6;
-        for (int i = 0; i < lines.size(); i++) {
+        for (int i = 0; i < lines.size(); i++)
+        {
             String line = lines.get(i);
             this.drawString(line, startX, startY + i * (2 + mc.fontRenderer.FONT_HEIGHT), 0xEEEEEE, false);
         }

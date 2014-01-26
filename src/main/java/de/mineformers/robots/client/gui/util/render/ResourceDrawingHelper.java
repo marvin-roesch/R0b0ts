@@ -11,22 +11,26 @@ import net.minecraft.util.ResourceLocation;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class ResourceDrawingHelper implements IDrawingHelper {
+public class ResourceDrawingHelper implements IDrawingHelper
+{
 
     private ResourceLocation resource;
     private int width, height;
     private float u, v;
     private float uMax, vMax;
 
-    public ResourceDrawingHelper(ResourceLocation resource, int width, int height) {
+    public ResourceDrawingHelper(ResourceLocation resource, int width, int height)
+    {
         this(resource, width, height, 0, 0);
     }
 
-    public ResourceDrawingHelper(ResourceLocation resource, int width, int height, int u, int v) {
+    public ResourceDrawingHelper(ResourceLocation resource, int width, int height, int u, int v)
+    {
         this(resource, width, height, u, v, u + width, v + height);
     }
 
-    public ResourceDrawingHelper(ResourceLocation resource, int width, int height, int u, int v, int uMax, int vMax) {
+    public ResourceDrawingHelper(ResourceLocation resource, int width, int height, int u, int v, int uMax, int vMax)
+    {
         this.resource = resource;
         this.width = width;
         this.height = height;
@@ -36,7 +40,8 @@ public class ResourceDrawingHelper implements IDrawingHelper {
         this.vMax = vMax;
     }
 
-    public void draw(int x, int y) {
+    public void draw(int x, int y)
+    {
         RenderHelper.drawRectangleStretched(resource, x, y, u, v, width, height, uMax, vMax, true, 1);
     }
 

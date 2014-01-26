@@ -17,20 +17,26 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class ModBlocks {
+public class ModBlocks
+{
 
     public static Block factoryController;
     public static Block factory;
+    public static Block factoryEnergy;
 
-    public static void init() {
+    public static void init()
+    {
         factoryController = new BlockFactoryController(BlockIds.FACTORY_CONTROLLER);
         factory = new BlockFactory(BlockIds.FACTORY_BASE);
+        factoryEnergy = new BlockFactoryEnergy(BlockIds.FACTORY_ENERGY);
 
         GameRegistry.registerBlock(factoryController, Strings.FACTORY_CONTROLLER_NAME);
         GameRegistry.registerBlock(factory, ItemBlockFactory.class, Strings.FACTORY_BASE_NAME);
+        GameRegistry.registerBlock(factoryEnergy, Strings.FACTORY_ENERGY_NAME);
     }
 
-    public static void registerRecipes() {
+    public static void registerRecipes()
+    {
         ItemStack redstone = new ItemStack(Item.redstone);
         ItemStack stone = new ItemStack(Block.stone);
         ItemStack iron = new ItemStack(Item.ingotIron);

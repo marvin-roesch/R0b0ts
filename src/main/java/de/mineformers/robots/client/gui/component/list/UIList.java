@@ -14,7 +14,8 @@ import org.lwjgl.opengl.GL11;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UIList<T> extends UIComponent {
+public class UIList<T> extends UIComponent
+{
     protected List<T> items;
 
     protected int mouseX;
@@ -24,7 +25,8 @@ public class UIList<T> extends UIComponent {
 
     protected UIScrollBar scrollBar;
 
-    public UIList(int width, int height) {
+    public UIList(int width, int height)
+    {
         super(Global.getTexture());
 
         this.width = width;
@@ -37,63 +39,77 @@ public class UIList<T> extends UIComponent {
     }
 
     @Override
-    public void initComponent() {
+    public void initComponent()
+    {
         super.initComponent();
 
         scrollBar = new UIScrollBar(screenX + width - 6 - 1, screenY + 1, 6, height - 2);
     }
 
-    protected String getStringFromObject(Object obj) {
+    protected String getStringFromObject(Object obj)
+    {
         return obj.toString();
     }
 
-    public void addItem(T item) {
+    public void addItem(T item)
+    {
         items.add(item);
     }
 
-    public void populate(List<T> list) {
-        for (T item : list) {
+    public void populate(List<T> list)
+    {
+        for (T item : list)
+        {
             this.addItem(item);
         }
     }
 
-    public int getItemHeight() {
+    public int getItemHeight()
+    {
         return 16;
     }
 
-    public int getSpacing() {
+    public int getSpacing()
+    {
         return 4;
     }
 
-    public int getScrollY() {
+    public int getScrollY()
+    {
         int scrollScale = ((items.size() - 1) * getItemHeight()) + ((items.size() - 1) * getSpacing());
         return (int) scrollBar.getScrollScaled(scrollScale);
     }
 
     @Override
-    public boolean isHovered(int mouseX, int mouseY) {
+    public boolean isHovered(int mouseX, int mouseY)
+    {
         return true;
     }
 
     @Subscribe
-    public void onClick(MouseClickEvent event) {
-        if (isInsideRegion(event.mouseX, event.mouseY, screenX, screenY + scrollBar.scrollY, screenX + width, screenY + scrollBar.scrollY + scrollBar.getBarHeight())) {
+    public void onClick(MouseClickEvent event)
+    {
+        if (isInsideRegion(event.mouseX, event.mouseY, screenX, screenY + scrollBar.scrollY, screenX + width, screenY + scrollBar.scrollY + scrollBar.getBarHeight()))
+        {
             scrollBar.postEvent(event);
         }
     }
 
     @Subscribe
-    public void onMouseScroll(MouseScrollEvent event) {
+    public void onMouseScroll(MouseScrollEvent event)
+    {
         scrollBar.postEvent(event);
     }
 
     @Subscribe
-    public void onKeyTyped(KeyTypedEvent event) {
+    public void onKeyTyped(KeyTypedEvent event)
+    {
 
     }
 
     @Override
-    public void update(int mouseX, int mouseY) {
+    public void update(int mouseX, int mouseY)
+    {
         this.mouseX = mouseX;
         this.mouseY = mouseY;
 
@@ -101,10 +117,12 @@ public class UIList<T> extends UIComponent {
     }
 
     @Override
-    public void drawBackground(int mouseX, int mouseY) {
+    public void drawBackground(int mouseX, int mouseY)
+    {
         super.drawBackground(mouseX, mouseY);
 
-        if (this.drawBackground) {
+        if (this.drawBackground)
+        {
             GL11.glDisable(GL11.GL_TEXTURE_2D);
 
             Tessellator tessellator = Tessellator.instance;
@@ -132,7 +150,8 @@ public class UIList<T> extends UIComponent {
             GL11.glEnable(GL11.GL_TEXTURE_2D);
         }
 
-        for (int i = 0; i < items.size(); ++i) {
+        for (int i = 0; i < items.size(); ++i)
+        {
             T item = items.get(i);
 
             int yOffset = 1 + (i * getItemHeight()) + (i * getSpacing()) - getScrollY();
@@ -144,10 +163,12 @@ public class UIList<T> extends UIComponent {
     }
 
     @Override
-    public void drawForeground(int mouseX, int mouseY) {
+    public void drawForeground(int mouseX, int mouseY)
+    {
         super.drawForeground(mouseX, mouseY);
 
-        for (int i = 0; i < items.size(); ++i) {
+        for (int i = 0; i < items.size(); ++i)
+        {
             T item = items.get(i);
 
             int yOffset = 1 + (i * getItemHeight()) + (i * getSpacing()) - getScrollY();
@@ -159,7 +180,8 @@ public class UIList<T> extends UIComponent {
     }
 
     @Override
-    public void draw(int mouseX, int mouseY) {
+    public void draw(int mouseX, int mouseY)
+    {
         scrollBar.setScreenPos(screenX + width - 6 - 1, screenY);
 
         GL11.glPushAttrib(GL11.GL_SCISSOR_BIT);
@@ -180,7 +202,8 @@ public class UIList<T> extends UIComponent {
         //this.scrollBar.draw(mouseX, mouseY);
     }
 
-    protected void drawItems(int mouseX, int mouseY) {
+    protected void drawItems(int mouseX, int mouseY)
+    {
         //GL11.glDisable(GL11.GL_TEXTURE_2D);
 
         GL11.glColor4f(0.7f, 0.7f, 0.7f, 1);
@@ -191,7 +214,8 @@ public class UIList<T> extends UIComponent {
 
         int scrollY = getScrollY();
 
-        for (int i = 0; i < count; ++i) {
+        for (int i = 0; i < count; ++i)
+        {
             T item = items.get(i);
 
             int yOffset = 1 + (i * getItemHeight()) + (i * spacing) - scrollY;
@@ -204,15 +228,18 @@ public class UIList<T> extends UIComponent {
         //GL11.glEnable(GL11.GL_TEXTURE_2D);
     }
 
-    protected void drawItemBackground(T item, int x, int y, int width, int height) {
+    protected void drawItemBackground(T item, int x, int y, int width, int height)
+    {
 
     }
 
-    protected void drawItemForeground(T item, int x, int y, int width, int height) {
+    protected void drawItemForeground(T item, int x, int y, int width, int height)
+    {
 
     }
 
-    protected void drawItem(T item, int x, int y, int width, int height) {
+    protected void drawItem(T item, int x, int y, int width, int height)
+    {
         GL11.glDisable(GL11.GL_TEXTURE_2D);
 
         GL11.glColor4f(0.6f, 0.6f, 0.6f, 1);

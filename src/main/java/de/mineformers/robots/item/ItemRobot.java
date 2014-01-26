@@ -23,15 +23,18 @@ import java.util.List;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class ItemRobot extends ItemBase {
+public class ItemRobot extends ItemBase
+{
 
-    public ItemRobot(int id) {
+    public ItemRobot(int id)
+    {
         super(id, Strings.ROBOT_NAME);
         this.setCreativeTab(null);
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean advanced) {
+    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean advanced)
+    {
         super.addInformation(stack, player, list, advanced);
         Robot robot = RobotHelper.getRobotFromItemStack(stack);
         list.add("\247c" + LangHelper.translate("gui", "label.module") + ": \247r" + robot.getModule().getLocalizedName());
@@ -40,9 +43,11 @@ public class ItemRobot extends ItemBase {
     }
 
     @Override
-    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+    {
         ForgeDirection dir = ForgeDirection.getOrientation(side);
-        if (!world.isRemote) {
+        if (!world.isRemote)
+        {
             Robot robot = RobotHelper.getRobotFromItemStack(stack);
             EntityRobot entity = new EntityRobot(world, new Vector3(x, y, z));
             entity.setModule(robot.getModule());

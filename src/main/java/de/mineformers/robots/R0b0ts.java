@@ -30,6 +30,7 @@ import de.mineformers.robots.lib.Reference;
 import de.mineformers.robots.module.ModuleBlank;
 import de.mineformers.robots.module.ModuleCollect;
 import de.mineformers.robots.module.ModuleCrafting;
+import de.mineformers.robots.module.ModuleHarvest;
 import de.mineformers.robots.network.PacketHandler;
 import de.mineformers.robots.plugin.PluginHandler;
 import de.mineformers.robots.proxy.CommonProxy;
@@ -51,12 +52,12 @@ import java.io.File;
         name = Reference.MOD_NAME,
         dependencies = Reference.DEPENDENCIES,
         certificateFingerprint = Reference.FINGERPRINT)
-@NetworkMod(
-        channels = {Reference.CHANNEL_NAME},
+@NetworkMod(channels = {Reference.CHANNEL_NAME},
         clientSideRequired = true,
         serverSideRequired = false,
         packetHandler = PacketHandler.class)
-public class R0b0ts {
+public class R0b0ts
+{
 
     @Instance(Reference.MOD_ID)
     public static R0b0ts instance;
@@ -68,11 +69,13 @@ public class R0b0ts {
     public static CreativeTabs creativeTab = new CreativeTabR0b0ts(CreativeTabs.getNextID());
 
     @EventHandler
-    public void serverStarting(FMLServerStartingEvent event) {
+    public void serverStarting(FMLServerStartingEvent event)
+    {
     }
 
     @EventHandler
-    public void preInit(FMLPreInitializationEvent event) {
+    public void preInit(FMLPreInitializationEvent event)
+    {
         MinecraftForge.EVENT_BUS.register(PluginHandler.instance());
         PluginHandler.registerDefaults();
         ConfigurationHandler.init(new File(event.getModConfigurationDirectory(), Reference.MOD_ID + ".cfg"));
@@ -85,6 +88,7 @@ public class R0b0ts {
         ModuleRegistry.instance().registerModule(new ModuleBlank());
         ModuleRegistry.instance().registerModule(new ModuleCrafting());
         ModuleRegistry.instance().registerModule(new ModuleCollect());
+        ModuleRegistry.instance().registerModule(new ModuleHarvest());
         ChipsetRegistry.instance().registerChipset(new ChipsetBlank());
         ChipsetRegistry.instance().registerChipset(new ChipsetBasic());
         ChipsetRegistry.instance().registerChipset(new ChipsetAdvanced());
@@ -94,7 +98,8 @@ public class R0b0ts {
     }
 
     @EventHandler
-    public void init(FMLInitializationEvent event) {
+    public void init(FMLInitializationEvent event)
+    {
         NetworkRegistry.instance().registerGuiHandler(this, proxy);
         proxy.registerTileEntities();
         proxy.registerRenderers();
@@ -109,17 +114,20 @@ public class R0b0ts {
     }
 
     @EventHandler
-    public void postInit(FMLPostInitializationEvent event) {
+    public void postInit(FMLPostInitializationEvent event)
+    {
         for (R0b0tsPlugin plugin : PluginHandler.plugins())
             plugin.postInit();
         ModContainer container = FMLCommonHandler.instance().findContainerFor(this);
         container.getMetadata().description += "\n\n";
         if (PluginHandler.plugins().size() == 0)
             container.getMetadata().description += "\247cNo plugins loaded";
-        else {
+        else
+        {
             container.getMetadata().description += "\247aLoaded plugins:\n";
             int i = 0;
-            for (R0b0tsPlugin plugin : PluginHandler.plugins()) {
+            for (R0b0tsPlugin plugin : PluginHandler.plugins())
+            {
                 if (i > 0)
                     container.getMetadata().description += ", ";
                 container.getMetadata().description += plugin.getName() + " (" + plugin.getVersion() + ")";

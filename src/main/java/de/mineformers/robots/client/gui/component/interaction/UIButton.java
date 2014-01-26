@@ -14,13 +14,15 @@ import org.lwjgl.opengl.GL11;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class UIButton extends UIComponent {
+public class UIButton extends UIComponent
+{
 
     protected boolean enabled;
 
     protected String text;
 
-    public UIButton(int width, int height, String text) {
+    public UIButton(int width, int height, String text)
+    {
         super(Global.getTexture());
         this.width = width;
         this.height = height;
@@ -30,12 +32,14 @@ public class UIButton extends UIComponent {
     }
 
     @Override
-    public void update(int mouseX, int mouseY) {
+    public void update(int mouseX, int mouseY)
+    {
 
     }
 
     @Override
-    public void draw(int mouseX, int mouseY) {
+    public void draw(int mouseX, int mouseY)
+    {
         boolean hovering = isHovered(mouseX, mouseY);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         int state = getHoverState(hovering);
@@ -77,9 +81,11 @@ public class UIButton extends UIComponent {
 
         int color = 0xe0e0e0;
 
-        if (!this.enabled) {
+        if (!this.enabled)
+        {
             color = -0x5f5f60;
-        } else if (hovering) {
+        } else if (hovering)
+        {
             color = 0xffffa0;
         }
 
@@ -88,38 +94,47 @@ public class UIButton extends UIComponent {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    protected int getHoverState(boolean hovering) {
+    protected int getHoverState(boolean hovering)
+    {
         byte b0 = 1;
 
-        if (!this.enabled) {
+        if (!this.enabled)
+        {
             b0 = 0;
-        } else if (hovering) {
+        } else if (hovering)
+        {
             b0 = 2;
         }
 
         return b0;
     }
 
-    public void setEnabled(boolean enabled) {
+    public void setEnabled(boolean enabled)
+    {
         this.enabled = enabled;
     }
 
-    public boolean isEnabled() {
+    public boolean isEnabled()
+    {
         return enabled;
     }
 
     @Override
-    public boolean isHovered(int mouseX, int mouseY) {
+    public boolean isHovered(int mouseX, int mouseY)
+    {
         return this.isInsideRegion(mouseX, mouseY, screenX, screenY, screenX + width, screenY + height);
     }
 
-    public void setText(String text) {
+    public void setText(String text)
+    {
         this.text = text;
     }
 
     @Subscribe
-    public void onClick(MouseClickEvent event) {
-        switch (event.mouseButton) {
+    public void onClick(MouseClickEvent event)
+    {
+        switch (event.mouseButton)
+        {
             case LEFT:
                 mc.sndManager.playSoundFX("random.click", 1.0F, 1.0F);
                 break;

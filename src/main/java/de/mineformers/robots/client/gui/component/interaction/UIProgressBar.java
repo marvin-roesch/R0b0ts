@@ -12,14 +12,16 @@ import de.mineformers.robots.client.gui.util.Orientation;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class UIProgressBar extends UIComponent {
+public class UIProgressBar extends UIComponent
+{
 
     private int maxValue;
     private int value;
     private int u, v;
     private Orientation orientation;
 
-    public UIProgressBar(Orientation orientation, int width, int height, int u, int v) {
+    public UIProgressBar(Orientation orientation, int width, int height, int u, int v)
+    {
         super(Global.getTexture());
         this.orientation = orientation;
         this.maxValue = 100;
@@ -30,46 +32,56 @@ public class UIProgressBar extends UIComponent {
         this.v = v;
     }
 
-    public void setMaxValue(int maxValue) {
+    public void setMaxValue(int maxValue)
+    {
         this.maxValue = maxValue;
     }
 
-    public int getMaxValue() {
+    public int getMaxValue()
+    {
         return maxValue;
     }
 
-    public void setValue(int value) {
+    public void setValue(int value)
+    {
         this.value = value;
     }
 
-    public void updateValue(int amount) {
+    public void updateValue(int amount)
+    {
         value += amount;
         if (value >= maxValue)
             value = maxValue;
     }
 
-    public int getValue() {
+    public int getValue()
+    {
         return value;
     }
 
-    public int getValueScaled(int scale) {
+    public int getValueScaled(int scale)
+    {
         return this.value * scale / maxValue;
     }
 
     @Override
-    public boolean isHovered(int mouseX, int mouseY) {
+    public boolean isHovered(int mouseX, int mouseY)
+    {
         return this.isInsideRegion(mouseX, mouseY, screenX, screenY, screenX + width, screenY + height);
     }
 
     @Override
-    public void update(int mouseX, int mouseY) {
+    public void update(int mouseX, int mouseY)
+    {
 
     }
 
     @Override
-    public void draw(int mouseX, int mouseY) {
+    public void draw(int mouseX, int mouseY)
+    {
         this.drawRectangle(screenX, screenY, u, v, width, height);
-        switch (orientation) {
+        switch (orientation)
+        {
             case HORIZONTAL_LEFT:
                 this.drawRectangle(screenX, screenY, u, v + height, getValueScaled(width), height);
                 break;

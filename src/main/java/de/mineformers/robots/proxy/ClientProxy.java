@@ -40,13 +40,15 @@ import javax.xml.parsers.DocumentBuilderFactory;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class ClientProxy extends CommonProxy {
+public class ClientProxy extends CommonProxy
+{
 
     private static final ResourceLocation robotDiamondTexture = ResourceHelper.getModResource("textures/entities/robot_diamond.png");
     private static final ResourceLocation robotGoldTexture = ResourceHelper.getModResource("textures/entities/robot_gold.png");
     private static final ResourceLocation robotDefaultTexture = ResourceHelper.getModResource("textures/entities/robot.png");
 
-    public static ResourceLocation getRobotTexture(int itemID) {
+    public static ResourceLocation getRobotTexture(int itemID)
+    {
         if (itemID == Item.plateDiamond.itemID)
             return robotDiamondTexture;
         if (itemID == Item.plateGold.itemID)
@@ -55,27 +57,34 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
-    public void updateFactoryGui(TileFactoryController tile) {
+    public void updateFactoryGui(TileFactoryController tile)
+    {
         super.updateFactoryGui(tile);
         GuiScreen screen = Minecraft.getMinecraft().currentScreen;
-        if (screen instanceof WidgetGuiContainer) {
+        if (screen instanceof WidgetGuiContainer)
+        {
             UIPanel panel = ((WidgetGuiContainer) screen).getPanel();
-            if (panel instanceof WindowRobotFactory) {
+            if (panel instanceof WindowRobotFactory)
+            {
                 RobotModule module = ModuleRegistry.instance().getModule(tile.getSelectedModule());
                 String localized = module.getLocalizedName();
                 ((WindowRobotFactory) panel).setCurrentModule(localized);
                 ((WindowRobotFactory) panel).setCurrentChipset(ChipsetRegistry.instance().getChipset(tile.getSelectedChipset()).getLocalizedName());
                 ((WindowRobotFactory) panel).setCurrentArmor(tile.getArmorId());
                 ((WindowRobotFactory) panel).setProgress(tile.getProgress());
-                ((WindowRobotFactory) panel).setButtonState(tile.getArmorId() != -1 && !tile.getSelectedModule().equals("blank") && !tile.getSelectedChipset().equals("blank") && !tile.isProgressing() && ModuleRegistry.instance().getModule(tile.getSelectedModule()).validateStack(tile.getStackInSlot(0)));
+                ((WindowRobotFactory) panel).setEnergyLevel(tile.getEnergyLevel());
+                ((WindowRobotFactory) panel).setCurrentRate(tile.getCurrentRate());
+                ((WindowRobotFactory) panel).setButtonState(tile.getArmorId() != -1 && !tile.getSelectedModule().equals("blank") && !tile.getSelectedChipset().equals("blank") && !tile.isProgressing() && tile.getEnergyLevel() >= 200000 && ModuleRegistry.instance().getModule(tile.getSelectedModule()).validateStack(tile.getStackInSlot(0)));
             }
         }
     }
 
     @Override
-    public void loadManual() {
+    public void loadManual()
+    {
         super.loadManual();
-        try {
+        try
+        {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory
                     .newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -83,12 +92,14 @@ public class ClientProxy extends CommonProxy {
             doc.getDocumentElement().normalize();
             WindowIngameManual.document = doc;
             addManualRecipes();
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
 
-    private void addManualRecipes() {
+    private void addManualRecipes()
+    {
         ItemStack redstone = new ItemStack(Item.redstone);
         ItemStack stone = new ItemStack(Block.stone);
         ItemStack iron = new ItemStack(Item.ingotIron);
@@ -119,13 +130,15 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
-    public void registerHandlers() {
+    public void registerHandlers()
+    {
         super.registerHandlers();
         MinecraftForge.EVENT_BUS.register(new SoundHandler());
     }
 
     @Override
-    public void registerRenderers() {
+    public void registerRenderers()
+    {
         RenderingRegistry.registerEntityRenderingHandler(EntityRobot.class, new RenderRobot());
         RenderingRegistry.registerEntityRenderingHandler(EntityBuddyBot.class, new RenderBuddyBot());
         ClientRegistry.bindTileEntitySpecialRenderer(TileFactoryController.class, new TileFactoryControllerRenderer());

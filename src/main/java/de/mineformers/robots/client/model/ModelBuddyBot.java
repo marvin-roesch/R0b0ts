@@ -13,22 +13,26 @@ import org.lwjgl.opengl.GL11;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class ModelBuddyBot extends ModelBiped {
+public class ModelBuddyBot extends ModelBiped
+{
 
     ModelRenderer bipedEye;
     public boolean isSitting;
 
-    public ModelBuddyBot() {
+    public ModelBuddyBot()
+    {
         super();
         this.bipedEye = new ModelRenderer(this, 0, 0);
         this.bipedEye.addBox(-1.0F, -6.0F, -4.5F, 2, 3, 1, 0);
         this.bipedEye.setRotationPoint(0.0F, 0, 0.0F);
     }
 
-    public void render(Entity par1Entity, float par2, float par3, float par4, float par5, float par6, float par7) {
+    public void render(Entity par1Entity, float par2, float par3, float par4, float par5, float par6, float par7)
+    {
         this.setRotationAngles(par2, par3, par4, par5, par6, par7, par1Entity);
 
-        if (this.isChild) {
+        if (this.isChild)
+        {
             float f6 = 2.0F;
             GL11.glPushMatrix();
             if (isSitting)
@@ -50,7 +54,8 @@ public class ModelBuddyBot extends ModelBiped {
             this.bipedHeadwear.render(par7);
             GL11.glPopMatrix();
             GL11.glPopMatrix();
-        } else {
+        } else
+        {
             GL11.glPushMatrix();
             GL11.glScalef(2F, 2F, 2F);
             GL11.glTranslatef(0.0F, 16.0F * par7, 0.0F);
@@ -66,11 +71,13 @@ public class ModelBuddyBot extends ModelBiped {
     }
 
     @Override
-    public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity par7Entity) {
+    public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity par7Entity)
+    {
         super.setRotationAngles(par1, par2, par3, par4, par5, par6, par7Entity);
         this.bipedEye.rotateAngleY = par4 / (180F / (float) Math.PI);
         this.bipedEye.rotateAngleX = par5 / (180F / (float) Math.PI);
-        if (this.isSitting) {
+        if (this.isSitting)
+        {
             this.bipedRightArm.rotateAngleX += -((float) Math.PI / 5F);
             this.bipedLeftArm.rotateAngleX += -((float) Math.PI / 5F);
             this.bipedRightLeg.rotateAngleX = -((float) Math.PI * 2.5F / 5F);

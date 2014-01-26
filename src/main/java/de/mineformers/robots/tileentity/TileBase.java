@@ -10,5 +10,6 @@ import net.minecraft.tileentity.TileEntity;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class TileBase extends TileEntity {
+public class TileBase extends TileEntity
+{
 }

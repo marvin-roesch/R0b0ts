@@ -18,24 +18,29 @@ import net.minecraft.item.ItemStack;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class ModuleCollect extends RobotModule {
+public class ModuleCollect extends RobotModule
+{
 
-    public ModuleCollect() {
+    public ModuleCollect()
+    {
         super("collect", "robots:collect", "robots:modules/collect");
     }
 
     @Override
-    public void registerRecipe(ItemStack result, ItemStack blank) {
+    public void registerRecipe(ItemStack result, ItemStack blank)
+    {
         GameRegistry.addShapelessRecipe(result, blank, new ItemStack(Block.hopperBlock));
     }
 
     @Override
-    public IModuleData getData() {
+    public IModuleData getData()
+    {
         return new EmptyData();
     }
 
     @Override
-    public EntityAIBase getAI(EntityRobot entity) {
+    public EntityAIBase getAI(EntityRobot entity)
+    {
         return new AICollect(entity);
     }
 }

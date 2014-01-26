@@ -8,7 +8,8 @@ package de.mineformers.robots.client.gui.util;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public enum MouseButton {
+public enum MouseButton
+{
 
     LEFT, RIGHT, MIDDLE;
 

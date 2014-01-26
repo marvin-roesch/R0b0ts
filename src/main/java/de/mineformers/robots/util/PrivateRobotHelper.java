@@ -16,9 +16,11 @@ import net.minecraft.nbt.NBTTagCompound;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class PrivateRobotHelper {
+public class PrivateRobotHelper
+{
 
-    public static ItemStack createModuleStack(RobotModule module) {
+    public static ItemStack createModuleStack(RobotModule module)
+    {
         ItemStack stack = new ItemStack(ModItems.module);
         NBTTagCompound tag = new NBTTagCompound();
         tag.setString("ModuleName", module.getIdentifier());
@@ -26,7 +28,8 @@ public class PrivateRobotHelper {
         return stack;
     }
 
-    public static ItemStack createDefaultModule() {
+    public static ItemStack createDefaultModule()
+    {
         ItemStack stack = new ItemStack(ModItems.module);
         NBTTagCompound tag = new NBTTagCompound();
         tag.setString("ModuleName", "blank");
@@ -34,7 +37,8 @@ public class PrivateRobotHelper {
         return stack;
     }
 
-    public static ItemStack createChipsetStack(RobotChipset chipset) {
+    public static ItemStack createChipsetStack(RobotChipset chipset)
+    {
         ItemStack stack = new ItemStack(ModItems.chipset);
         NBTTagCompound tag = new NBTTagCompound();
         tag.setString("ChipsetName", chipset.getIdentifier());
@@ -42,7 +46,8 @@ public class PrivateRobotHelper {
         return stack;
     }
 
-    public static ItemStack createDefaultChipset() {
+    public static ItemStack createDefaultChipset()
+    {
         ItemStack stack = new ItemStack(ModItems.chipset);
         NBTTagCompound tag = new NBTTagCompound();
         tag.setString("ChipsetName", "blank");
@@ -50,7 +55,8 @@ public class PrivateRobotHelper {
         return stack;
     }
 
-    public static ItemStack createItemStackFromRobot(String customName, Robot robot) {
+    public static ItemStack createItemStackFromRobot(String customName, Robot robot)
+    {
         ItemStack stack = new ItemStack(ModItems.robot);
         stack.setTagCompound(new NBTTagCompound());
         if (customName != null)

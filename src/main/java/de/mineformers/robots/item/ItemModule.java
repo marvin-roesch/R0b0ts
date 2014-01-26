@@ -29,21 +29,25 @@ import java.util.List;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class ItemModule extends ItemBase {
+public class ItemModule extends ItemBase
+{
 
     private HashMap<String, Icon> icons;
 
-    public ItemModule(int id) {
+    public ItemModule(int id)
+    {
         super(id, Strings.MODULE_BASE_NAME);
         icons = new HashMap<String, Icon>();
         this.setMaxStackSize(1);
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean advanced) {
+    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean advanced)
+    {
         if (!GuiScreen.isShiftKeyDown())
             list.add("Press shift for more information");
-        else {
+        else
+        {
             RobotModule module = RobotHelper.getModuleFromItemStack(stack);
             list.add("\247c" + LangHelper.translate("tooltip", "moduleType") + ": \247r" + module.getLocalizedName());
         }
@@ -52,8 +56,10 @@ public class ItemModule extends ItemBase {
     @SuppressWarnings({"rawtypes", "unchecked"})
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubItems(int id, CreativeTabs tabs, List list) {
-        for (RobotModule module : ModuleRegistry.instance().getModules()) {
+    public void getSubItems(int id, CreativeTabs tabs, List list)
+    {
+        for (RobotModule module : ModuleRegistry.instance().getModules())
+        {
             NBTTagCompound tag = new NBTTagCompound();
             tag.setString("ModuleName", module.getIdentifier());
             NBTTagCompound moduleDataTag = new NBTTagCompound();
@@ -68,32 +74,38 @@ public class ItemModule extends ItemBase {
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+    {
         return RobotHelper.getModuleFromItemStack(stack).onItemRightClick(stack, world, player);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public Icon getIcon(ItemStack stack, int renderPass) {
+    public Icon getIcon(ItemStack stack, int renderPass)
+    {
         RobotModule module = RobotHelper.getModuleFromItemStack(stack);
         return icons.get(module.getIdentifier());
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean requiresMultipleRenderPasses() {
+    public boolean requiresMultipleRenderPasses()
+    {
         return true;
     }
 
     @Override
-    public int getRenderPasses(int metadata) {
+    public int getRenderPasses(int metadata)
+    {
         return 1;
     }
 
     @Override
-    public void registerIcons(IconRegister iconRegister) {
+    public void registerIcons(IconRegister iconRegister)
+    {
         itemIcon = iconRegister.registerIcon(Reference.RESOURCE_PREFIX + "modules/blank");
-        for (RobotModule module : ModuleRegistry.instance().getModules()) {
+        for (RobotModule module : ModuleRegistry.instance().getModules())
+        {
             icons.put(module.getIdentifier(), iconRegister.registerIcon(module.getIconPath()));
         }
     }

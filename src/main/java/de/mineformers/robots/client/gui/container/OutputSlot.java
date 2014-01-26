@@ -12,14 +12,17 @@ import net.minecraft.item.ItemStack;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class OutputSlot extends Slot {
+public class OutputSlot extends Slot
+{
 
-    public OutputSlot(IInventory inventory, int index, int x, int y) {
+    public OutputSlot(IInventory inventory, int index, int x, int y)
+    {
         super(inventory, index, x, y);
     }
 
     @Override
-    public boolean isItemValid(ItemStack stack) {
+    public boolean isItemValid(ItemStack stack)
+    {
         return false;
     }
 }

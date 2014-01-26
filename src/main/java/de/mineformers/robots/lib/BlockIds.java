@@ -8,12 +8,15 @@ package de.mineformers.robots.lib;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class BlockIds {
+public class BlockIds
+{
 
     public static final int FACTORY_CONTROLLER_DEFAULT = 3001;
     public static final int FACTORY_BASE_DEFAULT = 3002;
+    public static final int FACTORY_ENERGY_DEFAULT = 3003;
 
     public static int FACTORY_CONTROLLER;
     public static int FACTORY_BASE;
+    public static int FACTORY_ENERGY;
 
 }

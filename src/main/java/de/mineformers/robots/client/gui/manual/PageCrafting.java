@@ -12,11 +12,13 @@ import org.w3c.dom.Element;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class PageCrafting extends PageText {
+public class PageCrafting extends PageText
+{
 
     private UICraftingSpace craftingSpace;
 
-    private void init(String recipeKey) {
+    private void init(String recipeKey)
+    {
         int y = text.getHeight() + 4;
         this.craftingSpace = new UICraftingSpace();
         craftingSpace.setRecipe(WindowIngameManual.recipes.get(recipeKey));
@@ -24,7 +26,8 @@ public class PageCrafting extends PageText {
     }
 
     @Override
-    public void loadFromXML(Element element) {
+    public void loadFromXML(Element element)
+    {
         super.loadFromXML(element);
         this.init(element.getElementsByTagName("recipe").item(0).getTextContent());
     }

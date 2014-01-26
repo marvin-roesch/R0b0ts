@@ -27,7 +27,8 @@ import org.lwjgl.opengl.GL12;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class ModelDrawingHelper implements IDrawingHelper {
+public class ModelDrawingHelper implements IDrawingHelper
+{
 
     private static final ResourceLocation RES_ITEM_GLINT = new ResourceLocation("textures/misc/enchanted_item_glint.png");
 
@@ -39,16 +40,19 @@ public class ModelDrawingHelper implements IDrawingHelper {
     private int canvasWidth, canvasHeight;
     private float scale;
 
-    public ModelDrawingHelper(ModelRobot model, TileFactoryController tile, ResourceLocation texture, int canvasWidth, int canvasHeight, float scale) {
+    public ModelDrawingHelper(ModelRobot model, TileFactoryController tile, ResourceLocation texture, int canvasWidth, int canvasHeight, float scale)
+    {
         this.model = model;
         this.texture = texture;
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
         this.scale = scale;
         this.tile = tile;
-        customRenderItem = new RenderItem() {
+        customRenderItem = new RenderItem()
+        {
             @Override
-            public boolean shouldBob() {
+            public boolean shouldBob()
+            {
                 return false;
             }
         };
@@ -57,7 +61,8 @@ public class ModelDrawingHelper implements IDrawingHelper {
     }
 
     @Override
-    public void draw(int x, int y) {
+    public void draw(int x, int y)
+    {
         // Corners clockwise
         RenderHelper.drawRectangle(x, y, 39 + 46, 67, 5, 5, 1);
         RenderHelper.drawRectangle(x + canvasWidth - 5, y, 39 + 54, 67, 5, 5, 1);
@@ -78,7 +83,8 @@ public class ModelDrawingHelper implements IDrawingHelper {
         render(x + 25, y + 21, 30);
     }
 
-    public void render(int par0, int par1, int par2) {
+    public void render(int par0, int par1, int par2)
+    {
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
         GL11.glPushMatrix();
         GL11.glTranslatef((float) par0, (float) par1, 50.0F);
@@ -91,7 +97,8 @@ public class ModelDrawingHelper implements IDrawingHelper {
         model.justRender(false);
         RenderHelper.bindTexture(ChipsetRegistry.instance().getChipset(tile.getSelectedChipset()).getHeadTexture());
         model.renderEye(false);
-        if (tile.getStackInSlot(0) != null) {
+        if (tile.getStackInSlot(0) != null)
+        {
             Tessellator tessellator = Tessellator.instance;
             GL11.glPushMatrix();
 
@@ -113,13 +120,16 @@ public class ModelDrawingHelper implements IDrawingHelper {
 
             GL11.glTranslatef(-f9, -f10, -((f12 + f11) * (float) b0 / 2.0F));
 
-            for (int k = 0; k < b0; ++k) {
+            for (int k = 0; k < b0; ++k)
+            {
                 // Makes items offset when in 3D, like when in 2D, looks much better. Considered a vanilla bug...
                 GL11.glTranslatef(0f, 0f, f12 + f11);
 
-                if (itemstack.getItemSpriteNumber() == 0) {
+                if (itemstack.getItemSpriteNumber() == 0)
+                {
                     RenderHelper.bindTexture(TextureMap.locationBlocksTexture);
-                } else {
+                } else
+                {
                     RenderHelper.bindTexture(TextureMap.locationItemsTexture);
                 }
 
@@ -128,7 +138,8 @@ public class ModelDrawingHelper implements IDrawingHelper {
                 GL11.glTranslatef(-1, 0, 0.05F);
                 ItemRenderer.renderItemIn2D(tessellator, f5, f6, f4, f7, icon.getIconWidth(), icon.getIconHeight(), f12);
 
-                if (itemstack.hasEffect(0)) {
+                if (itemstack.hasEffect(0))
+                {
                     GL11.glDepthFunc(GL11.GL_EQUAL);
                     GL11.glDisable(GL11.GL_LIGHTING);
                     RenderManager.instance.renderEngine.bindTexture(RES_ITEM_GLINT);

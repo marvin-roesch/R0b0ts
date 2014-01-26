@@ -2,6 +2,7 @@ package de.mineformers.robots.block;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import de.mineformers.robots.lib.BlockIds;
 import de.mineformers.robots.lib.Reference;
 import de.mineformers.robots.lib.Strings;
 import de.mineformers.robots.tileentity.TileFactoryController;
@@ -27,60 +28,74 @@ import java.util.List;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class BlockFactory extends BlockBase {
+public class BlockFactory extends BlockBase
+{
 
     private Icon[] glassIcons = new Icon[16];
     private Icon[] frameIcons = new Icon[16];
 
-    public BlockFactory(int id) {
+    public BlockFactory(int id)
+    {
         super(id, Material.glass, Strings.FACTORY_BASE_NAME);
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubBlocks(int id, CreativeTabs tab, List subItems) {
+    public void getSubBlocks(int id, CreativeTabs tab, List subItems)
+    {
         subItems.add(new ItemStack(id, 1, 0));
         subItems.add(new ItemStack(id, 1, 1));
     }
 
     @Override
     public ItemStack getPickBlock(MovingObjectPosition target, World world,
-                                  int x, int y, int z) {
+                                  int x, int y, int z)
+    {
         return new ItemStack(this, 1, world.getBlockMetadata(x, y, z));
     }
 
-    public boolean shouldConnectToBlock(IBlockAccess world, int x, int y, int z, int id, int meta, int checkMeta) {
-        return id == this.blockID && (meta == checkMeta || checkMeta == 1);
+    public boolean shouldConnectToBlock(IBlockAccess world, int x, int y, int z, int id, int meta, int checkMeta)
+    {
+        return (id == this.blockID && (meta == checkMeta || checkMeta == 1)) ||
+                ((id == BlockIds.FACTORY_CONTROLLER || id == BlockIds.FACTORY_ENERGY) && checkMeta == 1);
     }
 
     @Override
-    public Icon getBlockTexture(IBlockAccess world, int x, int y, int z, int side) {
+    public Icon getBlockTexture(IBlockAccess world, int x, int y, int z, int side)
+    {
         return world.getBlockMetadata(x, y, z) == 1 ? getConnectedBlockTexture(world, x, y, z, side, world.getBlockMetadata(x, y, z), frameIcons) : getConnectedBlockTexture(world, x, y, z, side, world.getBlockMetadata(x, y, z), glassIcons);
     }
 
     @Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, int neighborID) {
-        for (ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
-            if (world.getBlockId(x + side.offsetX, y + side.offsetY, z + side.offsetZ) == this.blockID) {
+    public void onNeighborBlockChange(World world, int x, int y, int z, int neighborID)
+    {
+        for (ForgeDirection side : ForgeDirection.VALID_DIRECTIONS)
+        {
+            if (world.getBlockId(x + side.offsetX, y + side.offsetY, z + side.offsetZ) == this.blockID)
+            {
                 if (this.passBlockChange(world, new Vector3(x, y, z), new ArrayList<Vector3>()))
                     return;
-            } else if (world.getBlockId(x + side.offsetX, y + side.offsetY, z + side.offsetZ) == ModBlocks.factoryController.blockID) {
+            } else if (world.getBlockId(x + side.offsetX, y + side.offsetY, z + side.offsetZ) == ModBlocks.factoryController.blockID)
+            {
                 ModBlocks.factoryController.onNeighborBlockChange(world, x + side.offsetX, y + side.offsetY, z + side.offsetZ, world.getBlockId(x, y, z));
                 return;
             }
         }
     }
 
-    private boolean passBlockChange(World world, Vector3 pos, ArrayList<Vector3> exceptions) {
+    private boolean passBlockChange(World world, Vector3 pos, ArrayList<Vector3> exceptions)
+    {
         int x = (int) pos.x;
         int y = (int) pos.y;
         int z = (int) pos.z;
         exceptions.add(pos);
-        for (ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
+        for (ForgeDirection side : ForgeDirection.VALID_DIRECTIONS)
+        {
             if (!exceptions.contains(new Vector3(x + side.offsetX, y + side.offsetY, z + side.offsetZ)) && world.getBlockId(x + side.offsetX, y + side.offsetY, z + side.offsetZ) == this.blockID)
                 return this.passBlockChange(world, new Vector3(x + side.offsetX, y + side.offsetY, z + side.offsetZ), exceptions);
-            else if (world.getBlockId(x + side.offsetX, y + side.offsetY, z + side.offsetZ) == ModBlocks.factoryController.blockID) {
+            else if (world.getBlockId(x + side.offsetX, y + side.offsetY, z + side.offsetZ) == ModBlocks.factoryController.blockID)
+            {
                 ModBlocks.factoryController.onNeighborBlockChange(world, x + side.offsetX, y + side.offsetY, z + side.offsetZ, world.getBlockId(x, y, z));
                 return true;
             }
@@ -89,372 +104,416 @@ public class BlockFactory extends BlockBase {
         return false;
     }
 
-    public Icon getConnectedBlockTexture(IBlockAccess world, int x, int y, int z, int side, int meta, Icon[] icons) {
+    public Icon getConnectedBlockTexture(IBlockAccess world, int x, int y, int z, int side, int meta, Icon[] icons)
+    {
         boolean isOpenUp = false, isOpenDown = false, isOpenLeft = false, isOpenRight = false;
-        switch (side) {
+        switch (side)
+        {
             case 0:
-                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x - 1, y, z), world.getBlockMetadata(x - 1, y, z), meta)) {
+                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x - 1, y, z), world.getBlockMetadata(x - 1, y, z), meta))
+                {
                     isOpenDown = true;
                 }
 
-                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x + 1, y, z), world.getBlockMetadata(x + 1, y, z), meta)) {
+                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x + 1, y, z), world.getBlockMetadata(x + 1, y, z), meta))
+                {
                     isOpenUp = true;
                 }
 
-                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y, z - 1), world.getBlockMetadata(x, y, z - 1), meta)) {
+                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y, z - 1), world.getBlockMetadata(x, y, z - 1), meta))
+                {
                     isOpenLeft = true;
                 }
 
-                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y, z + 1), world.getBlockMetadata(x, y, z + 1), meta)) {
+                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y, z + 1), world.getBlockMetadata(x, y, z + 1), meta))
+                {
                     isOpenRight = true;
                 }
 
-                if (isOpenUp && isOpenDown && isOpenLeft && isOpenRight) {
+                if (isOpenUp && isOpenDown && isOpenLeft && isOpenRight)
+                {
                     return icons[15];
-                } else if (isOpenUp && isOpenDown && isOpenLeft) {
+                } else if (isOpenUp && isOpenDown && isOpenLeft)
+                {
                     return icons[11];
-                } else if (isOpenUp && isOpenDown && isOpenRight) {
+                } else if (isOpenUp && isOpenDown && isOpenRight)
+                {
                     return icons[12];
-                } else if (isOpenUp && isOpenLeft && isOpenRight) {
-                    if (world.getBlockTileEntity(x, y - 1, z) instanceof TileFactoryController)
-                        return icons[15];
+                } else if (isOpenUp && isOpenLeft && isOpenRight)
+                {
                     return icons[13];
-                } else if (isOpenDown && isOpenLeft && isOpenRight) {
-                    if (world.getBlockTileEntity(x, y + 1, z) instanceof TileFactoryController)
-                        return icons[15];
+                } else if (isOpenDown && isOpenLeft && isOpenRight)
+                {
                     return icons[14];
-                } else if (isOpenDown && isOpenUp) {
+                } else if (isOpenDown && isOpenUp)
+                {
                     return icons[5];
-                } else if (isOpenLeft && isOpenRight) {
+                } else if (isOpenLeft && isOpenRight)
+                {
                     return icons[6];
-                } else if (isOpenDown && isOpenLeft) {
+                } else if (isOpenDown && isOpenLeft)
+                {
                     return icons[8];
-                } else if (isOpenDown && isOpenRight) {
+                } else if (isOpenDown && isOpenRight)
+                {
                     return icons[10];
-                } else if (isOpenUp && isOpenLeft) {
+                } else if (isOpenUp && isOpenLeft)
+                {
                     return icons[7];
-                } else if (isOpenUp && isOpenRight) {
+                } else if (isOpenUp && isOpenRight)
+                {
                     return icons[9];
-                } else if (isOpenDown) {
+                } else if (isOpenDown)
+                {
                     return icons[3];
-                } else if (isOpenUp) {
+                } else if (isOpenUp)
+                {
                     return icons[4];
-                } else if (isOpenLeft) {
+                } else if (isOpenLeft)
+                {
                     return icons[2];
-                } else if (isOpenRight) {
+                } else if (isOpenRight)
+                {
                     return icons[1];
                 }
                 break;
             case 1:
-                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x - 1, y, z), world.getBlockMetadata(x - 1, y, z), meta)) {
+                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x - 1, y, z), world.getBlockMetadata(x - 1, y, z), meta))
+                {
                     isOpenDown = true;
                 }
 
-                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x + 1, y, z), world.getBlockMetadata(x + 1, y, z), meta)) {
+                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x + 1, y, z), world.getBlockMetadata(x + 1, y, z), meta))
+                {
                     isOpenUp = true;
                 }
 
-                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y, z - 1), world.getBlockMetadata(x, y, z - 1), meta)) {
+                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y, z - 1), world.getBlockMetadata(x, y, z - 1), meta))
+                {
                     isOpenLeft = true;
                 }
 
-                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y, z + 1), world.getBlockMetadata(x, y, z + 1), meta)) {
+                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y, z + 1), world.getBlockMetadata(x, y, z + 1), meta))
+                {
                     isOpenRight = true;
                 }
 
-                if (isOpenUp && isOpenDown && isOpenLeft && isOpenRight) {
+                if (isOpenUp && isOpenDown && isOpenLeft && isOpenRight)
+                {
                     return icons[15];
-                } else if (isOpenUp && isOpenDown && isOpenLeft) {
+                } else if (isOpenUp && isOpenDown && isOpenLeft)
+                {
                     return icons[11];
-                } else if (isOpenUp && isOpenDown && isOpenRight) {
+                } else if (isOpenUp && isOpenDown && isOpenRight)
+                {
                     return icons[12];
-                } else if (isOpenUp && isOpenLeft && isOpenRight) {
-                    if (world.getBlockTileEntity(x, y - 1, z) instanceof TileFactoryController)
-                        return icons[15];
+                } else if (isOpenUp && isOpenLeft && isOpenRight)
+                {
                     return icons[13];
-                } else if (isOpenDown && isOpenLeft && isOpenRight) {
-                    if (world.getBlockTileEntity(x, y + 1, z) instanceof TileFactoryController)
-                        return icons[15];
+                } else if (isOpenDown && isOpenLeft && isOpenRight)
+                {
                     return icons[14];
-                } else if (isOpenDown && isOpenUp) {
+                } else if (isOpenDown && isOpenUp)
+                {
                     return icons[5];
-                } else if (isOpenLeft && isOpenRight) {
+                } else if (isOpenLeft && isOpenRight)
+                {
                     return icons[6];
-                } else if (isOpenDown && isOpenLeft) {
+                } else if (isOpenDown && isOpenLeft)
+                {
                     return icons[8];
-                } else if (isOpenDown && isOpenRight) {
+                } else if (isOpenDown && isOpenRight)
+                {
                     return icons[10];
-                } else if (isOpenUp && isOpenLeft) {
+                } else if (isOpenUp && isOpenLeft)
+                {
                     return icons[7];
-                } else if (isOpenUp && isOpenRight) {
+                } else if (isOpenUp && isOpenRight)
+                {
                     return icons[9];
-                } else if (isOpenDown) {
+                } else if (isOpenDown)
+                {
                     return icons[3];
-                } else if (isOpenUp) {
+                } else if (isOpenUp)
+                {
                     return icons[4];
-                } else if (isOpenLeft) {
+                } else if (isOpenLeft)
+                {
                     return icons[2];
-                } else if (isOpenRight) {
+                } else if (isOpenRight)
+                {
                     return icons[1];
                 }
                 break;
             case 2:
-                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y - 1, z), world.getBlockMetadata(x, y - 1, z), meta)) {
+                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y - 1, z), world.getBlockMetadata(x, y - 1, z), meta))
+                {
                     isOpenDown = true;
                 }
 
-                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y + 1, z), world.getBlockMetadata(x, y + 1, z), meta)) {
+                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y + 1, z), world.getBlockMetadata(x, y + 1, z), meta))
+                {
                     isOpenUp = true;
                 }
 
-                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x - 1, y, z), world.getBlockMetadata(x - 1, y, z), meta)) {
+                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x - 1, y, z), world.getBlockMetadata(x - 1, y, z), meta))
+                {
                     isOpenLeft = true;
                 }
 
-                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x + 1, y, z), world.getBlockMetadata(x + 1, y, z), meta)) {
+                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x + 1, y, z), world.getBlockMetadata(x + 1, y, z), meta))
+                {
                     isOpenRight = true;
                 }
 
-                if (isOpenUp && isOpenDown && isOpenLeft && isOpenRight) {
+                if (isOpenUp && isOpenDown && isOpenLeft && isOpenRight)
+                {
                     return icons[15];
-                } else if (isOpenUp && isOpenDown && isOpenLeft) {
+                } else if (isOpenUp && isOpenDown && isOpenLeft)
+                {
                     return icons[13];
-                } else if (isOpenUp && isOpenDown && isOpenRight) {
+                } else if (isOpenUp && isOpenDown && isOpenRight)
+                {
                     return icons[14];
-                } else if (isOpenUp && isOpenLeft && isOpenRight) {
-                    if (world.getBlockTileEntity(x, y - 1, z) instanceof TileFactoryController)
-                        return icons[15];
+                } else if (isOpenUp && isOpenLeft && isOpenRight)
+                {
                     return icons[11];
-                } else if (isOpenDown && isOpenLeft && isOpenRight) {
-                    if (world.getBlockTileEntity(x, y + 1, z) instanceof TileFactoryController)
-                        return icons[15];
+                } else if (isOpenDown && isOpenLeft && isOpenRight)
+                {
                     return icons[12];
-                } else if (isOpenDown && isOpenUp) {
-                    if (world.getBlockTileEntity(x - 1, y, z) instanceof TileFactoryController) {
-                        return icons[13];
-                    }
-                    if (world.getBlockTileEntity(x + 1, y, z) instanceof TileFactoryController) {
-                        return icons[14];
-                    }
+                } else if (isOpenDown && isOpenUp)
+                {
                     return icons[6];
-                } else if (isOpenLeft && isOpenRight) {
-                    if (world.getBlockTileEntity(x, y + 1, z) instanceof TileFactoryController) {
-                        return icons[11];
-                    }
-                    if (world.getBlockTileEntity(x, y - 1, z) instanceof TileFactoryController) {
-                        return icons[12];
-                    }
+                } else if (isOpenLeft && isOpenRight)
+                {
                     return icons[5];
-                } else if (isOpenDown && isOpenLeft) {
+                } else if (isOpenDown && isOpenLeft)
+                {
                     return icons[9];
-                } else if (isOpenDown && isOpenRight) {
+                } else if (isOpenDown && isOpenRight)
+                {
                     return icons[10];
-                } else if (isOpenUp && isOpenLeft) {
+                } else if (isOpenUp && isOpenLeft)
+                {
                     return icons[7];
-                } else if (isOpenUp && isOpenRight) {
+                } else if (isOpenUp && isOpenRight)
+                {
                     return icons[8];
-                } else if (isOpenDown) {
+                } else if (isOpenDown)
+                {
                     return icons[1];
-                } else if (isOpenUp) {
+                } else if (isOpenUp)
+                {
                     return icons[2];
-                } else if (isOpenLeft) {
+                } else if (isOpenLeft)
+                {
                     return icons[4];
-                } else if (isOpenRight) {
+                } else if (isOpenRight)
+                {
                     return icons[3];
                 }
                 break;
             case 3:
-                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y - 1, z), world.getBlockMetadata(x, y - 1, z), meta)) {
+                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y - 1, z), world.getBlockMetadata(x, y - 1, z), meta))
+                {
                     isOpenDown = true;
                 }
 
-                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y + 1, z), world.getBlockMetadata(x, y + 1, z), meta)) {
+                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y + 1, z), world.getBlockMetadata(x, y + 1, z), meta))
+                {
                     isOpenUp = true;
                 }
 
-                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x - 1, y, z), world.getBlockMetadata(x - 1, y, z), meta)) {
+                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x - 1, y, z), world.getBlockMetadata(x - 1, y, z), meta))
+                {
                     isOpenLeft = true;
                 }
 
-                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x + 1, y, z), world.getBlockMetadata(x + 1, y, z), meta)) {
+                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x + 1, y, z), world.getBlockMetadata(x + 1, y, z), meta))
+                {
                     isOpenRight = true;
                 }
 
-                if (isOpenUp && isOpenDown && isOpenLeft && isOpenRight) {
+                if (isOpenUp && isOpenDown && isOpenLeft && isOpenRight)
+                {
                     return icons[15];
-                } else if (isOpenUp && isOpenDown && isOpenLeft) {
+                } else if (isOpenUp && isOpenDown && isOpenLeft)
+                {
                     return icons[14];
-                } else if (isOpenUp && isOpenDown && isOpenRight) {
+                } else if (isOpenUp && isOpenDown && isOpenRight)
+                {
                     return icons[13];
-                } else if (isOpenUp && isOpenLeft && isOpenRight) {
-                    if (world.getBlockTileEntity(x, y - 1, z) instanceof TileFactoryController)
-                        return icons[15];
+                } else if (isOpenUp && isOpenLeft && isOpenRight)
+                {
                     return icons[11];
-                } else if (isOpenDown && isOpenLeft && isOpenRight) {
-                    if (world.getBlockTileEntity(x, y + 1, z) instanceof TileFactoryController)
-                        return icons[15];
+                } else if (isOpenDown && isOpenLeft && isOpenRight)
+                {
                     return icons[12];
-                } else if (isOpenDown && isOpenUp) {
-                    if (world.getBlockTileEntity(x + 1, y, z) instanceof TileFactoryController) {
-                        return icons[13];
-                    }
-                    if (world.getBlockTileEntity(x - 1, y, z) instanceof TileFactoryController) {
-                        return icons[14];
-                    }
+                } else if (isOpenDown && isOpenUp)
+                {
                     return icons[6];
-                } else if (isOpenLeft && isOpenRight) {
-                    if (world.getBlockTileEntity(x, y + 1, z) instanceof TileFactoryController) {
-                        return icons[11];
-                    }
-                    if (world.getBlockTileEntity(x, y - 1, z) instanceof TileFactoryController) {
-                        return icons[14];
-                    }
+                } else if (isOpenLeft && isOpenRight)
+                {
                     return icons[5];
-                } else if (isOpenDown && isOpenLeft) {
+                } else if (isOpenDown && isOpenLeft)
+                {
                     return icons[10];
-                } else if (isOpenDown && isOpenRight) {
+                } else if (isOpenDown && isOpenRight)
+                {
                     return icons[9];
-                } else if (isOpenUp && isOpenLeft) {
+                } else if (isOpenUp && isOpenLeft)
+                {
                     return icons[8];
-                } else if (isOpenUp && isOpenRight) {
+                } else if (isOpenUp && isOpenRight)
+                {
                     return icons[7];
-                } else if (isOpenDown) {
+                } else if (isOpenDown)
+                {
                     return icons[1];
-                } else if (isOpenUp) {
+                } else if (isOpenUp)
+                {
                     return icons[2];
-                } else if (isOpenLeft) {
+                } else if (isOpenLeft)
+                {
                     return icons[3];
-                } else if (isOpenRight) {
+                } else if (isOpenRight)
+                {
                     return icons[4];
                 }
                 break;
             case 4:
-                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y - 1, z), world.getBlockMetadata(x, y - 1, z), meta)) {
+                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y - 1, z), world.getBlockMetadata(x, y - 1, z), meta))
+                {
                     isOpenDown = true;
                 }
 
-                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y + 1, z), world.getBlockMetadata(x, y + 1, z), meta)) {
+                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y + 1, z), world.getBlockMetadata(x, y + 1, z), meta))
+                {
                     isOpenUp = true;
                 }
 
-                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y, z - 1), world.getBlockMetadata(x, y, z - 1), meta)) {
+                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y, z - 1), world.getBlockMetadata(x, y, z - 1), meta))
+                {
                     isOpenLeft = true;
                 }
 
-                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y, z + 1), world.getBlockMetadata(x, y, z + 1), meta)) {
+                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y, z + 1), world.getBlockMetadata(x, y, z + 1), meta))
+                {
                     isOpenRight = true;
                 }
 
-                if (isOpenUp && isOpenDown && isOpenLeft && isOpenRight) {
+                if (isOpenUp && isOpenDown && isOpenLeft && isOpenRight)
+                {
                     return icons[15];
-                } else if (isOpenUp && isOpenDown && isOpenLeft) {
+                } else if (isOpenUp && isOpenDown && isOpenLeft)
+                {
                     return icons[14];
-                } else if (isOpenUp && isOpenDown && isOpenRight) {
+                } else if (isOpenUp && isOpenDown && isOpenRight)
+                {
                     return icons[13];
-                } else if (isOpenUp && isOpenLeft && isOpenRight) {
-                    if (world.getBlockTileEntity(x, y - 1, z) instanceof TileFactoryController)
-                        return icons[15];
+                } else if (isOpenUp && isOpenLeft && isOpenRight)
+                {
                     return icons[11];
-                } else if (isOpenDown && isOpenLeft && isOpenRight) {
-                    if (world.getBlockTileEntity(x, y + 1, z) instanceof TileFactoryController)
-                        return icons[15];
+                } else if (isOpenDown && isOpenLeft && isOpenRight)
+                {
                     return icons[12];
-                } else if (isOpenDown && isOpenUp) {
-                    if (world.getBlockTileEntity(x, y, z + 1) instanceof TileFactoryController) {
-                        return icons[13];
-                    }
-                    if (world.getBlockTileEntity(x, y, z - 1) instanceof TileFactoryController) {
-                        return icons[14];
-                    }
+                } else if (isOpenDown && isOpenUp)
+                {
                     return icons[6];
-                } else if (isOpenLeft && isOpenRight) {
-                    if (world.getBlockTileEntity(x, y + 1, z) instanceof TileFactoryController) {
-                        return icons[11];
-                    }
-                    if (world.getBlockTileEntity(x, y - 1, z) instanceof TileFactoryController) {
-                        return icons[14];
-                    }
+                } else if (isOpenLeft && isOpenRight)
+                {
                     return icons[5];
-                } else if (isOpenDown && isOpenLeft) {
+                } else if (isOpenDown && isOpenLeft)
+                {
                     return icons[10];
-                } else if (isOpenDown && isOpenRight) {
+                } else if (isOpenDown && isOpenRight)
+                {
                     return icons[9];
-                } else if (isOpenUp && isOpenLeft) {
+                } else if (isOpenUp && isOpenLeft)
+                {
                     return icons[8];
-                } else if (isOpenUp && isOpenRight) {
+                } else if (isOpenUp && isOpenRight)
+                {
                     return icons[7];
-                } else if (isOpenDown) {
+                } else if (isOpenDown)
+                {
                     return icons[1];
-                } else if (isOpenUp) {
+                } else if (isOpenUp)
+                {
                     return icons[2];
-                } else if (isOpenLeft) {
+                } else if (isOpenLeft)
+                {
                     return icons[3];
-                } else if (isOpenRight) {
+                } else if (isOpenRight)
+                {
                     return icons[4];
                 }
                 break;
             case 5:
-                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y - 1, z), world.getBlockMetadata(x, y - 1, z), meta)) {
+                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y - 1, z), world.getBlockMetadata(x, y - 1, z), meta))
+                {
                     isOpenDown = true;
                 }
 
-                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y + 1, z), world.getBlockMetadata(x, y + 1, z), meta)) {
+                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y + 1, z), world.getBlockMetadata(x, y + 1, z), meta))
+                {
                     isOpenUp = true;
                 }
 
-                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y, z - 1), world.getBlockMetadata(x, y, z - 1), meta)) {
+                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y, z - 1), world.getBlockMetadata(x, y, z - 1), meta))
+                {
                     isOpenLeft = true;
                 }
 
-                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y, z + 1), world.getBlockMetadata(x, y, z + 1), meta)) {
+                if (shouldConnectToBlock(world, x, y, z, world.getBlockId(x, y, z + 1), world.getBlockMetadata(x, y, z + 1), meta))
+                {
                     isOpenRight = true;
                 }
 
-                if (isOpenUp && isOpenDown && isOpenLeft && isOpenRight) {
+                if (isOpenUp && isOpenDown && isOpenLeft && isOpenRight)
+                {
                     return icons[15];
-                } else if (isOpenUp && isOpenDown && isOpenLeft) {
+                } else if (isOpenUp && isOpenDown && isOpenLeft)
+                {
                     return icons[13];
-                } else if (isOpenUp && isOpenDown && isOpenRight) {
+                } else if (isOpenUp && isOpenDown && isOpenRight)
+                {
                     return icons[14];
-                } else if (isOpenUp && isOpenLeft && isOpenRight) {
-                    if (world.getBlockTileEntity(x, y - 1, z) instanceof TileFactoryController)
-                        return icons[15];
+                } else if (isOpenUp && isOpenLeft && isOpenRight)
+                {
                     return icons[11];
-                } else if (isOpenDown && isOpenLeft && isOpenRight) {
-                    if (world.getBlockTileEntity(x, y + 1, z) instanceof TileFactoryController)
-                        return icons[15];
+                } else if (isOpenDown && isOpenLeft && isOpenRight)
+                {
                     return icons[12];
-                } else if (isOpenDown && isOpenUp) {
-                    if (world.getBlockTileEntity(x, y, z - 1) instanceof TileFactoryController) {
-                        return icons[13];
-                    }
-                    if (world.getBlockTileEntity(x, y, z + 1) instanceof TileFactoryController) {
-                        return icons[14];
-                    }
+                } else if (isOpenDown && isOpenUp)
+                {
                     return icons[6];
-                } else if (isOpenLeft && isOpenRight) {
-                    if (world.getBlockTileEntity(x, y + 1, z) instanceof TileFactoryController) {
-                        return icons[11];
-                    }
-                    if (world.getBlockTileEntity(x, y - 1, z) instanceof TileFactoryController) {
-                        return icons[14];
-                    }
+                } else if (isOpenLeft && isOpenRight)
+                {
                     return icons[5];
-                } else if (isOpenDown && isOpenLeft) {
+                } else if (isOpenDown && isOpenLeft)
+                {
                     return icons[9];
-                } else if (isOpenDown && isOpenRight) {
+                } else if (isOpenDown && isOpenRight)
+                {
                     return icons[10];
-                } else if (isOpenUp && isOpenLeft) {
+                } else if (isOpenUp && isOpenLeft)
+                {
                     return icons[7];
-                } else if (isOpenUp && isOpenRight) {
+                } else if (isOpenUp && isOpenRight)
+                {
                     return icons[8];
-                } else if (isOpenDown) {
+                } else if (isOpenDown)
+                {
                     return icons[1];
-                } else if (isOpenUp) {
+                } else if (isOpenUp)
+                {
                     return icons[2];
-                } else if (isOpenLeft) {
+                } else if (isOpenLeft)
+                {
                     return icons[4];
-                } else if (isOpenRight) {
+                } else if (isOpenRight)
+                {
                     return icons[3];
                 }
                 break;
@@ -464,7 +523,8 @@ public class BlockFactory extends BlockBase {
     }
 
     @Override
-    public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side) {
+    public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side)
+    {
         int id = world.getBlockId(x, y, z);
         int meta = world.getBlockMetadata(x, y, z);
         ForgeDirection dir = ForgeDirection.getOrientation(side).getOpposite();
@@ -472,14 +532,16 @@ public class BlockFactory extends BlockBase {
     }
 
     @Override
-    public Icon getIcon(int side, int meta) {
+    public Icon getIcon(int side, int meta)
+    {
         if (meta == 1)
             return frameIcons[1];
         return glassIcons[0];
     }
 
     @Override
-    public void registerIcons(IconRegister par1IconRegister) {
+    public void registerIcons(IconRegister par1IconRegister)
+    {
         glassIcons[0] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "glass");
         glassIcons[1] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "glass_1_d");
         glassIcons[2] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "glass/" + "glass_1_u");
@@ -514,7 +576,8 @@ public class BlockFactory extends BlockBase {
         frameIcons[15] = par1IconRegister.registerIcon(Reference.RESOURCE_PREFIX + "frame/" + "frame_4");
     }
 
-    public boolean isOpaqueCube() {
+    public boolean isOpaqueCube()
+    {
         return false;
     }
 
@@ -522,14 +585,16 @@ public class BlockFactory extends BlockBase {
     /**
      * Returns which pass should this block be rendered on. 0 for solids and 1 for alpha
      */
-    public int getRenderBlockPass() {
+    public int getRenderBlockPass()
+    {
         return 0;
     }
 
     /**
      * If this block doesn't renderer as an ordinary block it will return False (examples: signs, buttons, stairs, etc)
      */
-    public boolean renderAsNormalBlock() {
+    public boolean renderAsNormalBlock()
+    {
         return false;
     }
 

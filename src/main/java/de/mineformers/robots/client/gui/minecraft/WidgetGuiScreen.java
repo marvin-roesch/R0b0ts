@@ -15,11 +15,13 @@ import org.lwjgl.opengl.GL11;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class WidgetGuiScreen extends GuiScreen {
+public class WidgetGuiScreen extends GuiScreen
+{
 
     private UIPanel panel;
 
-    public WidgetGuiScreen(int width, int height, UIPanel panel) {
+    public WidgetGuiScreen(int width, int height, UIPanel panel)
+    {
         this.mc = Minecraft.getMinecraft();
         this.width = width;
         this.height = height;
@@ -28,25 +30,29 @@ public class WidgetGuiScreen extends GuiScreen {
     }
 
     @Override
-    public void initGui() {
+    public void initGui()
+    {
         super.initGui();
 
         this.panel.initComponent();
     }
 
     @Override
-    protected void mouseClicked(int mouseX, int mouseY, int button) {
+    protected void mouseClicked(int mouseX, int mouseY, int button)
+    {
         panel.mouseClick(mouseX, mouseY, button);
     }
 
     @Override
-    protected void keyTyped(char keyChar, int keyCode) {
+    protected void keyTyped(char keyChar, int keyCode)
+    {
         super.keyTyped(keyChar, keyCode);
         panel.keyTyped(keyChar, keyCode);
     }
 
     @Override
-    public void updateScreen() {
+    public void updateScreen()
+    {
         super.updateScreen();
         ScaledResolution scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
         int i = scaledresolution.getScaledWidth();
@@ -56,13 +62,15 @@ public class WidgetGuiScreen extends GuiScreen {
         this.panel.update(k, l);
         int dWheel = Mouse.getDWheel() / 120;
 
-        if (dWheel != 0) {
+        if (dWheel != 0)
+        {
             panel.mouseScroll(-dWheel, k, l);
         }
     }
 
     @Override
-    public void drawScreen(int mouseX, int mouseY, float opacity) {
+    public void drawScreen(int mouseX, int mouseY, float opacity)
+    {
         this.drawDefaultBackground();
 
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -76,7 +84,8 @@ public class WidgetGuiScreen extends GuiScreen {
         panel.drawForeground(mouseX, mouseY);
     }
 
-    public boolean doesGuiPauseGame() {
+    public boolean doesGuiPauseGame()
+    {
         return false;
     }
 

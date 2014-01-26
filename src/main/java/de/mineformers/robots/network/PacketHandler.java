@@ -20,12 +20,15 @@ import net.minecraft.network.packet.Packet250CustomPayload;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class PacketHandler implements IPacketHandler {
+public class PacketHandler implements IPacketHandler
+{
 
     @Override
     public void onPacketData(INetworkManager manager,
-                             Packet250CustomPayload packet, Player player) {
-        try {
+                             Packet250CustomPayload packet, Player player)
+    {
+        try
+        {
             EntityPlayer entityPlayer = (EntityPlayer) player;
             ByteArrayDataInput in = ByteStreams.newDataInput(packet.data);
             int packetId = in.readUnsignedByte();
@@ -33,18 +36,22 @@ public class PacketHandler implements IPacketHandler {
             basePacket.read(in);
             basePacket.execute(entityPlayer,
                     entityPlayer.worldObj.isRemote ? Side.CLIENT : Side.SERVER);
-        } catch (PacketBase.ProtocolException e) {
-            if (player instanceof EntityPlayerMP) {
+        } catch (PacketBase.ProtocolException e)
+        {
+            if (player instanceof EntityPlayerMP)
+            {
                 ((EntityPlayerMP) player).playerNetServerHandler
                         .kickPlayerFromServer("Protocol Exception!");
                 FMLLog.warning("Player " + ((EntityPlayer) player).username
                         + " caused a Protocol Exception!");
             }
-        } catch (InstantiationException e) {
+        } catch (InstantiationException e)
+        {
             throw new RuntimeException(
                     "Unexpected Reflection exception during Packet construction!",
                     e);
-        } catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e)
+        {
             throw new RuntimeException(
                     "Unexpected Reflection exception during Packet construction!",
                     e);

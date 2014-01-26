@@ -12,59 +12,70 @@ import de.mineformers.robots.client.gui.system.Global;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class UIPanel extends UIComponent {
+public class UIPanel extends UIComponent
+{
 
     protected UILayout layout;
 
-    public UIPanel() {
+    public UIPanel()
+    {
         super(Global.getTexture());
     }
 
     @Override
-    public void initComponent() {
+    public void initComponent()
+    {
         super.initComponent();
         if (layout != null)
             layout.initComponent();
     }
 
-    public void setLayout(UILayout layout) {
+    public void setLayout(UILayout layout)
+    {
         this.layout = layout;
         if (layout != null)
             layout.setParent(this);
     }
 
-    public UILayout getLayout() {
+    public UILayout getLayout()
+    {
         return layout;
     }
 
     @Override
-    public void update(int mouseX, int mouseY) {
+    public void update(int mouseX, int mouseY)
+    {
         if (layout != null)
             layout.update(mouseX, mouseY);
     }
 
     @Override
-    public void drawBackground(int mouseX, int mouseY) {
+    public void drawBackground(int mouseX, int mouseY)
+    {
         super.drawBackground(mouseX, mouseY);
         if (layout != null)
             layout.drawBackground(mouseX, mouseY);
     }
 
     @Override
-    public void drawForeground(int mouseX, int mouseY) {
+    public void drawForeground(int mouseX, int mouseY)
+    {
         super.drawForeground(mouseX, mouseY);
         if (layout != null)
             layout.drawForeground(mouseX, mouseY);
     }
 
-    public void drawTooltips(int mouseX, int mouseY) {
+    public void drawTooltips(int mouseX, int mouseY)
+    {
         if (layout != null)
             layout.drawTooltips(mouseX, mouseY);
     }
 
     @Override
-    public void draw(int mouseX, int mouseY) {
-        if (layout != null) {
+    public void draw(int mouseX, int mouseY)
+    {
+        if (layout != null)
+        {
             layout.setScreenPos(screenX, screenY);
             layout.draw(mouseX, mouseY);
         }
@@ -72,30 +83,35 @@ public class UIPanel extends UIComponent {
     }
 
     @Override
-    public int getWidth() {
+    public int getWidth()
+    {
         if (layout != null)
             return layout.getWidth();
         return width;
     }
 
     @Override
-    public int getHeight() {
+    public int getHeight()
+    {
         if (layout != null)
             return layout.getHeight();
         return height;
     }
 
-    public void mouseScroll(int dir, int mouseX, int mouseY) {
+    public void mouseScroll(int dir, int mouseX, int mouseY)
+    {
         if (layout != null)
             layout.mouseScroll(dir, mouseX, mouseY);
     }
 
-    public void mouseClick(int mouseX, int mouseY, int mouseButton) {
+    public void mouseClick(int mouseX, int mouseY, int mouseButton)
+    {
         if (layout != null)
             layout.mouseClick(mouseX, mouseY, mouseButton);
     }
 
-    public void keyTyped(char keyChar, int keyCode) {
+    public void keyTyped(char keyChar, int keyCode)
+    {
         if (layout != null)
             layout.keyTyped(keyChar, keyCode);
     }

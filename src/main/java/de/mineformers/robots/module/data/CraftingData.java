@@ -14,45 +14,56 @@ import net.minecraft.nbt.NBTTagList;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class CraftingData implements IModuleData {
+public class CraftingData implements IModuleData
+{
 
     private ItemStack result;
     private ItemStack[] input;
 
-    public CraftingData() {
+    public CraftingData()
+    {
         input = new ItemStack[9];
     }
 
-    public IRecipe asRecipe() {
+    public IRecipe asRecipe()
+    {
         return null;
     }
 
-    public void setResult(ItemStack result) {
+    public void setResult(ItemStack result)
+    {
         this.result = result;
     }
 
-    public ItemStack getResult() {
+    public ItemStack getResult()
+    {
         return result;
     }
 
-    public void setInput(ItemStack[] input) {
+    public void setInput(ItemStack[] input)
+    {
         this.input = input;
     }
 
-    public ItemStack[] getInput() {
+    public ItemStack[] getInput()
+    {
         return input;
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound tag) {
-        if (result != null) {
+    public void writeToNBT(NBTTagCompound tag)
+    {
+        if (result != null)
+        {
             NBTTagCompound compound = new NBTTagCompound();
             result.writeToNBT(compound);
             tag.setCompoundTag("Result", compound);
         }
         NBTTagList tagList = new NBTTagList();
-        for (int currentIndex = 0; currentIndex < input.length; ++currentIndex) {
-            if (input[currentIndex] != null) {
+        for (int currentIndex = 0; currentIndex < input.length; ++currentIndex)
+        {
+            if (input[currentIndex] != null)
+            {
                 NBTTagCompound compound = new NBTTagCompound();
                 compound.setByte("Slot", (byte) currentIndex);
                 input[currentIndex].writeToNBT(compound);
@@ -63,13 +74,16 @@ public class CraftingData implements IModuleData {
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound tag) {
+    public void readFromNBT(NBTTagCompound tag)
+    {
         NBTTagList tagList = tag.getTagList("Input");
         input = new ItemStack[9];
-        for (int i = 0; i < tagList.tagCount(); ++i) {
+        for (int i = 0; i < tagList.tagCount(); ++i)
+        {
             NBTTagCompound compound = (NBTTagCompound) tagList.tagAt(i);
             byte slotIndex = compound.getByte("Slot");
-            if (slotIndex >= 0 && slotIndex < input.length) {
+            if (slotIndex >= 0 && slotIndex < input.length)
+            {
                 input[slotIndex] = ItemStack.loadItemStackFromNBT(compound);
             }
         }

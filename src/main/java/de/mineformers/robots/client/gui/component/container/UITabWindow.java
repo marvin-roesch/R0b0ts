@@ -17,15 +17,18 @@ import java.util.LinkedHashMap;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class UITabWindow extends UIWindow {
+public class UITabWindow extends UIWindow
+{
 
-    public class Tab {
+    public class Tab
+    {
 
         public String title;
         public IDrawingHelper icon;
         public UILayout layout;
 
-        public Tab(String title, IDrawingHelper icon, UILayout layout) {
+        public Tab(String title, IDrawingHelper icon, UILayout layout)
+        {
             this.title = title;
             this.icon = icon;
             this.layout = layout;
@@ -37,28 +40,34 @@ public class UITabWindow extends UIWindow {
     private LinkedHashMap<String, Tab> tabs;
     private Orientation orientation;
 
-    public UITabWindow() {
+    public UITabWindow()
+    {
         super();
         tabs = new LinkedHashMap<String, Tab>();
         this.orientation = Orientation.VERTICAL_TOP;
     }
 
-    public void addTab(String key, String title, IDrawingHelper icon, UILayout layout) {
+    public void addTab(String key, String title, IDrawingHelper icon, UILayout layout)
+    {
         tabs.put(key, new Tab(title, icon, layout));
-        if (selectedTab == null) {
+        if (selectedTab == null)
+        {
             this.setSelectedTab(key);
         }
     }
 
-    public void setTabOrientation(Orientation orientation) {
+    public void setTabOrientation(Orientation orientation)
+    {
         this.orientation = orientation;
     }
 
-    public Tab getSelectedTab() {
+    public Tab getSelectedTab()
+    {
         return tabs.get(selectedTab);
     }
 
-    public void setSelectedTab(String selectedTab) {
+    public void setSelectedTab(String selectedTab)
+    {
         this.setLayout(tabs.get(selectedTab).layout);
         if (layout != null)
             layout.initComponent();
@@ -66,15 +75,20 @@ public class UITabWindow extends UIWindow {
     }
 
     @Override
-    public void mouseClick(int mouseX, int mouseY, int mouseButton) {
+    public void mouseClick(int mouseX, int mouseY, int mouseButton)
+    {
         super.mouseClick(mouseX, mouseY, mouseButton);
-        if (mouseButton == 0) {
+        if (mouseButton == 0)
+        {
             ArrayList<String> keys = new ArrayList<String>();
             keys.addAll(tabs.keySet());
-            for (int i = 0; i < keys.size(); i++) {
-                if (!keys.get(i).equals(selectedTab)) {
+            for (int i = 0; i < keys.size(); i++)
+            {
+                if (!keys.get(i).equals(selectedTab))
+                {
                     GL11.glColor4f(1, 1, 1, 1);
-                    if (isTabHovered(keys.get(i), mouseX, mouseY)) {
+                    if (isTabHovered(keys.get(i), mouseX, mouseY))
+                    {
                         this.setSelectedTab(keys.get(i));
                     }
                 }
@@ -82,11 +96,13 @@ public class UITabWindow extends UIWindow {
         }
     }
 
-    public boolean isTabHovered(String key, int mouseX, int mouseY) {
+    public boolean isTabHovered(String key, int mouseX, int mouseY)
+    {
         ArrayList<String> keys = new ArrayList<String>();
         keys.addAll(tabs.keySet());
         int index = keys.indexOf(key);
-        switch (orientation) {
+        switch (orientation)
+        {
             case VERTICAL_TOP:
                 return this.isInsideRegion(mouseX, mouseY, screenX + index * (1 + 28), screenY - 28, screenX + index * (1 + 28) + 28, screenY);
             case VERTICAL_BOTTOM:
@@ -100,11 +116,14 @@ public class UITabWindow extends UIWindow {
     }
 
     @Override
-    public void draw(int mouseX, int mouseY) {
+    public void draw(int mouseX, int mouseY)
+    {
         ArrayList<String> keys = new ArrayList<String>();
         keys.addAll(tabs.keySet());
-        for (int i = 0; i < keys.size(); i++) {
-            if (!keys.get(i).equals(selectedTab)) {
+        for (int i = 0; i < keys.size(); i++)
+        {
+            if (!keys.get(i).equals(selectedTab))
+            {
                 GL11.glColor4f(1, 1, 1, 1);
                 drawTab(keys.get(i));
             }
@@ -112,11 +131,14 @@ public class UITabWindow extends UIWindow {
         super.draw(mouseX, mouseY);
         GL11.glColor4f(1, 1, 1, 1);
         drawTab(selectedTab);
-        for (int i = 0; i < keys.size(); i++) {
+        for (int i = 0; i < keys.size(); i++)
+        {
             Tab tab = tabs.get(keys.get(i));
-            if (!keys.get(i).equals(selectedTab)) {
+            if (!keys.get(i).equals(selectedTab))
+            {
                 GL11.glColor4f(1, 1, 1, 1);
-                if (isTabHovered(keys.get(i), mouseX, mouseY)) {
+                if (isTabHovered(keys.get(i), mouseX, mouseY))
+                {
                     UITooltip tooltip = new UITooltip();
                     tooltip.addLine(tab.title);
                     tooltip.draw(mouseX, mouseY);
@@ -125,15 +147,18 @@ public class UITabWindow extends UIWindow {
         }
     }
 
-    protected void drawTab(String key) {
+    protected void drawTab(String key)
+    {
         ArrayList<String> keys = new ArrayList<String>();
         keys.addAll(tabs.keySet());
         int index = keys.indexOf(key);
         Tab tab = tabs.get(key);
-        if (!key.equals(selectedTab)) {
+        if (!key.equals(selectedTab))
+        {
             int x = 0;
             int y = 0;
-            switch (orientation) {
+            switch (orientation)
+            {
                 case VERTICAL_TOP:
                     x = screenX + index * (1 + 28);
                     y = screenY - 28;
@@ -159,9 +184,11 @@ public class UITabWindow extends UIWindow {
                     tab.icon.draw(x + 6, y + 6);
                     break;
             }
-        } else {
+        } else
+        {
             int uOff = (index > 0) ? 2 * 28 : 1 * 28;
-            switch (orientation) {
+            switch (orientation)
+            {
                 case VERTICAL_TOP:
                     this.drawRectangle(screenX + index * (1 + 28), screenY - 28, uOff, 68, 28, 32);
                     tab.icon.draw(screenX + index * (1 + 28) + 6, screenY - 20);

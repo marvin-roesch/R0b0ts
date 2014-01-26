@@ -25,9 +25,11 @@ import net.minecraft.world.World;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class EntityBuddyBot extends EntityTameable {
+public class EntityBuddyBot extends EntityTameable
+{
 
-    public EntityBuddyBot(World world) {
+    public EntityBuddyBot(World world)
+    {
         super(world);
         this.setSize(0.6F, 2F);
         this.setTamed(true);
@@ -38,43 +40,55 @@ public class EntityBuddyBot extends EntityTameable {
     }
 
     @Override
-    public void setSitting(boolean par1) {
+    public void setSitting(boolean par1)
+    {
         super.setSitting(par1);
         this.aiSit.setSitting(par1);
     }
 
     @Override
-    protected boolean canDespawn() {
+    protected boolean canDespawn()
+    {
         return false;
     }
 
     @Override
-    public boolean isAIEnabled() {
+    public boolean isAIEnabled()
+    {
         return true;
     }
 
     @Override
-    public boolean isChild() {
+    public boolean isChild()
+    {
         return true;
     }
 
     @Override
-    public boolean interact(EntityPlayer player) {
-        if (!player.isSneaking()) {
-            if (this.isTamed()) {
-                if (player.getCommandSenderName().equalsIgnoreCase(this.getOwnerName()) && this.worldObj.isRemote) {
+    public boolean interact(EntityPlayer player)
+    {
+        if (!player.isSneaking())
+        {
+            if (this.isTamed())
+            {
+                if (player.getCommandSenderName().equalsIgnoreCase(this.getOwnerName()) && this.worldObj.isRemote)
+                {
                     FMLCommonHandler.instance().showGuiScreen(new WidgetGuiScreen(200, 200, new WindowIngameManual(this)));
                 }
             }
-        } else {
-            if (!this.worldObj.isRemote) {
-                if (player.getCommandSenderName().equalsIgnoreCase(this.getOwnerName())) {
+        } else
+        {
+            if (!this.worldObj.isRemote)
+            {
+                if (player.getCommandSenderName().equalsIgnoreCase(this.getOwnerName()))
+                {
                     EntityItem item = new EntityItem(worldObj);
                     item.setEntityItemStack(new ItemStack(ModItems.buddy));
                     item.setPosition(posX, posY, posZ);
                     worldObj.spawnEntityInWorld(item);
                     this.setDead();
-                } else {
+                } else
+                {
                     player.addChatMessage(LangHelper.translate("chat", "notMaster"));
                 }
             }
@@ -83,32 +97,38 @@ public class EntityBuddyBot extends EntityTameable {
     }
 
     @Override
-    protected String getLivingSound() {
+    protected String getLivingSound()
+    {
         return SoundHandler.ROBOT_BLIP;
     }
 
     @Override
-    protected String getHurtSound() {
+    protected String getHurtSound()
+    {
         return SoundHandler.ROBOT_BLIP;
     }
 
     @Override
-    protected String getDeathSound() {
+    protected String getDeathSound()
+    {
         return SoundHandler.ROBOT_DEATH;
     }
 
     @Override
-    public boolean isBreedingItem(ItemStack par1ItemStack) {
+    public boolean isBreedingItem(ItemStack par1ItemStack)
+    {
         return false;
     }
 
     @Override
-    public EntityAgeable createChild(EntityAgeable entityageable) {
+    public EntityAgeable createChild(EntityAgeable entityageable)
+    {
         return null;
     }
 
     @Override
-    public Entity getOwner() {
+    public Entity getOwner()
+    {
         return this.func_130012_q();
     }
 }

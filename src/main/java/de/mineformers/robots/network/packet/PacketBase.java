@@ -18,60 +18,75 @@ import net.minecraft.network.packet.Packet;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public abstract class PacketBase {
+public abstract class PacketBase
+{
 
     private static ImmutableBiMap<Integer, Class<? extends PacketBase>> idMap;
 
-    static {
+    static
+    {
         ImmutableBiMap.Builder<Integer, Class<? extends PacketBase>> builder = ImmutableBiMap.builder();
         builder.put(0, PacketFactoryController.class);
         builder.put(1, PacketStartFactory.class);
         builder.put(2, PacketBuddyBotSit.class);
         builder.put(3, PacketSetRecipe.class);
+        builder.put(4, PacketFactoryEnergy.class);
         idMap = builder.build();
     }
 
     public static PacketBase constructPacket(int packetId)
             throws ProtocolException, InstantiationException,
-            IllegalAccessException {
+            IllegalAccessException
+    {
         Class<? extends PacketBase> clazz = idMap
                 .get(Integer.valueOf(packetId));
-        if (clazz == null) {
+        if (clazz == null)
+        {
             throw new ProtocolException("Unknown Packet Id!");
-        } else {
+        } else
+        {
             return clazz.newInstance();
         }
     }
 
     @SuppressWarnings("serial")
-    public static class ProtocolException extends Exception {
+    public static class ProtocolException extends Exception
+    {
 
-        public ProtocolException() {
+        public ProtocolException()
+        {
         }
 
-        public ProtocolException(String message, Throwable cause) {
+        public ProtocolException(String message, Throwable cause)
+        {
             super(message, cause);
         }
 
-        public ProtocolException(String message) {
+        public ProtocolException(String message)
+        {
             super(message);
         }
 
-        public ProtocolException(Throwable cause) {
+        public ProtocolException(Throwable cause)
+        {
             super(cause);
         }
     }
 
-    public final int getPacketId() {
-        if (idMap.inverse().containsKey(getClass())) {
+    public final int getPacketId()
+    {
+        if (idMap.inverse().containsKey(getClass()))
+        {
             return idMap.inverse().get(getClass()).intValue();
-        } else {
+        } else
+        {
             throw new RuntimeException("Packet " + getClass().getSimpleName()
                     + " is missing a mapping!");
         }
     }
 
-    public final Packet makePacket() {
+    public final Packet makePacket()
+    {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeByte(getPacketId());
         write(out);

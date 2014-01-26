@@ -18,19 +18,24 @@ import java.util.LinkedHashMap;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class PageWelcome extends PageText {
+public class PageWelcome extends PageText
+{
     private LinkedHashMap<String, UILabel> linkLabels;
     private LinkedHashMap<String, Integer> links;
 
-    public PageWelcome() {
+    public PageWelcome()
+    {
         super();
         linkLabels = new LinkedHashMap<String, UILabel>();
         links = new LinkedHashMap<String, Integer>();
     }
 
-    private void init(NodeList links) {
-        for (int i = 0; i < links.getLength(); i++) {
-            if (links.item(i).getNodeType() == Node.ELEMENT_NODE) {
+    private void init(NodeList links)
+    {
+        for (int i = 0; i < links.getLength(); i++)
+        {
+            if (links.item(i).getNodeType() == Node.ELEMENT_NODE)
+            {
                 Element link = (Element) links.item(i);
                 this.addLink(link.getElementsByTagName("action").item(0).getTextContent(),
                         link.getElementsByTagName("label").item(0).getTextContent(),
@@ -39,7 +44,8 @@ public class PageWelcome extends PageText {
         }
     }
 
-    private void addLink(String action, String label, String jump) {
+    private void addLink(String action, String label, String jump)
+    {
         this.links.put(action, Integer.valueOf(jump));
         UILabel uiLabel = new UILabel(links.size() + ". " + label, true);
         uiLabel.setAction(action);
@@ -49,14 +55,16 @@ public class PageWelcome extends PageText {
     }
 
     @Override
-    public void loadFromXML(Element element) {
+    public void loadFromXML(Element element)
+    {
         super.loadFromXML(element);
         if (element.getElementsByTagName("links") != null)
             this.init(((Element) element.getElementsByTagName("links").item(0)).getElementsByTagName("link"));
     }
 
     @Subscribe
-    public void onMouseClick(MouseClickEvent event) {
+    public void onMouseClick(MouseClickEvent event)
+    {
         WindowIngameManual manual = (WindowIngameManual) this.getParent().getParent().getParent();
         if (links.containsKey(event.getComponent().getAction()))
             manual.setCurrentPage(links.get(event.getComponent().getAction()));

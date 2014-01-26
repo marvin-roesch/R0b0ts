@@ -14,31 +14,38 @@ import net.minecraft.item.ItemStack;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class ContainerCraftingRecipe extends Container {
+public class ContainerCraftingRecipe extends Container
+{
 
     private final int PLAYER_INVENTORY_ROWS = 3;
     private final int PLAYER_INVENTORY_COLUMNS = 9;
 
-    public ContainerCraftingRecipe(InventoryPlayer inventoryPlayer) {
-        for (int inventoryRowIndex = 0; inventoryRowIndex < PLAYER_INVENTORY_ROWS; ++inventoryRowIndex) {
-            for (int inventoryColumnIndex = 0; inventoryColumnIndex < PLAYER_INVENTORY_COLUMNS; ++inventoryColumnIndex) {
+    public ContainerCraftingRecipe(InventoryPlayer inventoryPlayer)
+    {
+        for (int inventoryRowIndex = 0; inventoryRowIndex < PLAYER_INVENTORY_ROWS; ++inventoryRowIndex)
+        {
+            for (int inventoryColumnIndex = 0; inventoryColumnIndex < PLAYER_INVENTORY_COLUMNS; ++inventoryColumnIndex)
+            {
                 this.addSlotToContainer(new Slot(inventoryPlayer, inventoryColumnIndex + inventoryRowIndex * 9 + 9, 8 + inventoryColumnIndex * 18, 118 + inventoryRowIndex * 18));
             }
         }
 
         // Add the player's action bar slots to the container
-        for (int actionBarSlotIndex = 0; actionBarSlotIndex < PLAYER_INVENTORY_COLUMNS; ++actionBarSlotIndex) {
+        for (int actionBarSlotIndex = 0; actionBarSlotIndex < PLAYER_INVENTORY_COLUMNS; ++actionBarSlotIndex)
+        {
             this.addSlotToContainer(new Slot(inventoryPlayer, actionBarSlotIndex, 8 + actionBarSlotIndex * 18, 176));
         }
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer entityplayer) {
+    public boolean canInteractWith(EntityPlayer entityplayer)
+    {
         return true;
     }
 
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2) {
+    public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2)
+    {
         return null;
     }
 }

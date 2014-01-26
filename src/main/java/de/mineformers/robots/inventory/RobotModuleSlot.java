@@ -15,14 +15,17 @@ import net.minecraft.item.ItemStack;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class RobotModuleSlot extends IconSlot {
+public class RobotModuleSlot extends IconSlot
+{
 
-    public RobotModuleSlot(IInventory inventory, int index, int x, int y) {
+    public RobotModuleSlot(IInventory inventory, int index, int x, int y)
+    {
         super(inventory, index, x, y, ResourceHelper.getModResource("textures/gui/slotModule.png"));
     }
 
     @Override
-    public boolean isItemValid(ItemStack stack) {
+    public boolean isItemValid(ItemStack stack)
+    {
         if (stack.getItem() instanceof ItemModule)
             return !RobotHelper.getModuleFromItemStack(stack).getIdentifier().equals("blank");
         return false;

@@ -10,7 +10,8 @@ import de.mineformers.robots.api.registry.ModuleRegistry;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public abstract class R0b0tsPlugin {
+public abstract class R0b0tsPlugin
+{
 
     public abstract String getId();
 
@@ -18,15 +19,18 @@ public abstract class R0b0tsPlugin {
 
     public abstract String getVersion();
 
-    public void preInit(ModuleRegistry moduleRegistry) {
+    public void preInit(ModuleRegistry moduleRegistry)
+    {
 
     }
 
-    public void init() {
+    public void init()
+    {
 
     }
 
-    public void postInit() {
+    public void postInit()
+    {
 
     }
 

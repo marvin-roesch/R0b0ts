@@ -15,29 +15,35 @@ import java.util.ArrayList;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class FilteredSlot extends Slot {
+public class FilteredSlot extends Slot
+{
 
     private ArrayList<StackFilter> filters;
 
-    public FilteredSlot(IInventory inventory, int index, int x, int y, StackFilter... filters) {
+    public FilteredSlot(IInventory inventory, int index, int x, int y, StackFilter... filters)
+    {
         super(inventory, index, x, y);
         this.filters = new ArrayList<StackFilter>();
         for (StackFilter filter : filters)
             this.filters.add(filter);
     }
 
-    public FilteredSlot(IInventory inventory, int index, int x, int y, ArrayList<StackFilter> filters) {
+    public FilteredSlot(IInventory inventory, int index, int x, int y, ArrayList<StackFilter> filters)
+    {
         super(inventory, index, x, y);
         this.filters = filters;
     }
 
-    public void addFilter(StackFilter filter) {
+    public void addFilter(StackFilter filter)
+    {
         this.filters.add(filter);
     }
 
     @Override
-    public boolean isItemValid(ItemStack stack) {
-        for (StackFilter filter : filters) {
+    public boolean isItemValid(ItemStack stack)
+    {
+        for (StackFilter filter : filters)
+        {
             if (filter.equals(stack))
                 return true;
         }

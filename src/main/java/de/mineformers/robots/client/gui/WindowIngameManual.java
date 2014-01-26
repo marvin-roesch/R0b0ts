@@ -29,7 +29,8 @@ import java.util.LinkedList;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class WindowIngameManual extends UIWindow {
+public class WindowIngameManual extends UIWindow
+{
 
     public static Document document;
     private static final HashMap<String, Class<? extends ManualPage>> pageClasses = new HashMap<String, Class<? extends ManualPage>>();
@@ -41,14 +42,16 @@ public class WindowIngameManual extends UIWindow {
     private EntityBuddyBot bot;
     private int currentPage;
 
-    static {
+    static
+    {
         pageClasses.put("welcome", PageWelcome.class);
         pageClasses.put("crafting", PageCrafting.class);
         pageClasses.put("text", PageText.class);
         pageClasses.put("picture", PagePicture.class);
     }
 
-    public WindowIngameManual(EntityBuddyBot bot) {
+    public WindowIngameManual(EntityBuddyBot bot)
+    {
         super();
         this.bot = bot;
         pages = new LinkedList<ManualPage>();
@@ -76,12 +79,16 @@ public class WindowIngameManual extends UIWindow {
         this.setLayout(layout);
     }
 
-    private void initPages() {
-        try {
+    private void initPages()
+    {
+        try
+        {
             NodeList nodes = document.getDocumentElement().getElementsByTagName("page");
             if (nodes != null)
-                for (int i = 0; i < nodes.getLength(); i++) {
-                    if (nodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
+                for (int i = 0; i < nodes.getLength(); i++)
+                {
+                    if (nodes.item(i).getNodeType() == Node.ELEMENT_NODE)
+                    {
                         Element element = (Element) nodes.item(i);
                         Class<? extends ManualPage> clazz = pageClasses.get(element.getAttribute("type"));
                         ManualPage page = clazz.newInstance();
@@ -89,31 +96,37 @@ public class WindowIngameManual extends UIWindow {
                         pages.add(page);
                     }
                 }
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
 
     @Subscribe
-    public void onMouseClick(MouseClickEvent event) {
-        if (event.getComponent().getAction().equals(btnSit.getAction())) {
+    public void onMouseClick(MouseClickEvent event)
+    {
+        if (event.getComponent().getAction().equals(btnSit.getAction()))
+        {
             bot.setSitting(!bot.isSitting());
             PacketDispatcher.sendPacketToServer(new PacketBuddyBotSit(bot.entityId).makePacket());
             btnSit.setText(bot.isSitting() ? LangHelper.translate("gui", "button.stand") : LangHelper.translate("gui", "button.sit"));
         }
 
-        if (event.getComponent().getAction().equals(btnNext.getAction())) {
+        if (event.getComponent().getAction().equals(btnNext.getAction()))
+        {
             if (currentPage < pages.size() - 1)
                 setCurrentPage(currentPage + 1);
         }
 
-        if (event.getComponent().getAction().equals(btnPrev.getAction())) {
+        if (event.getComponent().getAction().equals(btnPrev.getAction()))
+        {
             if (currentPage > 0)
                 setCurrentPage(currentPage - 1);
         }
     }
 
-    public void setCurrentPage(int newPage) {
+    public void setCurrentPage(int newPage)
+    {
         this.currentPage = newPage;
         canvas.setLayout(pages.get(newPage));
         btnPrev.setEnabled(newPage > 0);

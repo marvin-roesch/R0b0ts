@@ -3,10 +3,12 @@ package de.mineformers.robots.client.gui.component.container;
 import de.mineformers.robots.client.gui.component.interaction.UIScrollBar;
 import de.mineformers.robots.client.gui.component.layout.UIAbsoluteLayout;
 
-public class UIPanelScrollable extends UIPanel {
+public class UIPanelScrollable extends UIPanel
+{
     public UIScrollBar scrollBar;
 
-    public UIPanelScrollable(int width, int height) {
+    public UIPanelScrollable(int width, int height)
+    {
         super();
 
         this.width = width;
@@ -21,45 +23,53 @@ public class UIPanelScrollable extends UIPanel {
     }
 
     @Override
-    public boolean isHovered(int mouseX, int mouseY) {
+    public boolean isHovered(int mouseX, int mouseY)
+    {
         return true;
     }
 
     @Override
-    public void mouseClick(int mouseX, int mouseY, int mouseButton) {
+    public void mouseClick(int mouseX, int mouseY, int mouseButton)
+    {
         super.mouseClick(mouseX, mouseY, mouseButton);
 
     }
 
     @Override
-    public void mouseScroll(int dir, int mouseX, int mouseY) {
+    public void mouseScroll(int dir, int mouseX, int mouseY)
+    {
         super.mouseScroll(dir, mouseX, mouseY);
 
     }
 
     @Override
-    public void keyTyped(char keyChar, int keyCode) {
+    public void keyTyped(char keyChar, int keyCode)
+    {
         super.keyTyped(keyChar, keyCode);
 
     }
 
     @Override
-    public int getWidth() {
+    public int getWidth()
+    {
         return this.width - this.scrollBar.getWidth();
     }
 
     @Override
-    public int getHeight() {
+    public int getHeight()
+    {
         return this.height;
     }
 
     @Override
-    public void update(int mouseX, int mouseY) {
+    public void update(int mouseX, int mouseY)
+    {
         super.update(mouseX, mouseY);
     }
 
     @Override
-    public void draw(int mouseX, int mouseY) {
+    public void draw(int mouseX, int mouseY)
+    {
 
 		/*GL11.glPushAttrib(GL11.GL_SCISSOR_BIT);
         GL11.glEnable(GL11.GL_SCISSOR_TEST);

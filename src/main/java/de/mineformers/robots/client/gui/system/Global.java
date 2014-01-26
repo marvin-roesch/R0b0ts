@@ -12,13 +12,15 @@ import net.minecraft.util.ResourceLocation;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class Global {
+public class Global
+{
 
     public static String MOD_ID = Reference.MOD_ID;
 
     public static String TEXTURE_PATH = "textures/guiWidgets.png";
 
-    public static ResourceLocation getTexture() {
+    public static ResourceLocation getTexture()
+    {
         return ResourceHelper.getModResource(TEXTURE_PATH);
     }
 }

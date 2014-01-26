@@ -28,12 +28,14 @@ import net.minecraft.item.crafting.ShapedRecipes;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class WindowCraftingRecipe extends UIWindow {
+public class WindowCraftingRecipe extends UIWindow
+{
 
     private UIButton btnSet;
     private UICraftingSpace craftingSpace;
 
-    public WindowCraftingRecipe() {
+    public WindowCraftingRecipe()
+    {
         UIAbsoluteLayout layout = new UIAbsoluteLayout();
         craftingSpace = new UICraftingSpace();
         craftingSpace.addListener(this);
@@ -55,21 +57,28 @@ public class WindowCraftingRecipe extends UIWindow {
     }
 
     @Subscribe
-    public void onMouseClick(MouseClickEvent event) {
-        if (event.getComponent().getAction().equals("set")) {
-            if (btnSet.isEnabled()) {
+    public void onMouseClick(MouseClickEvent event)
+    {
+        if (event.getComponent().getAction().equals("set"))
+        {
+            if (btnSet.isEnabled())
+            {
                 PacketDispatcher.sendPacketToServer(new PacketSetRecipe(craftingSpace.getRecipe()).makePacket());
             }
         }
-        if (event.getComponent().getAction().equals("crafting")) {
-            if (event.mouseButton == MouseButton.LEFT) {
+        if (event.getComponent().getAction().equals("crafting"))
+        {
+            if (event.mouseButton == MouseButton.LEFT)
+            {
                 GuiContainer container = (GuiContainer) FMLClientHandler.instance().getClient().currentScreen;
                 ItemStack dragged = ReflectionHelper.getPrivateValue(GuiContainer.class, container, "draggedStack", "field_85050_q");
                 ItemStack slot = dragged != null ? dragged : this.mc.thePlayer.inventory.getItemStack();
-                if (slot != null) {
+                if (slot != null)
+                {
                     int localX = event.mouseX - craftingSpace.getScreenX() - 5;
                     int localY = event.mouseY - craftingSpace.getScreenY() - 5;
-                    if (isInsideRegion(localX, localY, 0, 0, 54, 54)) {
+                    if (isInsideRegion(localX, localY, 0, 0, 54, 54))
+                    {
                         int x = (int) Math.ceil(localX / 18);
                         int y = (int) Math.ceil(localY / 18);
                         ItemStack stack = slot.copy();
@@ -82,10 +91,12 @@ public class WindowCraftingRecipe extends UIWindow {
                         craftingSpace.setRecipe(new ShapedRecipes(3, 3, craftingSpace.getRecipe().recipeItems, result));
                     }
                 }
-            } else if (event.mouseButton == MouseButton.RIGHT) {
+            } else if (event.mouseButton == MouseButton.RIGHT)
+            {
                 int localX = event.mouseX - craftingSpace.getScreenX() - 5;
                 int localY = event.mouseY - craftingSpace.getScreenY() - 5;
-                if (isInsideRegion(localX, localY, 0, 0, 54, 54)) {
+                if (isInsideRegion(localX, localY, 0, 0, 54, 54))
+                {
                     int x = (int) Math.ceil(localX / 18);
                     int y = (int) Math.ceil(localY / 18);
                     craftingSpace.setStackAt(x, y, null);

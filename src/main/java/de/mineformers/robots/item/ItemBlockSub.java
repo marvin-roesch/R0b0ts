@@ -11,12 +11,14 @@ import net.minecraft.item.ItemStack;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class ItemBlockSub extends ItemBlockBase {
+public class ItemBlockSub extends ItemBlockBase
+{
 
     private String name;
     private String[] subNames;
 
-    public ItemBlockSub(int id, String name, String[] subNames) {
+    public ItemBlockSub(int id, String name, String[] subNames)
+    {
         super(id, name);
         this.setHasSubtypes(true);
         this.name = name;
@@ -24,7 +26,8 @@ public class ItemBlockSub extends ItemBlockBase {
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack is) {
+    public String getUnlocalizedName(ItemStack is)
+    {
         if (is.getItemDamage() >= subNames.length)
             return "";
         return "tile." + Reference.RESOURCE_PREFIX + name + "."
@@ -32,7 +35,8 @@ public class ItemBlockSub extends ItemBlockBase {
     }
 
     @Override
-    public int getMetadata(int damageValue) {
+    public int getMetadata(int damageValue)
+    {
         return damageValue;
     }
 

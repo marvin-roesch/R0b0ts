@@ -1,24 +1,25 @@
 itemGroup.r0b0ts=R0b0ts
 
 # Item localizations
-item.robots:module.name=Robot module
-item.robots:chipset.name=Robot chipset
+item.robots:module.name=Robot Module
+item.robots:chipset.name=Robot Chipset
 item.robots:buddy.name=BuddyBot
 item.robots:robot.name=Robot
-item.robots:debug.name=R0b0ts debug tool
+item.robots:debug.name=R0b0ts Debug Tool
 
 # Block localizations
-tile.robots:factoryController.name=Factory controller
-tile.robots:factory.glass.name=Factory glass
-tile.robots:factory.frame.name=Factory frame
+tile.robots:factoryController.name=Factory Controller
+tile.robots:factory.glass.name=Factory Glass
+tile.robots:factory.frame.name=Factory Frame
+tile.robots:factoryEnergyInterface.name=Factory Energy Interface
 
 # GUI localizations
-inventory.robots:factoryController=Robot factory
+inventory.robots:factoryController=Robot Factory
 gui.robots:label.information=Information
 gui.robots:label.module=Module
 gui.robots:label.chipset=Chipset
 gui.robots:label.armor=Armor
-gui.robots:label.craftingModule=Crafting module
+gui.robots:label.craftingModule=Crafting Module
 gui.robots:button.start=Start
 gui.robots:button.close=Close
 gui.robots:button.set=Set
@@ -29,6 +30,7 @@ gui.robots:button.stand=Stand
 module.robots:blank.name=<blank>
 module.robots:crafting.name=Crafting
 module.robots:collect.name=Collecting
+module.robots:harvest.name=Harvesting
 
 chipset.robots:blank.name=<blank>
 chipset.robots:basic.name=Basic

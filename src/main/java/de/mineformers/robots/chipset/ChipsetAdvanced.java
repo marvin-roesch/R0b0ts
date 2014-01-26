@@ -16,15 +16,18 @@ import net.minecraft.item.ItemStack;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class ChipsetAdvanced extends RobotChipset {
+public class ChipsetAdvanced extends RobotChipset
+{
 
-    public ChipsetAdvanced() {
+    public ChipsetAdvanced()
+    {
         super("advanced", "robots:advanced", "robots:chipsets/advanced", 16, ResourceHelper.getModResource("textures/entities/chipset_advanced.png"));
         this.setDescription("robots:advanced");
     }
 
     @Override
-    public void registerRecipe(ItemStack result, ItemStack blank) {
+    public void registerRecipe(ItemStack result, ItemStack blank)
+    {
         GameRegistry.addShapelessRecipe(result, PrivateRobotHelper.createChipsetStack(ChipsetRegistry.instance().getChipset("basic")), new ItemStack(Item.dyePowder, 1, 4));
     }
 

@@ -13,18 +13,22 @@ import net.minecraft.entity.player.EntityPlayer;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class PacketStartFactory extends PacketTileSync {
+public class PacketStartFactory extends PacketTileSync
+{
 
-    public PacketStartFactory() {
+    public PacketStartFactory()
+    {
 
     }
 
-    public PacketStartFactory(int x, int y, int z) {
+    public PacketStartFactory(int x, int y, int z)
+    {
         super(x, y, z);
     }
 
     @Override
-    public void sync(EntityPlayer player, TileBase tileEntity) {
+    public void sync(EntityPlayer player, TileBase tileEntity)
+    {
         ((TileFactoryController) tileEntity).setProgressing(true);
         NetworkHelper.sendTilePacket(tileEntity);
     }

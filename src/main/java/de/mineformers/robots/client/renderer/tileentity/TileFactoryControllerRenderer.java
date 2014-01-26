@@ -17,18 +17,22 @@ import org.lwjgl.opengl.GL11;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class TileFactoryControllerRenderer extends TileEntitySpecialRenderer {
+public class TileFactoryControllerRenderer extends TileEntitySpecialRenderer
+{
 
     private static final ResourceLocation robotTexture = ResourceHelper.getModResource("textures/entities/robot.png");
     private ModelRobot robot;
 
-    public TileFactoryControllerRenderer() {
+    public TileFactoryControllerRenderer()
+    {
         robot = new ModelRobot();
     }
 
     @Override
-    public void renderTileEntityAt(TileEntity tileentity, double x, double y, double z, float partialTicks) {
-        if (((TileFactoryController) tileentity).isValidMultiblock()) {
+    public void renderTileEntityAt(TileEntity tileentity, double x, double y, double z, float partialTicks)
+    {
+        if (((TileFactoryController) tileentity).isValidMultiblock())
+        {
             GL11.glPushMatrix();
             int i = 15728880;
 
@@ -36,7 +40,8 @@ public class TileFactoryControllerRenderer extends TileEntitySpecialRenderer {
             int k = i / 65536;
             OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j / 1.0F, (float) k / 1.0F);
             GL11.glTranslated(x + 0.5F, y + 0.65F, z + 0.5f);
-            switch (((TileFactoryController) tileentity).getOrientation()) {
+            switch (((TileFactoryController) tileentity).getOrientation())
+            {
                 case WEST:
                     GL11.glRotatef(90, 0, 1, 0);
                     break;

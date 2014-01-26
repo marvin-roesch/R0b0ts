@@ -20,57 +20,69 @@ import org.lwjgl.util.Color;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class RenderHelper {
+public class RenderHelper
+{
 
     private final static RenderItem renderItem = new RenderItem();
 
-    public static Minecraft getMC() {
+    public static Minecraft getMC()
+    {
         return FMLClientHandler.instance().getClient();
     }
 
-    public static void bindTexture(ResourceLocation path) {
+    public static void bindTexture(ResourceLocation path)
+    {
         FMLClientHandler.instance().getClient().getTextureManager()
                 .bindTexture(path);
     }
 
-    public static void bindTexture(String path) {
+    public static void bindTexture(String path)
+    {
         bindTexture(ResourceHelper.getModResource(path));
     }
 
-    public static int computeGuiScale() {
+    public static int computeGuiScale()
+    {
         Minecraft mc = Minecraft.getMinecraft();
         int scaleFactor = 1;
 
         int k = mc.gameSettings.guiScale;
 
-        if (k == 0) {
+        if (k == 0)
+        {
             k = 1000;
         }
 
-        while (scaleFactor < k && mc.displayWidth / (scaleFactor + 1) >= 320 && mc.displayHeight / (scaleFactor + 1) >= 240) {
+        while (scaleFactor < k && mc.displayWidth / (scaleFactor + 1) >= 320 && mc.displayHeight / (scaleFactor + 1) >= 240)
+        {
             ++scaleFactor;
         }
         return scaleFactor;
     }
 
-    public static int getColorFromRGB(int r, int g, int b) {
+    public static int getColorFromRGB(int r, int g, int b)
+    {
         return (0xFF0000 & (r << 16)) | (0x00FF00 & (g << 8)) | (0x0000FF & b);
     }
 
-    public static int getColorFromRGB(Color color) {
+    public static int getColorFromRGB(Color color)
+    {
         return (0xFF0000 & (color.getRed() << 16)) | (0x00FF00 & (color.getGreen() << 8)) | (0x0000FF & color.getBlue());
     }
 
-    public static Color getRGBFromColor(int color) {
+    public static Color getRGBFromColor(int color)
+    {
         return new Color((0xFF0000 & color) >> 16, (0x00FF00 & color) >> 8, (0x0000FF & color));
     }
 
-    public static int getStringWidth(String text) {
+    public static int getStringWidth(String text)
+    {
         return getMC().fontRenderer.getStringWidth(text);
     }
 
     public static void drawString(String text, int x, int y, int color,
-                                  boolean drawShadow, int zLevel) {
+                                  boolean drawShadow, int zLevel)
+    {
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         GL11.glTranslatef(0, 0, zLevel);
@@ -81,20 +93,24 @@ public class RenderHelper {
     }
 
     public static void drawSplitString(String text, int x, int y, int color,
-                                       boolean drawShadow) {
+                                       boolean drawShadow)
+    {
         String[] splits = text.split("<br>");
-        for (int i = 0; i < splits.length; i++) {
+        for (int i = 0; i < splits.length; i++)
+        {
             getMC().fontRenderer.drawString(splits[i], x, y + i * (getMC().fontRenderer.FONT_HEIGHT + 1), color,
                     drawShadow);
         }
     }
 
     public static void drawSplitStringCentered(String text, int x, int y, int color,
-                                               boolean drawShadow, int canvasWidth) {
+                                               boolean drawShadow, int canvasWidth)
+    {
         String[] splits = text.split("<br>");
         int longest = getMC().fontRenderer.getStringWidth(TextHelper
                 .getLongestString(splits));
-        for (int i = 0; i < splits.length; i++) {
+        for (int i = 0; i < splits.length; i++)
+        {
             getMC().fontRenderer.drawString(
                     splits[i],
                     x
@@ -105,7 +121,8 @@ public class RenderHelper {
         }
     }
 
-    public static void drawRectangle(Color color, int x, int y, int width, int height, int zLevel) {
+    public static void drawRectangle(Color color, int x, int y, int width, int height, int zLevel)
+    {
         float colorMod = 1F / 255F;
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         GL11.glEnable(GL11.GL_BLEND);
@@ -117,22 +134,26 @@ public class RenderHelper {
         GL11.glEnable(GL11.GL_TEXTURE_2D);
     }
 
-    public static void drawRectangle(int color, int x, int y, int width, int height, int zLevel) {
+    public static void drawRectangle(int color, int x, int y, int width, int height, int zLevel)
+    {
         drawRectangle(color, 1F, x, y, width, height, zLevel);
     }
 
-    public static void drawRectangle(int color, float alpha, int x, int y, int width, int height, int zLevel) {
+    public static void drawRectangle(int color, float alpha, int x, int y, int width, int height, int zLevel)
+    {
         Color rgb = RenderHelper.getRGBFromColor(color);
         rgb.setAlpha((int) (alpha * 255));
         drawRectangle(rgb, x, y, width, height, zLevel);
     }
 
-    public static void drawRectangle(int x, int y, int u, int v, int width, int height, int zLevel) {
+    public static void drawRectangle(int x, int y, int u, int v, int width, int height, int zLevel)
+    {
         drawRectangle(Global.getTexture(), x, y, u, v, width, height, zLevel);
     }
 
     public static void drawRectangle(ResourceLocation texture, int x, int y, float u,
-                                     float v, int width, int height, int zLevel) {
+                                     float v, int width, int height, int zLevel)
+    {
         RenderHelper.bindTexture(texture);
         float f = 0.00390625F;
         float f1 = 0.00390625F;
@@ -159,19 +180,23 @@ public class RenderHelper {
     }
 
     public static void drawRectangleStretched(int x, int y, float u, float v, int width,
-                                              int height, float uOff, float vOff, int zLevel) {
+                                              int height, float uOff, float vOff, int zLevel)
+    {
         drawRectangleStretched(Global.getTexture(), x, y, u, v, width, height, uOff, vOff, zLevel);
     }
 
     public static void drawRectangleStretched(ResourceLocation texture, int x, int y, float u, float v, int width,
-                                              int height, float uOff, float vOff, int zLevel) {
+                                              int height, float uOff, float vOff, int zLevel)
+    {
         drawRectangleStretched(texture, x, y, u, v, width,
                 height, u + uOff, v + vOff, true, zLevel);
     }
 
     public static void drawRectangleStretched(ResourceLocation texture, int x, int y, float u, float v, int width,
-                                              int height, float uMax, float vMax, boolean max, int zLevel) {
-        if (max) {
+                                              int height, float uMax, float vMax, boolean max, int zLevel)
+    {
+        if (max)
+        {
             RenderHelper.bindTexture(texture);
             float f = 0.00390625F;
             float f1 = 0.00390625F;
@@ -202,16 +227,19 @@ public class RenderHelper {
                     (double) (v) * f1);
             tessellator.draw();
             GL11.glDisable(GL11.GL_BLEND);
-        } else {
+        } else
+        {
             drawRectangleStretched(texture, x, y, u, v, width, height, uMax, vMax, zLevel);
         }
     }
 
-    public static void drawRectangleRepeated(ResourceLocation texture, int x, int y, float u, float v, float uvWidth, float uvHeight, int width, int height, int zLevel) {
+    public static void drawRectangleRepeated(ResourceLocation texture, int x, int y, float u, float v, float uvWidth, float uvHeight, int width, int height, int zLevel)
+    {
         drawRectangleRepeated(texture, x, y, u, v, uvWidth, uvHeight, width, height, (int) uvWidth, (int) uvHeight, zLevel);
     }
 
-    public static void drawRectangleRepeated(ResourceLocation texture, int x, int y, float u, float v, float uvWidth, float uvHeight, int width, int height, int tileWidth, int tileHeight, int zLevel) {
+    public static void drawRectangleRepeated(ResourceLocation texture, int x, int y, float u, float v, float uvWidth, float uvHeight, int width, int height, int tileWidth, int tileHeight, int zLevel)
+    {
         int numX = (int) Math.ceil((float) width / tileWidth);
         int numY = (int) Math.ceil((float) height / tileHeight);
 
@@ -222,7 +250,8 @@ public class RenderHelper {
         GL11.glScissor((x) * scale, mc.displayHeight - (y + height) * scale, width * scale, height * scale);
 */
         for (int y2 = 0; y2 < numY; ++y2)
-            for (int x2 = 0; x2 < numX; ++x2) {
+            for (int x2 = 0; x2 < numX; ++x2)
+            {
 
                 int w = (int) Math.ceil((width / (float) numX));
                 int xOffset = w * x2;
@@ -234,14 +263,16 @@ public class RenderHelper {
                 int newWidth = w;
                 int newHeight = h;
 
-                if ((y + height) - yOffset - h < y) {
+                if ((y + height) - yOffset - h < y)
+                {
                     int hOffset = y - ((y + height) - yOffset - h);
 
                     yOffset -= hOffset;
                     newHeight -= hOffset;
                 }
 
-                if (x + xOffset + w > x + width) {
+                if (x + xOffset + w > x + width)
+                {
                     int wOffset = x - ((x + width) - xOffset - w);
 
                     newWidth -= wOffset;
@@ -255,7 +286,8 @@ public class RenderHelper {
         //GL11.glPopAttrib();
     }
 
-    public static void drawRectangleXRepeated(ResourceLocation texture, int x, int y, float u, float v, float uvWidth, float uvHeight, int width, int height, int zLevel) {
+    public static void drawRectangleXRepeated(ResourceLocation texture, int x, int y, float u, float v, float uvWidth, float uvHeight, int width, int height, int zLevel)
+    {
         RenderHelper.bindTexture(texture);
         float f = 0.00390625F;
         float f1 = 0.00390625F;
@@ -275,7 +307,8 @@ public class RenderHelper {
         GL11.glEnable(GL11.GL_SCISSOR_TEST);
         GL11.glScissor((x) * scale, getMC().displayHeight - (y + height) * scale, width * scale, height * scale);
 
-        for (int x2 = 0; x2 < numX; ++x2) {
+        for (int x2 = 0; x2 < numX; ++x2)
+        {
             float xOffset = x2 * uvWidth;
             if (flipX)
                 xOffset = width - (x2 + 1) * uvWidth;
@@ -299,7 +332,8 @@ public class RenderHelper {
         GL11.glDisable(GL11.GL_SCISSOR_TEST);
     }
 
-    public static void drawRectangleYRepeated(ResourceLocation texture, int x, int y, float u, float v, float uvWidth, float uvHeight, int width, int height, int zLevel) {
+    public static void drawRectangleYRepeated(ResourceLocation texture, int x, int y, float u, float v, float uvWidth, float uvHeight, int width, int height, int zLevel)
+    {
         RenderHelper.bindTexture(texture);
         float f = 0.00390625F;
         float f1 = 0.00390625F;
@@ -319,7 +353,8 @@ public class RenderHelper {
         GL11.glEnable(GL11.GL_SCISSOR_TEST);
         GL11.glScissor((x) * scale, getMC().displayHeight - (y + height) * scale, width * scale, height * scale);
 
-        for (int y2 = 0; y2 < numY; ++y2) {
+        for (int y2 = 0; y2 < numY; ++y2)
+        {
             float yOffset = y2 * uvHeight;
             if (flipY)
                 yOffset = height - (y2 + 1) * uvHeight;
@@ -343,7 +378,8 @@ public class RenderHelper {
         GL11.glDisable(GL11.GL_SCISSOR_TEST);
     }
 
-    public static void renderItemIntoGUI(ItemStack stack, int x, int y) {
+    public static void renderItemIntoGUI(ItemStack stack, int x, int y)
+    {
         renderItem.renderItemIntoGUI(getMC().fontRenderer, getMC().getTextureManager(), stack, x, y);
     }
 

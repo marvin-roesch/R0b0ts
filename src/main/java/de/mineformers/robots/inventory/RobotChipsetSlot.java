@@ -15,14 +15,17 @@ import net.minecraft.item.ItemStack;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class RobotChipsetSlot extends IconSlot {
+public class RobotChipsetSlot extends IconSlot
+{
 
-    public RobotChipsetSlot(IInventory inventory, int index, int x, int y) {
+    public RobotChipsetSlot(IInventory inventory, int index, int x, int y)
+    {
         super(inventory, index, x, y, ResourceHelper.getModResource("textures/gui/slotChipset.png"));
     }
 
     @Override
-    public boolean isItemValid(ItemStack stack) {
+    public boolean isItemValid(ItemStack stack)
+    {
         if (stack.getItem() instanceof ItemChipset)
             return !RobotHelper.getChipsetFromItemStack(stack).getIdentifier().equals("blank");
         return false;

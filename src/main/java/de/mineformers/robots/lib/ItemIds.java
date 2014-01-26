@@ -8,7 +8,8 @@ package de.mineformers.robots.lib;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class ItemIds {
+public class ItemIds
+{
 
     public static final int MODULE_DEFAULT = 15000;
     public static final int BUDDY_DEFAULT = 15001;

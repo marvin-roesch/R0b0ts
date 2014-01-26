@@ -16,16 +16,20 @@ import net.minecraftforge.common.ForgeDirection;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class ItemBuddy extends ItemBase {
+public class ItemBuddy extends ItemBase
+{
 
-    public ItemBuddy(int id) {
+    public ItemBuddy(int id)
+    {
         super(id, Strings.BUDDY_NAME);
     }
 
     @Override
-    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+    {
         ForgeDirection dir = ForgeDirection.getOrientation(side);
-        if (!world.isRemote) {
+        if (!world.isRemote)
+        {
             EntityBuddyBot buddy = new EntityBuddyBot(world);
             buddy.setPosition(x + dir.offsetX + 0.5F, y + dir.offsetY + 0.5F, z + dir.offsetZ + 0.5F);
             buddy.setOwner(player.getCommandSenderName());

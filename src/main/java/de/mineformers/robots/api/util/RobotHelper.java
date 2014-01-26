@@ -17,9 +17,11 @@ import net.minecraft.nbt.NBTTagCompound;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class RobotHelper {
+public class RobotHelper
+{
 
-    public static Robot getRobotFromItemStack(ItemStack stack) {
+    public static Robot getRobotFromItemStack(ItemStack stack)
+    {
         RobotModule module = getModuleFromItemStack(stack);
         RobotChipset chipset = getChipsetFromItemStack(stack);
         int armorId = stack.getTagCompound().hasKey("ArmorID") ? stack.getTagCompound().getInteger("ArmorID") : -1;
@@ -30,12 +32,15 @@ public class RobotHelper {
         return new Robot(module, chipset, armorId, data);
     }
 
-    public static RobotModule getModuleFromItemStack(ItemStack stack) {
-        if (stack.hasTagCompound()) {
+    public static RobotModule getModuleFromItemStack(ItemStack stack)
+    {
+        if (stack.hasTagCompound())
+        {
             String key = stack.getTagCompound().getString("ModuleName");
             RobotModule module = ModuleRegistry.instance().getModule(key);
             return module;
-        } else {
+        } else
+        {
             NBTTagCompound tag = new NBTTagCompound();
             tag.setString("ModuleName", "blank");
             tag.setCompoundTag("ModuleData", new NBTTagCompound());
@@ -44,12 +49,15 @@ public class RobotHelper {
         }
     }
 
-    public static RobotChipset getChipsetFromItemStack(ItemStack stack) {
-        if (stack.hasTagCompound()) {
+    public static RobotChipset getChipsetFromItemStack(ItemStack stack)
+    {
+        if (stack.hasTagCompound())
+        {
             String key = stack.getTagCompound().getString("ChipsetName");
             RobotChipset chipset = ChipsetRegistry.instance().getChipset(key);
             return chipset;
-        } else {
+        } else
+        {
             NBTTagCompound tag = new NBTTagCompound();
             tag.setString("ChipsetName", "blank");
             stack.setTagCompound(tag);

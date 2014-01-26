@@ -16,23 +16,27 @@ import java.util.ArrayList;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class FilteredIconSlot extends FilteredSlot {
+public class FilteredIconSlot extends FilteredSlot
+{
 
     private ResourceLocation texture;
 
-    public FilteredIconSlot(IInventory inventory, int index, int x, int y, ResourceLocation texture, StackFilter... filters) {
+    public FilteredIconSlot(IInventory inventory, int index, int x, int y, ResourceLocation texture, StackFilter... filters)
+    {
         super(inventory, index, x, y, filters);
         this.texture = texture;
     }
 
-    public FilteredIconSlot(IInventory inventory, int index, int x, int y, ResourceLocation texture, ArrayList<StackFilter> filters) {
+    public FilteredIconSlot(IInventory inventory, int index, int x, int y, ResourceLocation texture, ArrayList<StackFilter> filters)
+    {
         super(inventory, index, x, y, filters);
         this.texture = texture;
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public ResourceLocation getBackgroundIconTexture() {
+    public ResourceLocation getBackgroundIconTexture()
+    {
         return texture;
     }
 }

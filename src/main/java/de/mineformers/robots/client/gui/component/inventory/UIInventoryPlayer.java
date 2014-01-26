@@ -13,22 +13,26 @@ import org.lwjgl.opengl.GL11;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class UIInventoryPlayer extends UIComponent {
+public class UIInventoryPlayer extends UIComponent
+{
 
     private UIInventory widget;
 
-    public UIInventoryPlayer() {
+    public UIInventoryPlayer()
+    {
         super(Global.getTexture());
         this.widget = new UIInventory(9, 3);
     }
 
     @Override
-    public void update(int mouseX, int mouseY) {
+    public void update(int mouseX, int mouseY)
+    {
 
     }
 
     @Override
-    public void draw(int mouseX, int mouseY) {
+    public void draw(int mouseX, int mouseY)
+    {
         this.drawString(LangHelper.translate("container.inventory"), screenX, screenY,
                 0x404040, false);
         GL11.glColor4f(1, 1, 1, 1);

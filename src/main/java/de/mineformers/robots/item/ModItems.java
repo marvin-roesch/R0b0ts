@@ -13,14 +13,16 @@ import net.minecraft.item.Item;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class ModItems {
+public class ModItems
+{
 
     public static Item module;
     public static Item buddy;
     public static Item chipset;
     public static Item robot;
 
-    public static void init() {
+    public static void init()
+    {
         module = new ItemModule(ItemIds.MODULE);
         buddy = new ItemBuddy(ItemIds.BUDDY);
         chipset = new ItemChipset(ItemIds.CHIPSET);

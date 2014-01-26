@@ -12,9 +12,11 @@ import net.minecraft.item.Item;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class ItemBase extends Item {
+public class ItemBase extends Item
+{
 
-    public ItemBase(int id, String name) {
+    public ItemBase(int id, String name)
+    {
         super(id - Reference.ITEM_ID_SHIFT);
         this.setUnlocalizedName(Reference.RESOURCE_PREFIX + name);
         this.setTextureName(Reference.RESOURCE_PREFIX + name);

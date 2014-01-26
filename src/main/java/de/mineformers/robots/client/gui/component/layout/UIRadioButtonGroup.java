@@ -15,15 +15,18 @@ import org.lwjgl.opengl.GL11;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class UIRadioButtonGroup extends UILayout<UIRadioButtonGroup.RadioButtonGroupConstraints> {
+public class UIRadioButtonGroup extends UILayout<UIRadioButtonGroup.RadioButtonGroupConstraints>
+{
 
     int lastId;
 
-    public class RadioButtonGroupConstraints extends UILayout.LayoutConstraints {
+    public class RadioButtonGroupConstraints extends UILayout.LayoutConstraints
+    {
 
         public int id;
 
-        public RadioButtonGroupConstraints(int id) {
+        public RadioButtonGroupConstraints(int id)
+        {
             this.id = id;
         }
 
@@ -31,22 +34,27 @@ public class UIRadioButtonGroup extends UILayout<UIRadioButtonGroup.RadioButtonG
 
     private Padding padding;
 
-    public UIRadioButtonGroup() {
+    public UIRadioButtonGroup()
+    {
         super();
         padding = Padding.VERTICAL5;
     }
 
-    public void setPadding(Padding padding) {
+    public void setPadding(Padding padding)
+    {
         this.padding = padding;
     }
 
-    public Padding getPadding() {
+    public Padding getPadding()
+    {
         return padding;
     }
 
     @Override
-    public void draw(int mouseX, int mouseY) {
-        for (int i = 0, offY = 0; i < components.size(); i++) {
+    public void draw(int mouseX, int mouseY)
+    {
+        for (int i = 0, offY = 0; i < components.size(); i++)
+        {
             UIComponent component = components.get(i);
             int x = screenX;
             int y = offY;
@@ -57,13 +65,16 @@ public class UIRadioButtonGroup extends UILayout<UIRadioButtonGroup.RadioButtonG
         }
     }
 
-    public void addRadioButton(String key, String label) {
+    public void addRadioButton(String key, String label)
+    {
         this.addComponent(new UIRadioButton(key, label));
     }
 
     @Override
-    public void addComponent(UIComponent component) {
-        if (component instanceof UIRadioButton) {
+    public void addComponent(UIComponent component)
+    {
+        if (component instanceof UIRadioButton)
+        {
             components.add(component);
             component.setParent(this);
             ((UIRadioButton) component).setGroupId(lastId);
@@ -74,12 +85,15 @@ public class UIRadioButtonGroup extends UILayout<UIRadioButtonGroup.RadioButtonG
     }
 
     @Subscribe
-    public void onClick(MouseClickEvent event) {
+    public void onClick(MouseClickEvent event)
+    {
         UIRadioButtonGroup.this.changeChecked(((UIRadioButton) event.getComponent()).getGroupId());
     }
 
-    public String getChecked() {
-        for (int i = 0; i < components.size(); i++) {
+    public String getChecked()
+    {
+        for (int i = 0; i < components.size(); i++)
+        {
             UIRadioButton button = (UIRadioButton) components.get(i);
             if (button.isChecked())
                 return button.getKey();
@@ -88,8 +102,10 @@ public class UIRadioButtonGroup extends UILayout<UIRadioButtonGroup.RadioButtonG
         return null;
     }
 
-    public void changeChecked(int id) {
-        for (int i = 0; i < components.size(); i++) {
+    public void changeChecked(int id)
+    {
+        for (int i = 0; i < components.size(); i++)
+        {
             UIRadioButton button = (UIRadioButton) components.get(i);
             RadioButtonGroupConstraints rbgc = constraints.get(i);
 

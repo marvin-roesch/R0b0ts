@@ -14,7 +14,8 @@ import net.minecraft.util.StatCollector;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class RobotChipset {
+public class RobotChipset
+{
 
     private String identifier;
     private String iconPath;
@@ -23,7 +24,8 @@ public class RobotChipset {
     private String description;
     private int range;
 
-    public RobotChipset(String identifier, String unlocalizedName, String iconPath, int range, ResourceLocation headTexture) {
+    public RobotChipset(String identifier, String unlocalizedName, String iconPath, int range, ResourceLocation headTexture)
+    {
         this.identifier = identifier;
         this.unlocalizedName = unlocalizedName;
         this.iconPath = iconPath;
@@ -31,46 +33,56 @@ public class RobotChipset {
         this.headTexture = headTexture;
     }
 
-    public void registerRecipe(ItemStack result, ItemStack blank) {
+    public void registerRecipe(ItemStack result, ItemStack blank)
+    {
 
     }
 
-    public String getIdentifier() {
+    public String getIdentifier()
+    {
         return identifier;
     }
 
-    public String getUnlocalizedName() {
+    public String getUnlocalizedName()
+    {
         return unlocalizedName;
     }
 
-    public String getIconPath() {
+    public String getIconPath()
+    {
         return iconPath;
     }
 
-    public ResourceLocation getHeadTexture() {
+    public ResourceLocation getHeadTexture()
+    {
         return headTexture;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String description)
+    {
         this.description = description;
     }
 
-    public String getDescription() {
+    public String getDescription()
+    {
         return description;
     }
 
-    public int getRange() {
+    public int getRange()
+    {
         return range;
     }
 
     @SideOnly(Side.CLIENT)
-    public String getLocalizedDescription() {
+    public String getLocalizedDescription()
+    {
         return StatCollector.translateToLocal("chipset." + description + ".description");
     }
 
 
     @SideOnly(Side.CLIENT)
-    public String getLocalizedName() {
+    public String getLocalizedName()
+    {
         return StatCollector.translateToLocal("chipset." + unlocalizedName + ".name");
     }
 

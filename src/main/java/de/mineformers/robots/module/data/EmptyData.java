@@ -11,15 +11,18 @@ import net.minecraft.nbt.NBTTagCompound;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class EmptyData implements IModuleData {
+public class EmptyData implements IModuleData
+{
 
     @Override
-    public void writeToNBT(NBTTagCompound tag) {
+    public void writeToNBT(NBTTagCompound tag)
+    {
 
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound tag) {
+    public void readFromNBT(NBTTagCompound tag)
+    {
 
     }
 }

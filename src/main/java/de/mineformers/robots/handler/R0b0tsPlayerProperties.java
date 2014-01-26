@@ -14,35 +14,42 @@ import net.minecraftforge.common.IExtendedEntityProperties;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class R0b0tsPlayerProperties implements IExtendedEntityProperties {
+public class R0b0tsPlayerProperties implements IExtendedEntityProperties
+{
 
     public static final String IDENTIFIER = "R0b0tsProperties";
 
     private boolean receivedBuddy;
 
     @Override
-    public void saveNBTData(NBTTagCompound compound) {
+    public void saveNBTData(NBTTagCompound compound)
+    {
         compound.setBoolean("ReceivedBuddy", receivedBuddy);
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound compound) {
+    public void loadNBTData(NBTTagCompound compound)
+    {
         receivedBuddy = compound.getBoolean("ReceivedBuddy");
     }
 
     @Override
-    public void init(Entity entity, World world) {
+    public void init(Entity entity, World world)
+    {
     }
 
-    public void setReceivedBuddy(boolean hasReceivedBuddy) {
+    public void setReceivedBuddy(boolean hasReceivedBuddy)
+    {
         this.receivedBuddy = hasReceivedBuddy;
     }
 
-    public boolean hasReceivedBuddy() {
+    public boolean hasReceivedBuddy()
+    {
         return receivedBuddy;
     }
 
-    public static R0b0tsPlayerProperties getByEntity(EntityPlayer player) {
+    public static R0b0tsPlayerProperties getByEntity(EntityPlayer player)
+    {
         if (player.getExtendedProperties(IDENTIFIER) == null)
             player.registerExtendedProperties(IDENTIFIER,
                     new R0b0tsPlayerProperties());

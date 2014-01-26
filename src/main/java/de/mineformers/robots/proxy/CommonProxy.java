@@ -9,6 +9,7 @@ import de.mineformers.robots.handler.PlayerHandler;
 import de.mineformers.robots.inventory.ContainerCraftingRecipe;
 import de.mineformers.robots.inventory.ContainerFactoryController;
 import de.mineformers.robots.tileentity.TileFactoryController;
+import de.mineformers.robots.tileentity.TileFactoryEnergy;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.world.World;
@@ -22,33 +23,42 @@ import net.minecraftforge.common.MinecraftForge;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class CommonProxy implements IGuiHandler {
+public class CommonProxy implements IGuiHandler
+{
 
-    public void updateFactoryGui(TileFactoryController tile) {
-
-    }
-
-    public void registerRenderers() {
+    public void updateFactoryGui(TileFactoryController tile)
+    {
 
     }
 
-    public void loadManual() {
+    public void registerRenderers()
+    {
 
     }
 
-    public void registerHandlers() {
+    public void loadManual()
+    {
+
+    }
+
+    public void registerHandlers()
+    {
         PlayerHandler playerHandler = new PlayerHandler();
         MinecraftForge.EVENT_BUS.register(playerHandler);
         GameRegistry.registerPlayerTracker(playerHandler);
     }
 
-    public void registerTileEntities() {
+    public void registerTileEntities()
+    {
         GameRegistry.registerTileEntity(TileFactoryController.class, TileFactoryController.class.getSimpleName());
+        GameRegistry.registerTileEntity(TileFactoryEnergy.class, TileFactoryEnergy.class.getSimpleName());
     }
 
     @Override
-    public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        switch (ID) {
+    public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
+    {
+        switch (ID)
+        {
             case 0:
                 return new ContainerFactoryController(player.inventory, (IInventory) world.getBlockTileEntity(x, y, z));
             case 1:
@@ -58,11 +68,13 @@ public class CommonProxy implements IGuiHandler {
     }
 
     @Override
-    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
+    {
         IInventory inventory = (IInventory) world.getBlockTileEntity(x, y, z);
-        switch (ID) {
+        switch (ID)
+        {
             case 0:
-                return new WidgetGuiContainer(176, 200, new WindowRobotFactory((TileFactoryController) inventory), new ContainerFactoryController(player.inventory, inventory), inventory, true);
+                return new WidgetGuiContainer(200, 200, new WindowRobotFactory((TileFactoryController) inventory), new ContainerFactoryController(player.inventory, inventory), inventory, true);
             case 1:
                 return new WidgetGuiContainer(176, 200, new WindowCraftingRecipe(), new ContainerCraftingRecipe(player.inventory), null, true);
         }

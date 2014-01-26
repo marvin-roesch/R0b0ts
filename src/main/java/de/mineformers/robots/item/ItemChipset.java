@@ -27,21 +27,25 @@ import java.util.List;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class ItemChipset extends ItemBase {
+public class ItemChipset extends ItemBase
+{
 
     private HashMap<String, Icon> icons;
 
-    public ItemChipset(int id) {
+    public ItemChipset(int id)
+    {
         super(id, Strings.CHIPSET_BASE_NAME);
         icons = new HashMap<String, Icon>();
         this.setMaxStackSize(1);
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean advanced) {
+    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean advanced)
+    {
         if (!GuiScreen.isShiftKeyDown())
             list.add("Press shift for more information");
-        else {
+        else
+        {
             RobotChipset chipset = RobotHelper.getChipsetFromItemStack(stack);
             list.add("\247c" + LangHelper.translate("tooltip", "moduleType") + ": \247r" + chipset.getLocalizedName());
             if (chipset.getDescription() != null)
@@ -52,8 +56,10 @@ public class ItemChipset extends ItemBase {
     @SuppressWarnings({"rawtypes", "unchecked"})
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubItems(int id, CreativeTabs tabs, List list) {
-        for (RobotChipset chipset : ChipsetRegistry.instance().getChipsets()) {
+    public void getSubItems(int id, CreativeTabs tabs, List list)
+    {
+        for (RobotChipset chipset : ChipsetRegistry.instance().getChipsets())
+        {
             NBTTagCompound tag = new NBTTagCompound();
             tag.setString("ChipsetName", chipset.getIdentifier());
             ItemStack is = new ItemStack(this, 1, 0);
@@ -64,26 +70,31 @@ public class ItemChipset extends ItemBase {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public Icon getIcon(ItemStack stack, int renderPass) {
+    public Icon getIcon(ItemStack stack, int renderPass)
+    {
         RobotChipset chipset = RobotHelper.getChipsetFromItemStack(stack);
         return icons.get(chipset.getIdentifier());
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean requiresMultipleRenderPasses() {
+    public boolean requiresMultipleRenderPasses()
+    {
         return true;
     }
 
     @Override
-    public int getRenderPasses(int metadata) {
+    public int getRenderPasses(int metadata)
+    {
         return 1;
     }
 
     @Override
-    public void registerIcons(IconRegister iconRegister) {
+    public void registerIcons(IconRegister iconRegister)
+    {
         itemIcon = iconRegister.registerIcon(Reference.RESOURCE_PREFIX + "chipsets/blank");
-        for (RobotChipset chipset : ChipsetRegistry.instance().getChipsets()) {
+        for (RobotChipset chipset : ChipsetRegistry.instance().getChipsets())
+        {
             icons.put(chipset.getIdentifier(), iconRegister.registerIcon(chipset.getIconPath()));
         }
     }

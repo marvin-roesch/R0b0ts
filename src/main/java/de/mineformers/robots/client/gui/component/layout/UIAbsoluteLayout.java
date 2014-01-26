@@ -11,13 +11,16 @@ import org.lwjgl.opengl.GL11;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class UIAbsoluteLayout extends UILayout<UIAbsoluteLayout.AbsoluteLayoutConstraints> {
+public class UIAbsoluteLayout extends UILayout<UIAbsoluteLayout.AbsoluteLayoutConstraints>
+{
 
-    public class AbsoluteLayoutConstraints extends UILayout.LayoutConstraints {
+    public class AbsoluteLayoutConstraints extends UILayout.LayoutConstraints
+    {
 
         public int x, y;
 
-        public AbsoluteLayoutConstraints(int x, int y) {
+        public AbsoluteLayoutConstraints(int x, int y)
+        {
             this.x = x;
             this.y = y;
         }
@@ -25,21 +28,25 @@ public class UIAbsoluteLayout extends UILayout<UIAbsoluteLayout.AbsoluteLayoutCo
     }
 
     @Override
-    public void addComponent(UIComponent component) {
+    public void addComponent(UIComponent component)
+    {
         addComponent(component, 0, 0);
     }
 
-    public void addComponent(UIComponent component, int x, int y) {
+    public void addComponent(UIComponent component, int x, int y)
+    {
         components.add(component);
         constraints.add(new AbsoluteLayoutConstraints(x, y));
         component.setParent(this);
     }
 
     @Override
-    public void draw(int mouseX, int mouseY) {
+    public void draw(int mouseX, int mouseY)
+    {
         super.draw(mouseX, mouseY);
 
-        for (int i = 0; i < components.size(); i++) {
+        for (int i = 0; i < components.size(); i++)
+        {
             UIComponent component = components.get(i);
             AbsoluteLayoutConstraints alc = constraints.get(i);
 
@@ -50,9 +57,11 @@ public class UIAbsoluteLayout extends UILayout<UIAbsoluteLayout.AbsoluteLayoutCo
     }
 
     @Override
-    public int getWidth() {
+    public int getWidth()
+    {
         int width = 0;
-        for (int i = 0; i < components.size(); i++) {
+        for (int i = 0; i < components.size(); i++)
+        {
             UIComponent component = components.get(i);
             AbsoluteLayoutConstraints alc = constraints.get(i);
 
@@ -63,9 +72,11 @@ public class UIAbsoluteLayout extends UILayout<UIAbsoluteLayout.AbsoluteLayoutCo
     }
 
     @Override
-    public int getHeight() {
+    public int getHeight()
+    {
         int height = 0;
-        for (int i = 0; i < components.size(); i++) {
+        for (int i = 0; i < components.size(); i++)
+        {
             UIComponent component = components.get(i);
             AbsoluteLayoutConstraints alc = constraints.get(i);
 

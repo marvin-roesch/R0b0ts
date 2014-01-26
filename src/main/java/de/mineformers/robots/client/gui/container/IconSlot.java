@@ -12,17 +12,20 @@ import net.minecraft.util.ResourceLocation;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class IconSlot extends Slot {
+public class IconSlot extends Slot
+{
 
     private ResourceLocation texture;
 
-    public IconSlot(IInventory inventory, int index, int x, int y, ResourceLocation texture) {
+    public IconSlot(IInventory inventory, int index, int x, int y, ResourceLocation texture)
+    {
         super(inventory, index, x, y);
         this.texture = texture;
     }
 
     @Override
-    public ResourceLocation getBackgroundIconTexture() {
+    public ResourceLocation getBackgroundIconTexture()
+    {
         return texture;
     }
 }

@@ -11,21 +11,25 @@ import de.mineformers.robots.client.gui.system.Global;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class UISlot extends UIComponent {
+public class UISlot extends UIComponent
+{
 
-    public UISlot(int width, int height) {
+    public UISlot(int width, int height)
+    {
         super(Global.getTexture());
         this.width = width;
         this.height = height;
     }
 
     @Override
-    public void update(int mouseX, int mouseY) {
+    public void update(int mouseX, int mouseY)
+    {
 
     }
 
     @Override
-    public void draw(int mouseX, int mouseY) {
+    public void draw(int mouseX, int mouseY)
+    {
         // Corners clockwise
         this.drawRectangle(screenX, screenY, 46, 1, 5, 5);
         this.drawRectangle(screenX + width - 5, screenY, 54, 1, 5, 5);

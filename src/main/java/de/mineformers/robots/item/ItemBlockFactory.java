@@ -10,9 +10,11 @@ import de.mineformers.robots.lib.Strings;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class ItemBlockFactory extends ItemBlockSub {
+public class ItemBlockFactory extends ItemBlockSub
+{
 
-    public ItemBlockFactory(int id) {
+    public ItemBlockFactory(int id)
+    {
         super(id, Strings.FACTORY_BASE_NAME, new String[]{Strings.FACTORY_GLASS_NAME, Strings.FACTORY_FRAME_NAME});
     }
 

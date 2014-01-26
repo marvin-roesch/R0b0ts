@@ -19,21 +19,25 @@ import org.lwjgl.opengl.GL11;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class WidgetGuiContainer extends GuiContainer {
+public class WidgetGuiContainer extends GuiContainer
+{
 
     private UIPanel panel;
     protected String name;
     protected boolean autoDrawSlots;
 
-    public WidgetGuiContainer(int width, int height, UIPanel panel, Container container) {
+    public WidgetGuiContainer(int width, int height, UIPanel panel, Container container)
+    {
         this(width, height, panel, container, null);
     }
 
-    public WidgetGuiContainer(int width, int height, UIPanel panel, Container container, IInventory inventory) {
+    public WidgetGuiContainer(int width, int height, UIPanel panel, Container container, IInventory inventory)
+    {
         this(width, height, panel, container, inventory, false);
     }
 
-    public WidgetGuiContainer(int width, int height, UIPanel panel, Container container, IInventory inventory, boolean autoDrawSlots) {
+    public WidgetGuiContainer(int width, int height, UIPanel panel, Container container, IInventory inventory, boolean autoDrawSlots)
+    {
         super(container);
         this.panel = panel;
         this.panel.setSize(width, height);
@@ -45,30 +49,35 @@ public class WidgetGuiContainer extends GuiContainer {
     }
 
     @Override
-    public void initGui() {
+    public void initGui()
+    {
         super.initGui();
 
         this.panel.initComponent();
     }
 
     @Override
-    protected void mouseClicked(int mouseX, int mouseY, int button) {
+    protected void mouseClicked(int mouseX, int mouseY, int button)
+    {
         super.mouseClicked(mouseX, mouseY, button);
         panel.mouseClick(mouseX, mouseY, button);
     }
 
     @Override
-    protected void keyTyped(char keyChar, int keyCode) {
+    protected void keyTyped(char keyChar, int keyCode)
+    {
         super.keyTyped(keyChar, keyCode);
         panel.keyTyped(keyChar, keyCode);
     }
 
-    public boolean doesGuiPauseGame() {
+    public boolean doesGuiPauseGame()
+    {
         return false;
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
+    {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
         panel.setScreenPos(0, 0);
@@ -80,7 +89,8 @@ public class WidgetGuiContainer extends GuiContainer {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float opacity, int mouseX,
-                                                   int mouseY) {
+                                                   int mouseY)
+    {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
         int xStart = (width - xSize) / 2;
@@ -90,18 +100,22 @@ public class WidgetGuiContainer extends GuiContainer {
 
         panel.drawBackground(mouseX, mouseY);
         panel.draw(mouseX, mouseY);
-        if (autoDrawSlots) {
+        if (autoDrawSlots)
+        {
             UISlot widget = new UISlot(18, 18);
 
-            for (Object o : inventorySlots.inventorySlots) {
-                if (o instanceof Slot) {
+            for (Object o : inventorySlots.inventorySlots)
+            {
+                if (o instanceof Slot)
+                {
                     Slot slot = (Slot) o;
                     widget.setScreenPos(xStart + slot.xDisplayPosition - 1, yStart
                             + slot.yDisplayPosition - 1);
                     GL11.glColor4f(1, 1, 1, 1);
                     widget.draw(mouseX, mouseY);
                     if (!slot.getHasStack())
-                        if (slot.getBackgroundIconTexture() != null && !slot.getBackgroundIconTexture().getResourcePath().contains("textures/atlas/items.png")) {
+                        if (slot.getBackgroundIconTexture() != null && !slot.getBackgroundIconTexture().getResourcePath().contains("textures/atlas/items.png"))
+                        {
                             de.mineformers.robots.client.gui.util.RenderHelper.drawRectangleStretched(slot.getBackgroundIconTexture(), xStart + slot.xDisplayPosition, yStart
                                     + slot.yDisplayPosition, 0, 0, 16, 16, 1F, 1F, 1);
                         }
@@ -113,7 +127,8 @@ public class WidgetGuiContainer extends GuiContainer {
     }
 
     @Override
-    public void updateScreen() {
+    public void updateScreen()
+    {
         super.updateScreen();
         ScaledResolution scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
         int i = scaledresolution.getScaledWidth();
@@ -123,12 +138,14 @@ public class WidgetGuiContainer extends GuiContainer {
         this.panel.update(k, l);
         int dWheel = Mouse.getDWheel() / 120;
 
-        if (dWheel != 0) {
+        if (dWheel != 0)
+        {
             panel.mouseScroll(-dWheel, k, l);
         }
     }
 
-    public UIPanel getPanel() {
+    public UIPanel getPanel()
+    {
         return panel;
     }
 

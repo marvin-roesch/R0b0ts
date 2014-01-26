@@ -20,9 +20,10 @@ import java.util.EnumSet;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class UIInfoTab extends UIComponent {
+public class UIInfoTab extends UIComponent
+{
 
-    private int speed = 16;
+    private int speed = 24;
     private int minWidth = 24;
     private int minHeight = 26;
 
@@ -36,11 +37,13 @@ public class UIInfoTab extends UIComponent {
     private int maxHeight;
     private int color;
 
-    public UIInfoTab(UILayout layout, IDrawingHelper icon, Orientation orientation) {
+    public UIInfoTab(UILayout layout, IDrawingHelper icon, Orientation orientation)
+    {
         this(layout, icon, orientation, "");
     }
 
-    public UIInfoTab(UILayout layout, IDrawingHelper icon, Orientation orientation, String title) {
+    public UIInfoTab(UILayout layout, IDrawingHelper icon, Orientation orientation, String title)
+    {
         super(Global.getTexture());
         this.layout = layout;
         layout.setParent(this);
@@ -50,7 +53,8 @@ public class UIInfoTab extends UIComponent {
         if (!EnumSet.of(Orientation.HORIZONTAL_LEFT, Orientation.HORIZONTAL_RIGHT).contains(orientation))
             this.orientation = Orientation.HORIZONTAL_RIGHT;
         this.maxWidth = this.getStringWidth(title) + 16 + 2 + 5;
-        if (layout.getWidth() > maxWidth) {
+        if (layout.getWidth() > maxWidth)
+        {
             maxWidth = layout.getWidth() + 10;
         }
         this.maxHeight = 16 + 2 + layout.getHeight() + 10;
@@ -61,85 +65,105 @@ public class UIInfoTab extends UIComponent {
         color = 0x424242;
     }
 
-    public String getTitle() {
+    public String getTitle()
+    {
         return title;
     }
 
-    public Orientation getOrientation() {
+    public Orientation getOrientation()
+    {
         return orientation;
     }
 
-    public boolean isOpen() {
+    public boolean isOpen()
+    {
         return open;
     }
 
-    public void setColor(Color color) {
+    public void setColor(Color color)
+    {
         this.color = RenderHelper.getColorFromRGB(color);
     }
 
-    public void setColor(int color) {
+    public void setColor(int color)
+    {
         this.color = color;
     }
 
-    public Color getColorRGB() {
+    public Color getColorRGB()
+    {
         return RenderHelper.getRGBFromColor(color);
     }
 
-    public int getColor() {
+    public int getColor()
+    {
         return color;
     }
 
     @Override
-    public void update(int mouseX, int mouseY) {
-        if (open) {
-            if (width != maxWidth) {
+    public void update(int mouseX, int mouseY)
+    {
+        if (open)
+        {
+            if (width != maxWidth)
+            {
                 width += speed * growth;
                 if (width >= maxWidth)
                     width = maxWidth;
 
             }
 
-            if (height != maxHeight) {
+            if (height != maxHeight)
+            {
                 height += speed * growth;
                 if (height >= maxHeight)
                     height = maxHeight;
             }
         }
 
-        if (growth < 0) {
-            if (height != minHeight) {
+        if (growth < 0)
+        {
+            if (height != minHeight)
+            {
                 height += speed * growth;
                 if (height <= minHeight)
                     height = minHeight;
             }
 
-            if (width != minWidth) {
+            if (width != minWidth)
+            {
                 width += speed * growth;
-                if (width <= minWidth) {
+                if (width <= minWidth)
+                {
                     width = minWidth;
                 }
             }
 
-            if (height == minHeight && width == minWidth) {
+            if (height == minHeight && width == minWidth)
+            {
                 growth = 1;
             }
         }
     }
 
-    public void open() {
+    public void open()
+    {
         UIWindow window = (UIWindow) getParent();
         window.closeAllInfoTabs(this.orientation);
         this.open = true;
     }
 
-    public void close() {
+    public void close()
+    {
         growth = -1;
         this.open = false;
     }
 
-    public void onMouseClick(int mouseX, int mouseY, int mouseButton) {
+    public void onMouseClick(int mouseX, int mouseY, int mouseButton)
+    {
         if (mouseButton == 0)
-            if (isHovered(mouseX, mouseY)) {
+            if (isHovered(mouseX, mouseY))
+            {
                 if (!open)
                     this.open();
                 else
@@ -148,29 +172,35 @@ public class UIInfoTab extends UIComponent {
         layout.mouseClick(mouseX, mouseY, mouseButton);
     }
 
-    public void onMouseScroll(int dir, int mouseX, int mouseY) {
+    public void onMouseScroll(int dir, int mouseX, int mouseY)
+    {
         layout.mouseScroll(dir, mouseX, mouseY);
     }
 
-    public void onKeyTyped(char keyChar, int keyCode) {
+    public void onKeyTyped(char keyChar, int keyCode)
+    {
         layout.keyTyped(keyChar, keyCode);
     }
 
     @Override
-    public boolean isHovered(int mouseX, int mouseY) {
+    public boolean isHovered(int mouseX, int mouseY)
+    {
         return isInsideRegion(mouseX, mouseY, screenX, screenY, screenX + width, screenY + height);
     }
 
-    public boolean isClosedAndHovered(int mouseX, int mouseY) {
+    public boolean isClosedAndHovered(int mouseX, int mouseY)
+    {
         if (!open)
             return isHovered(mouseX, mouseY);
         return false;
     }
 
     @Override
-    public void draw(int mouseX, int mouseY) {
+    public void draw(int mouseX, int mouseY)
+    {
         GL11.glColor4f((1F / 255F) * getColorRGB().getRed(), (1F / 255F) * getColorRGB().getGreen(), (1F / 255F) * getColorRGB().getBlue(), 1f);
-        if (orientation == Orientation.HORIZONTAL_RIGHT) {
+        if (orientation == Orientation.HORIZONTAL_RIGHT)
+        {
             this.drawRectangle(screenX + width - 5, screenY, 39, 1, 5, 5);
             this.drawRectangle(screenX + width - 5, screenY + height - 5, 39, 9, 5, 5);
 
@@ -185,18 +215,22 @@ public class UIInfoTab extends UIComponent {
             GL11.glColor4f(1, 1, 1, 1);
             icon.draw(screenX + 2, screenY + 5);
 
-            if (open) {
-                if (width == maxWidth) {
+            if (open)
+            {
+                if (width == maxWidth)
+                {
                     this.drawString(title, screenX + 5 + 16,
                             screenY + 7 + ((16 - mc.fontRenderer.FONT_HEIGHT) / 2),
                             0xE1C92F, true);
                 }
-                if (height == maxHeight && width == maxWidth) {
+                if (height == maxHeight && width == maxWidth)
+                {
                     layout.setScreenPos(screenX + 5, screenY + 16 + 7);
                     layout.draw(mouseX, mouseY);
                 }
             }
-        } else {
+        } else
+        {
             this.drawRectangle(screenX, screenY, 31, 1, 5, 5);
             this.drawRectangle(screenX, screenY + height - 5, 31, 9, 5, 5);
 
@@ -210,13 +244,16 @@ public class UIInfoTab extends UIComponent {
             GL11.glColor4f(1, 1, 1, 1);
             icon.draw(screenX + 6, screenY + 5);
 
-            if (open) {
-                if (width == maxWidth) {
+            if (open)
+            {
+                if (width == maxWidth)
+                {
                     this.drawString(title, screenX + 7 + 16,
                             screenY + 7 + ((16 - mc.fontRenderer.FONT_HEIGHT) / 2),
                             0xE1C92F, true);
                 }
-                if (height == maxHeight && width == maxWidth) {
+                if (height == maxHeight && width == maxWidth)
+                {
                     layout.setScreenPos(screenX + 5, screenY + 16 + 7);
                     layout.draw(mouseX, mouseY);
                 }

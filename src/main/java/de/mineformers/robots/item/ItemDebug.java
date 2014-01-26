@@ -10,9 +10,11 @@ import de.mineformers.robots.lib.Strings;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class ItemDebug extends ItemBase {
+public class ItemDebug extends ItemBase
+{
 
-    public ItemDebug(int id) {
+    public ItemDebug(int id)
+    {
         super(id, Strings.DEBUG_TOOL_NAME);
     }
 

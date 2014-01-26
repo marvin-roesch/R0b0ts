@@ -16,15 +16,18 @@ import net.minecraft.item.ItemStack;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class ChipsetExpert extends RobotChipset {
+public class ChipsetExpert extends RobotChipset
+{
 
-    public ChipsetExpert() {
+    public ChipsetExpert()
+    {
         super("expert", "robots:expert", "robots:chipsets/expert", 32, ResourceHelper.getModResource("textures/entities/chipset_expert.png"));
         this.setDescription("robots:expert");
     }
 
     @Override
-    public void registerRecipe(ItemStack result, ItemStack blank) {
+    public void registerRecipe(ItemStack result, ItemStack blank)
+    {
         GameRegistry.addShapelessRecipe(result, PrivateRobotHelper.createChipsetStack(ChipsetRegistry.instance().getChipset("advanced")), new ItemStack(Item.glowstone));
     }
 

@@ -13,30 +13,36 @@ import java.util.LinkedHashMap;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class ChipsetRegistry {
+public class ChipsetRegistry
+{
 
     private static ChipsetRegistry instance;
     private LinkedHashMap<String, RobotChipset> chipsets;
 
-    public static ChipsetRegistry instance() {
+    public static ChipsetRegistry instance()
+    {
         if (instance == null)
             instance = new ChipsetRegistry();
         return instance;
     }
 
-    private ChipsetRegistry() {
+    private ChipsetRegistry()
+    {
         chipsets = new LinkedHashMap<String, RobotChipset>();
     }
 
-    public void registerChipset(RobotChipset chipset) {
+    public void registerChipset(RobotChipset chipset)
+    {
         chipsets.put(chipset.getIdentifier(), chipset);
     }
 
-    public RobotChipset getChipset(String identifier) {
+    public RobotChipset getChipset(String identifier)
+    {
         return chipsets.get(identifier);
     }
 
-    public Collection<RobotChipset> getChipsets() {
+    public Collection<RobotChipset> getChipsets()
+    {
         return chipsets.values();
     }
 

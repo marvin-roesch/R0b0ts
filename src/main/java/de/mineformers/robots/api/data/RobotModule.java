@@ -17,35 +17,42 @@ import net.minecraft.world.World;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public abstract class RobotModule {
+public abstract class RobotModule
+{
 
     private String identifier;
     private String iconPath;
     private String unlocalizedName;
 
-    public RobotModule(String identifier, String unlocalizedName, String iconPath) {
+    public RobotModule(String identifier, String unlocalizedName, String iconPath)
+    {
         this.identifier = identifier;
         this.unlocalizedName = unlocalizedName;
         this.iconPath = iconPath;
     }
 
-    public void registerRecipe(ItemStack result, ItemStack blank) {
+    public void registerRecipe(ItemStack result, ItemStack blank)
+    {
 
     }
 
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+    {
         return stack;
     }
 
-    public String getIdentifier() {
+    public String getIdentifier()
+    {
         return identifier;
     }
 
-    public String getUnlocalizedName() {
+    public String getUnlocalizedName()
+    {
         return unlocalizedName;
     }
 
-    public String getIconPath() {
+    public String getIconPath()
+    {
         return iconPath;
     }
 
@@ -53,12 +60,14 @@ public abstract class RobotModule {
 
     public abstract IModuleData getData();
 
-    public boolean validateStack(ItemStack stack) {
+    public boolean validateStack(ItemStack stack)
+    {
         return true;
     }
 
     @SideOnly(Side.CLIENT)
-    public String getLocalizedName() {
+    public String getLocalizedName()
+    {
         return StatCollector.translateToLocal("module." + unlocalizedName + ".name");
     }
 }

@@ -11,9 +11,11 @@ import de.mineformers.robots.R0b0ts;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class ModEntities {
+public class ModEntities
+{
 
-    public static void init() {
+    public static void init()
+    {
         EntityRegistry.registerModEntity(EntityRobot.class, "EntityRobot", 0,
                 R0b0ts.instance, 80, 3, true);
         EntityRegistry.registerModEntity(EntityBuddyBot.class, "EntityBuddyBot", 1,

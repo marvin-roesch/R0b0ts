@@ -11,11 +11,13 @@ import net.minecraftforge.event.Event;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class RegisterPluginEvent extends Event {
+public class RegisterPluginEvent extends Event
+{
 
     public R0b0tsPlugin plugin;
 
-    public RegisterPluginEvent(R0b0tsPlugin plugin) {
+    public RegisterPluginEvent(R0b0tsPlugin plugin)
+    {
         this.plugin = plugin;
     }
 

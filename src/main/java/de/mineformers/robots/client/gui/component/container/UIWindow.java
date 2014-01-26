@@ -17,48 +17,59 @@ import java.util.LinkedList;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class UIWindow extends UIPanel {
+public class UIWindow extends UIPanel
+{
 
     private Padding padding;
     private LinkedList<UIInfoTab> infoTabs;
 
-    public UIWindow() {
+    public UIWindow()
+    {
         super();
         this.padding = Padding.ALL5;
         this.infoTabs = new LinkedList<UIInfoTab>();
     }
 
-    public void setPadding(Padding padding) {
+    public void setPadding(Padding padding)
+    {
         this.padding = padding;
     }
 
-    public Padding getPadding() {
+    public Padding getPadding()
+    {
         return padding;
     }
 
-    public void addInfoTab(UIInfoTab tab) {
+    public void addInfoTab(UIInfoTab tab)
+    {
         this.infoTabs.add(tab);
         tab.setParent(this);
     }
 
-    public void closeAllInfoTabs(Orientation orientation) {
-        for (UIInfoTab tab : infoTabs) {
-            if (tab.getOrientation() == orientation && tab.isOpen()) {
+    public void closeAllInfoTabs(Orientation orientation)
+    {
+        for (UIInfoTab tab : infoTabs)
+        {
+            if (tab.getOrientation() == orientation && tab.isOpen())
+            {
                 tab.close();
             }
         }
     }
 
     @Override
-    public void update(int mouseX, int mouseY) {
+    public void update(int mouseX, int mouseY)
+    {
         super.update(mouseX, mouseY);
-        for (UIInfoTab tab : infoTabs) {
+        for (UIInfoTab tab : infoTabs)
+        {
             tab.update(mouseX, mouseY);
         }
     }
 
     @Override
-    public void draw(int mouseX, int mouseY) {
+    public void draw(int mouseX, int mouseY)
+    {
         this.drawRectangle(screenX, screenY, 31, 1, 5, 5);
         this.drawRectangle(screenX + width - 5, screenY, 39, 1, 5, 5);
         this.drawRectangle(screenX + width - 5, screenY + height - 5, 39, 9, 5, 5);
@@ -76,7 +87,8 @@ public class UIWindow extends UIPanel {
         this.drawRectangleStretched(screenX + 5, screenY + 5, 37, 7, width - 10,
                 height - 10, 1, 1);
 
-        if (layout != null) {
+        if (layout != null)
+        {
             layout.setScreenPos(screenX + padding.left, screenY + padding.top);
             layout.draw(mouseX, mouseY);
             layout.drawTooltips(mouseX, mouseY);
@@ -84,19 +96,24 @@ public class UIWindow extends UIPanel {
 
         int left = 0;
         int right = 0;
-        for (UIInfoTab tab : infoTabs) {
-            if (tab.getOrientation() == Orientation.HORIZONTAL_RIGHT) {
+        for (UIInfoTab tab : infoTabs)
+        {
+            if (tab.getOrientation() == Orientation.HORIZONTAL_RIGHT)
+            {
                 tab.setScreenPos(screenX + width, screenY + 5 + right);
                 right += tab.getHeight() + 2;
-            } else {
+            } else
+            {
                 tab.setScreenPos(screenX - tab.getWidth(), screenY + 5 + left);
                 left += tab.getHeight() + 2;
             }
             GL11.glColor4f(1, 1, 1, 1);
             tab.draw(mouseX, mouseY);
         }
-        for (UIInfoTab tab : infoTabs) {
-            if (tab.isClosedAndHovered(mouseX, mouseY)) {
+        for (UIInfoTab tab : infoTabs)
+        {
+            if (tab.isClosedAndHovered(mouseX, mouseY))
+            {
                 UITooltip tooltip = new UITooltip();
                 tooltip.addLine(tab.getTitle());
                 tooltip.draw(mouseX, mouseY);
@@ -105,37 +122,49 @@ public class UIWindow extends UIPanel {
     }
 
     @Override
-    public void mouseClick(int mouseX, int mouseY, int mouseButton) {
+    public void mouseClick(int mouseX, int mouseY, int mouseButton)
+    {
         super.mouseClick(mouseX, mouseY, mouseButton);
-        for (UIInfoTab tab : infoTabs) {
+        for (UIInfoTab tab : infoTabs)
+        {
             tab.onMouseClick(mouseX, mouseY, mouseButton);
         }
     }
 
     @Override
-    public void mouseScroll(int dir, int mouseX, int mouseY) {
+    public void mouseScroll(int dir, int mouseX, int mouseY)
+    {
         super.mouseScroll(dir, mouseX, mouseY);
-        for (UIInfoTab tab : infoTabs) {
+        for (UIInfoTab tab : infoTabs)
+        {
             tab.onMouseScroll(dir, mouseX, mouseY);
         }
     }
 
     @Override
-    public void keyTyped(char keyChar, int keyCode) {
+    public void keyTyped(char keyChar, int keyCode)
+    {
         super.keyTyped(keyChar, keyCode);
-        for (UIInfoTab tab : infoTabs) {
+        for (UIInfoTab tab : infoTabs)
+        {
             tab.onKeyTyped(keyChar, keyCode);
         }
     }
 
     @Override
-    public int getHeight() {
+    public int getHeight()
+    {
         return height;
     }
 
     @Override
-    public int getWidth() {
+    public int getWidth()
+    {
         return width;
     }
 
+    public LinkedList<UIInfoTab> getInfoTabs()
+    {
+        return infoTabs;
+    }
 }

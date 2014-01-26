@@ -12,11 +12,13 @@ import de.mineformers.robots.client.gui.util.render.IDrawingHelper;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class UICanvas extends UIComponent {
+public class UICanvas extends UIComponent
+{
 
     private IDrawingHelper drawingHelper;
 
-    public UICanvas(IDrawingHelper drawingHelper, int width, int height) {
+    public UICanvas(IDrawingHelper drawingHelper, int width, int height)
+    {
         super(Global.getTexture());
         this.drawingHelper = drawingHelper;
         this.width = width;
@@ -24,12 +26,14 @@ public class UICanvas extends UIComponent {
     }
 
     @Override
-    public void update(int mouseX, int mouseY) {
+    public void update(int mouseX, int mouseY)
+    {
 
     }
 
     @Override
-    public void draw(int mouseX, int mouseY) {
+    public void draw(int mouseX, int mouseY)
+    {
         drawingHelper.draw(screenX, screenY);
     }
 

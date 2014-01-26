@@ -12,14 +12,17 @@ import net.minecraft.creativetab.CreativeTabs;
  * @author PaleoCrafter
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
-public class CreativeTabR0b0ts extends CreativeTabs {
+public class CreativeTabR0b0ts extends CreativeTabs
+{
 
-    public CreativeTabR0b0ts(int id) {
+    public CreativeTabR0b0ts(int id)
+    {
         super(id, Reference.MOD_ID);
     }
 
     @Override
-    public int getTabIconItemIndex() {
+    public int getTabIconItemIndex()
+    {
         return ModBlocks.factoryController.blockID;
     }
 }
